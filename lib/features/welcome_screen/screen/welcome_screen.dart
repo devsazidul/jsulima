@@ -5,6 +5,7 @@ import 'package:jsulima/core/common/styles/global_text_style.dart';
 import 'package:jsulima/core/common/widgets/custom_button.dart';
 import 'package:jsulima/core/utils/constants/colors.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
+import 'package:jsulima/features/auth/login/screen/login_screen.dart';
 import 'package:jsulima/features/welcome_screen/controller/welcome_screen_controller.dart' show WelcomeScreenController;
 import 'package:jsulima/features/welcome_screen/widget/signinmethod.dart';
 
@@ -52,7 +53,9 @@ class WelcomeScreen extends StatelessWidget {
               ),
               ), 
               Spacer(), 
-              CustomButton(text: "Login", onPressed: (){}), 
+              CustomButton(text: "Login", onPressed: (){
+                Get.offAll(() =>LoginScreen()); 
+              }), 
               SizedBox(
                 height: 16,
               ), 

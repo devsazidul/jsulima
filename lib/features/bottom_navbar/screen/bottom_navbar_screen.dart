@@ -24,7 +24,7 @@ class BottomNavbarScreen extends StatelessWidget {
     ImagePath.activeHome,
     ImagePath.activeGames,
     ImagePath.activeNotification,
-    ImagePath.activeGames,
+    ImagePath.activeProfile,
   ];
 
   final List<String> inactiveIcons = [

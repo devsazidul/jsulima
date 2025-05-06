@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/bottom_navbar/controller/bottom_navbar_controller.dart';
+
+import 'package:jsulima/features/games/screen/games_screen.dart';
+
 import 'package:jsulima/features/home/screen/home_screen.dart';
+
 
 class BottomNavbarScreen extends StatelessWidget {
   BottomNavbarScreen({super.key});
@@ -11,7 +15,7 @@ class BottomNavbarScreen extends StatelessWidget {
 
   final List<Widget> screens = [
     HomeScreen(),
-    Center(child: Text('Screen 2', style: TextStyle(color: Colors.white))),
+    GamesScreen(),
     Center(child: Text('Screen 3', style: TextStyle(color: Colors.white))),
     Center(child: Text('Screen 4', style: TextStyle(color: Colors.white))),
   ];

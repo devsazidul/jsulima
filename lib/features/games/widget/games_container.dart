@@ -20,8 +20,8 @@ class GamesContainer extends StatelessWidget {
         'matchTime': " 14 Feb\n3:00 PM",
         'predictionText':
             "Prediction: Mac Jones is predicted to throw for 275 yards, with 2 touchdowns and 1 interception in the upcoming game against the Buffalo Bills.",
-        'team1Percentage': 60.0,
-        'team2Percentage': 40.0,
+        'team1Percentage': 30.0,
+        'team2Percentage': 70.0,
       },
       //Game 2
       {

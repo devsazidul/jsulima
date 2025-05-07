@@ -12,4 +12,5 @@ class ImagePath{
   static const  String inactiveNotification= 'assets/images/inactiveNotification.png';
   static const  String activeProfile= 'assets/images/activeProfile.png';
   static const  String inactiveProfile = 'assets/images/inactiveProfile.png';
+  static const  String profileImage = 'assets/images/profile.png';
 }

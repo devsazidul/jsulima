@@ -4,9 +4,8 @@ import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/bottom_navbar/controller/bottom_navbar_controller.dart';
 
 import 'package:jsulima/features/games/screen/games_screen.dart';
-
 import 'package:jsulima/features/home/screen/home_screen.dart';
-
+import 'package:jsulima/features/profile/screen/profile_screen.dart';
 
 class BottomNavbarScreen extends StatelessWidget {
   BottomNavbarScreen({super.key});
@@ -17,7 +16,7 @@ class BottomNavbarScreen extends StatelessWidget {
     HomeScreen(),
     GamesScreen(),
     Center(child: Text('Screen 3', style: TextStyle(color: Colors.white))),
-    Center(child: Text('Screen 4', style: TextStyle(color: Colors.white))),
+    ProfileScreen(),
   ];
 
   final List<String> activeIcons = [

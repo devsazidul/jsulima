@@ -86,9 +86,8 @@ class PredictionContainer extends StatelessWidget {
             ],
           ),
           SizedBox(height: 20),
-          //Second row
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,16 +111,6 @@ class PredictionContainer extends StatelessWidget {
                       color: Color(0xFFC60C30),
                     ),
                   ),
-                  Container(
-                    width: 180,
-                    height: 5,
-                    decoration: BoxDecoration(color: Colors.red),
-                    child: FractionallySizedBox(
-                      alignment: Alignment.centerLeft,
-                      widthFactor: 0.6,
-                      child: Container(),
-                    ),
-                  ),
                 ],
               ),
               SizedBox(width: 4),
@@ -143,14 +132,35 @@ class PredictionContainer extends StatelessWidget {
                       color: Color(0xFFC60C30),
                     ),
                   ),
-                  Container(
-                    width: 144,
-                    height: 5,
-                    decoration: BoxDecoration(color: Color(0xFF216AFD)),
-                    child: FractionallySizedBox(
-                      alignment: Alignment.centerLeft,
-                      widthFactor: 0.4,
-                      child: Container(),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Stack(
+            children: [
+              Container(
+                height: 8,
+                decoration: BoxDecoration(
+                  color: Color(0xFF393939),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: (team1Percentage).toInt(),
+                    child: Container(
+                      height: 5,
+                      decoration: BoxDecoration(color: Color(0xFFC60C30)),
+                    ),
+                  ),
+                  SizedBox(width: 3),
+                  Expanded(
+                    flex: (team2Percentage).toInt(),
+                    child: Container(
+                      height: 5,
+                      decoration: BoxDecoration(color: Color(0xFF216AFD)),
                     ),
                   ),
                 ],

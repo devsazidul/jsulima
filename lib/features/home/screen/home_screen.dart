@@ -282,6 +282,7 @@ class HomeScreen extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
+
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -326,6 +327,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                           SizedBox(width: 12),
                           Column(
+
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(

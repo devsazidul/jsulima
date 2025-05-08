@@ -129,7 +129,7 @@ class PredictionContainer extends StatelessWidget {
                       fontSize: 14,
                       height: 1.5,
                       letterSpacing: 0,
-                      color: Color(0xFFC60C30),
+                      color: Color(0xFF216AFD),
                     ),
                   ),
                 ],

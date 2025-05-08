@@ -2,11 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/game_details/controller/game_details_controller.dart';
-import 'package:jsulima/features/game_details/widget/player_container.dart';
+import 'package:jsulima/features/game_details/widget/player_tab_container.dart';
+import 'package:jsulima/features/game_details/widget/prediction_tab_widget.dart';
 
-class GameDetailsContainer extends StatelessWidget {
-  const GameDetailsContainer({super.key});
+class GameDetailsContainer extends StatefulWidget {
+  final double team1Percentage;
+  final double team2Percentage;
+  const GameDetailsContainer({
+    super.key,
+    required this.team1Percentage,
+    required this.team2Percentage,
+  });
 
+  @override
+  State<GameDetailsContainer> createState() => _GameDetailsContainerState();
+}
+
+class _GameDetailsContainerState extends State<GameDetailsContainer> {
   @override
   Widget build(BuildContext context) {
     final GameDetailsController gameDetailsController = Get.put(
@@ -34,72 +46,66 @@ class GameDetailsContainer extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Column(
-                          children: [
-                            Image.asset(
-                              ImagePath.atlantaFalcon,
-                              height: 76,
-                              width: 80,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Atlanta\nFalcon',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                height: 1.2,
-                                color: Color(0xFFFFFFFF),
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                        Image.asset(
+                          ImagePath.atlantaFalcon,
+                          height: 76,
+                          width: 80,
                         ),
                         Spacer(),
-                        Column(
-                          children: [
-                            Text(
-                              'VS',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 32,
-                                height: 1.2,
-                                color: Color(0xFFFFFFFF),
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              "14 Feb\n3:00 PM",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                height: 1.4,
-                                color: Color(0xFFFFFFFF),
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                        Text(
+                          'VS',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 32,
+                            height: 1.2,
+                            color: Color(0xFFFFFFFF),
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                         Spacer(),
-                        Column(
-                          children: [
-                            Image.asset(
-                              ImagePath.carolinaPanther,
-                              height: 76,
-                              width: 80,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Carolina\nPanther',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                height: 1.2,
-                                color: Color(0xFFFFFFFF),
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                        Image.asset(
+                          ImagePath.carolinaPanther,
+                          height: 76,
+                          width: 80,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Text(
+                          'Atlanta\nFalcon',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            height: 1.2,
+                            color: Color(0xFFFFFFFF),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Spacer(),
+
+                        Text(
+                          "14 Feb\n3:00 PM",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            height: 1.4,
+                            color: Color(0xFFFFFFFF),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Spacer(),
+                        SizedBox(height: 8),
+                        Text(
+                          'Carolina\nPanther',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            height: 1.2,
+                            color: Color(0xFFFFFFFF),
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
@@ -120,7 +126,7 @@ class GameDetailsContainer extends StatelessWidget {
                             ),
                             SizedBox(height: 4),
                             Text(
-                              '60%',
+                              "${widget.team1Percentage.toStringAsFixed(0)}%",
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 14,
@@ -144,7 +150,7 @@ class GameDetailsContainer extends StatelessWidget {
                             ),
                             SizedBox(height: 4),
                             Text(
-                              '40%',
+                              "${widget.team2Percentage.toStringAsFixed(0)}%",
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 14,
@@ -158,10 +164,24 @@ class GameDetailsContainer extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 12),
-                    Container(
-                      height: 5,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(color: Colors.red),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: (widget.team1Percentage).toInt(),
+                          child: Container(
+                            height: 5,
+                            decoration: BoxDecoration(color: Color(0xFFC60C30)),
+                          ),
+                        ),
+                        SizedBox(width: 3),
+                        Expanded(
+                          flex: (widget.team2Percentage).toInt(),
+                          child: Container(
+                            height: 5,
+                            decoration: BoxDecoration(color: Color(0xFF216AFD)),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -176,18 +196,15 @@ class GameDetailsContainer extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 11),
-                      child: Text(
-                        'AI Confidence',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          height: 1.3,
-                          color: Color(0xFFFFFFFF),
-                        ),
-                        textAlign: TextAlign.center,
+                    Text(
+                      'AI Confidence',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        height: 1.3,
+                        color: Color(0xFFFFFFFF),
                       ),
+                      textAlign: TextAlign.center,
                     ),
                     SizedBox(width: 16),
                     Container(
@@ -213,36 +230,32 @@ class GameDetailsContainer extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 11.0),
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            height: 1.5,
-                            color: Color(0xFFEBEBEB),
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(text: 'Venue: '),
-                            TextSpan(
-                              text: ' Allegiant Stadium',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                height: 1.5,
-                                color: Color(0xFFCA0101),
-                              ),
-                            ),
-                          ],
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          height: 1.5,
+                          color: Color(0xFFEBEBEB),
                         ),
+                        children: <TextSpan>[
+                          TextSpan(text: 'Venue: '),
+                          TextSpan(
+                            text: ' Allegiant Stadium',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              height: 1.5,
+                              color: Color(0xFFCA0101),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
                 SizedBox(height: 50),
-
                 Stack(
                   children: [
                     SizedBox(
@@ -251,10 +264,9 @@ class GameDetailsContainer extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           GestureDetector(
-                            onTap:
-                                () => gameDetailsController.updateSelectedIndex(
-                                  0,
-                                ),
+                            onTap: () {
+                              gameDetailsController.updateSelectedIndex(0);
+                            },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -282,10 +294,9 @@ class GameDetailsContainer extends StatelessWidget {
                           ),
                           SizedBox(width: 47.67),
                           GestureDetector(
-                            onTap:
-                                () => gameDetailsController.updateSelectedIndex(
-                                  1,
-                                ),
+                            onTap: () {
+                              gameDetailsController.updateSelectedIndex(1);
+                            },
                             child: Obx(() {
                               return Text(
                                 'Players',
@@ -307,10 +318,9 @@ class GameDetailsContainer extends StatelessWidget {
                           ),
                           SizedBox(width: 47.67),
                           GestureDetector(
-                            onTap:
-                                () => gameDetailsController.updateSelectedIndex(
-                                  2,
-                                ),
+                            onTap: () {
+                              gameDetailsController.updateSelectedIndex(2);
+                            },
                             child: Obx(() {
                               return Text(
                                 'Line Up',
@@ -332,10 +342,9 @@ class GameDetailsContainer extends StatelessWidget {
                           ),
                           SizedBox(width: 47.67),
                           GestureDetector(
-                            onTap:
-                                () => gameDetailsController.updateSelectedIndex(
-                                  3,
-                                ),
+                            onTap: () {
+                              gameDetailsController.updateSelectedIndex(3);
+                            },
                             child: Obx(() {
                               return Text(
                                 'State',
@@ -358,7 +367,6 @@ class GameDetailsContainer extends StatelessWidget {
                         ],
                       ),
                     ),
-
                     Obx(() {
                       return Positioned(
                         left:
@@ -381,125 +389,15 @@ class GameDetailsContainer extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 24),
-                Text(
-                  'Game Prediction',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 24,
-                    height: 1.3,
-                    color: Color(0xFFFFFFFF),
-                  ),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'Predicted Score',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                    height: 1.5,
-                    color: Color(0xFF28A745),
-                  ),
-                ),
-                SizedBox(height: 12),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      height: 1.5,
-                      color: Color(0xFFEBEBEB),
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(text: 'Atlanta Falcon '),
-                      TextSpan(
-                        text: ' - ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          height: 1.5,
-                          color: Color(0xFFFFFFFF),
-                        ),
-                      ),
-                      TextSpan(
-                        text: ' 27',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          height: 1.3,
-                          color: Color(0xFFC60C30),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      height: 1.5,
-                      color: Color(0xFFEBEBEB),
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(text: 'Carolina Panther '),
-                      TextSpan(
-                        text: ' - ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          height: 1.5,
-                          color: Color(0xFFFFFFFF),
-                        ),
-                      ),
-                      TextSpan(
-                        text: ' 21',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          height: 1.3,
-                          color: Color(0xFF216AFD),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 24),
-                Text(
-                  'Key Insights',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                    height: 1.5,
-                    color: Color(0xFF28A745),
-                  ),
-                ),
-                SizedBox(height: 12),
-                Text(
-                  "The Atlanta Falcons are favored in this matchup due to their strong offensive line and quarterback play by Matt Ryan, but Carolina Panthers' defense will be a challenge. The Falcons' ability to move the ball downfield, especially with Cordarrelle Patterson's versatility, is expected to give them an edge.",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                    height: 1.5,
-                    color: Color(0xFFEBEBEB),
-                  ),
-                ),
-                SizedBox(height: 40),
-                Text(
-                  'Top Performer Prediction',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 24,
-                    height: 1.3,
-                    color: Color(0xFFFFFFFF),
-                  ),
-                ),
-                SizedBox(height: 20),
-                PlayerContainer(),
-                SizedBox(height: 20),
-                PlayerContainer(),
-                SizedBox(height: 20),
+                Obx(() {
+                  if (gameDetailsController.selectedIndex.value == 0) {
+                    return PredictionContainer();
+                  } else if (gameDetailsController.selectedIndex.value == 1) {
+                    return PlayerTabWidget();
+                  } else {
+                    return Container(color: Colors.white);
+                  }
+                }),
               ],
             ),
           ),

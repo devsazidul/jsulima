@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
-import 'package:jsulima/features/game_details/widget/game_details_container.dart';
+import 'package:jsulima/features/game_details/widget/game_details_widget.dart';
 
 class GameDetailsScreen extends StatelessWidget {
   const GameDetailsScreen({super.key});
@@ -15,7 +15,7 @@ class GameDetailsScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: GameDetailsContainer(),
+        child: GameDetailsContainer(team1Percentage: 55, team2Percentage: 45),
       ),
     );
   }

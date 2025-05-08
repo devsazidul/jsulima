@@ -203,7 +203,7 @@ class HomeScreen extends StatelessWidget {
                             fontSize: 18,
                             fontWeight: FontWeight.bold)),
                     SizedBox(height: 10),
-                    Container(
+                    Container( 
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             color: Color(0xFF2F2F2F),

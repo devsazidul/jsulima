@@ -393,7 +393,7 @@ class _GameDetailsContainerState extends State<GameDetailsContainer> {
                   if (gameDetailsController.selectedIndex.value == 0) {
                     return PredictionContainer();
                   } else if (gameDetailsController.selectedIndex.value == 1) {
-                    return PlayerTabWidget();
+                    return PlayerTabContainer();
                   } else {
                     return Container(color: Colors.white);
                   }

@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:jsulima/features/game_details/widget/stats_container.dart';
+import 'package:jsulima/features/game_details/widget/stats_widget.dart';
 
 class PlayerContainer extends StatelessWidget {
-  const PlayerContainer({super.key});
+  final String teamName;
+  final String playerImagePath;
+  final String playerName;
+  final String playerPosition;
+  final String aiConfidence;
+  final List<Map<String, String>> stats;
+
+  const PlayerContainer({
+    super.key,
+    required this.teamName,
+    required this.playerImagePath,
+    required this.playerName,
+    required this.playerPosition,
+    required this.aiConfidence,
+    required this.stats,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      padding: EdgeInsets.only(bottom: 20),
       width: MediaQuery.of(context).size.width,
-      height: 264,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Atlanta Falcon',
+            teamName,
             style: TextStyle(
               color: Color(0xFF28A745),
               fontWeight: FontWeight.w400,
@@ -25,7 +40,7 @@ class PlayerContainer extends StatelessWidget {
           Row(
             children: [
               Image.asset(
-                'assets/images/matt-ryan-1.png',
+                playerImagePath,
                 width: 52,
                 height: 52,
                 fit: BoxFit.cover,
@@ -35,7 +50,7 @@ class PlayerContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Matt Ryan',
+                    playerName,
                     style: TextStyle(
                       color: Color(0xFFF2F2F2),
                       fontWeight: FontWeight.w500,
@@ -45,7 +60,7 @@ class PlayerContainer extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    'Quarterback',
+                    playerPosition,
                     style: TextStyle(
                       color: Color(0xFFABABAB),
                       fontWeight: FontWeight.w400,
@@ -68,14 +83,17 @@ class PlayerContainer extends StatelessWidget {
             ),
           ),
           SizedBox(height: 8),
-          Row(
-            children: [
-              StatsContainer(statValue: '310', label: 'Passing Yards'),
-              Spacer(),
-              StatsContainer(statValue: '2', label: 'Touchdowns'),
-              Spacer(),
-              StatsContainer(statValue: '1', label: 'Interceptions'),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children:
+                  stats.map((stat) {
+                    return StatsContainer(
+                      statValue: stat['value']!,
+                      label: stat['label']!,
+                    );
+                  }).toList(),
+            ),
           ),
           SizedBox(height: 16),
           Row(
@@ -104,7 +122,7 @@ class PlayerContainer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(72),
                 ),
                 child: Text(
-                  '85%',
+                  aiConfidence,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 14,

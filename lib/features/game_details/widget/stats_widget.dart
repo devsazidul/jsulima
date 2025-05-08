@@ -13,6 +13,7 @@ class StatsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(right: 10),
       padding: EdgeInsets.symmetric(horizontal: 9, vertical: 12),
       height: 74,
       width: 113,

@@ -19,7 +19,7 @@ class PredictionContainer extends StatelessWidget {
     },
     {
       'teamName': 'Carolina Panther',
-      'playerImagePath': 'assets/images/image.png',
+      'playerImagePath': 'assets/images/player1.png',
       'playerName': 'Sam Darnold',
       'playerPosition': 'Quarterback',
       'aiConfidence': '70%',

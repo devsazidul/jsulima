@@ -15,7 +15,6 @@ class StatsContainer extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(right: 10),
       padding: EdgeInsets.symmetric(horizontal: 9, vertical: 12),
-      height: 74,
       width: 113,
       decoration: BoxDecoration(
         color: Color(0xFFFFF2E6),
@@ -39,7 +38,7 @@ class StatsContainer extends StatelessWidget {
               fontWeight: FontWeight.w400,
               fontSize: 14,
               height: 1.5,
-              color: Color(0xFFABABAB),
+              color: Color(0xFF6B3500),
             ),
           ),
         ],

@@ -33,6 +33,13 @@ class PaymentController extends GetxController {
         "Exclusive Match Insights and team/player analytics", 
       ],
     },
-   
   ];
+
+  List<Map<String, dynamic>> prompList = [
+     {
+      "name" : "Flat \$25 off", 
+      "code" : "Prediction25", 
+      "discount" : 25,
+     }
+  ]; 
 }

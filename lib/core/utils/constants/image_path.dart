@@ -1,3 +1,4 @@
+
 class ImagePath {
   static const String logo = 'assets/images/userprofile.png';
   static const String splashBg = 'assets/images/splashImage.png';
@@ -13,6 +14,8 @@ class ImagePath {
       'assets/images/inactiveNotification.png';
   static const String activeProfile = 'assets/images/activeProfile.png';
   static const String inactiveProfile = 'assets/images/inactiveProfile.png';
+   static const  String profileImage = 'assets/images/profile.png';
   static const String atlantaFalcon = 'assets/icons/falcon.png';
   static const String carolinaPanther = 'assets/icons/panther.png';
 }
+

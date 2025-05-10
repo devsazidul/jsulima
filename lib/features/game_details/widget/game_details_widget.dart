@@ -4,8 +4,9 @@ import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/game_details/controller/game_details_controller.dart';
 import 'package:jsulima/features/game_details/widget/player_tab_container.dart';
 import 'package:jsulima/features/game_details/widget/prediction_tab_widget.dart';
+import 'package:jsulima/features/game_details/widget/state_tab_container.dart';
 
-class GameDetailsContainer extends StatefulWidget {
+class GameDetailsContainer extends StatelessWidget {
   final double team1Percentage;
   final double team2Percentage;
   const GameDetailsContainer({
@@ -14,11 +15,6 @@ class GameDetailsContainer extends StatefulWidget {
     required this.team2Percentage,
   });
 
-  @override
-  State<GameDetailsContainer> createState() => _GameDetailsContainerState();
-}
-
-class _GameDetailsContainerState extends State<GameDetailsContainer> {
   @override
   Widget build(BuildContext context) {
     final GameDetailsController gameDetailsController = Get.put(
@@ -126,7 +122,7 @@ class _GameDetailsContainerState extends State<GameDetailsContainer> {
                             ),
                             SizedBox(height: 4),
                             Text(
-                              "${widget.team1Percentage.toStringAsFixed(0)}%",
+                              "${team1Percentage.toStringAsFixed(0)}%",
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 14,
@@ -150,7 +146,7 @@ class _GameDetailsContainerState extends State<GameDetailsContainer> {
                             ),
                             SizedBox(height: 4),
                             Text(
-                              "${widget.team2Percentage.toStringAsFixed(0)}%",
+                              "${team2Percentage.toStringAsFixed(0)}%",
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 14,
@@ -167,7 +163,7 @@ class _GameDetailsContainerState extends State<GameDetailsContainer> {
                     Row(
                       children: [
                         Expanded(
-                          flex: (widget.team1Percentage).toInt(),
+                          flex: (team1Percentage).toInt(),
                           child: Container(
                             height: 5,
                             decoration: BoxDecoration(color: Color(0xFFC60C30)),
@@ -175,7 +171,7 @@ class _GameDetailsContainerState extends State<GameDetailsContainer> {
                         ),
                         SizedBox(width: 3),
                         Expanded(
-                          flex: (widget.team2Percentage).toInt(),
+                          flex: (team2Percentage).toInt(),
                           child: Container(
                             height: 5,
                             decoration: BoxDecoration(color: Color(0xFF216AFD)),
@@ -394,8 +390,10 @@ class _GameDetailsContainerState extends State<GameDetailsContainer> {
                     return PredictionContainer();
                   } else if (gameDetailsController.selectedIndex.value == 1) {
                     return PlayerTabContainer();
+                  } else if (gameDetailsController.selectedIndex.value == 2) {
+                    return Container();
                   } else {
-                    return Container(color: Colors.white);
+                    return StateTabContainer(team1Win: 3, team2Win: 2, draw: 0);
                   }
                 }),
               ],

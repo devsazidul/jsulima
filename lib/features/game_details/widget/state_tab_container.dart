@@ -20,7 +20,7 @@ class StateTabContainer extends StatelessWidget {
       'team1Score': '38',
       'team2Score': '44',
       'team2Name': 'Carolina Panther',
-      'team2ImagePath': ImagePath.atlantaFalcon,
+      'team2ImagePath': ImagePath.carolinaPanther,
       'date': 'Jan 6, 2025',
     },
     {
@@ -29,7 +29,7 @@ class StateTabContainer extends StatelessWidget {
       'team1Score': '21',
       'team2Score': '30',
       'team2Name': 'Carolina Panther',
-      'team2ImagePath': ImagePath.atlantaFalcon,
+      'team2ImagePath': ImagePath.carolinaPanther,
       'date': 'Jan 7, 2025',
     },
     {
@@ -38,7 +38,7 @@ class StateTabContainer extends StatelessWidget {
       'team1Score': '25',
       'team2Score': '18',
       'team2Name': 'Carolina Panther',
-      'team2ImagePath': ImagePath.atlantaFalcon,
+      'team2ImagePath': ImagePath.carolinaPanther,
       'date': 'Jan 8, 2025',
     },
     {
@@ -47,7 +47,7 @@ class StateTabContainer extends StatelessWidget {
       'team1Score': '19',
       'team2Score': '27',
       'team2Name': 'Carolina Panther',
-      'team2ImagePath': ImagePath.atlantaFalcon,
+      'team2ImagePath': ImagePath.carolinaPanther,
       'date': 'Jan 9, 2025',
     },
     {
@@ -56,8 +56,17 @@ class StateTabContainer extends StatelessWidget {
       'team1Score': '24',
       'team2Score': '21',
       'team2Name': 'Carolina Panther',
-      'team2ImagePath': ImagePath.atlantaFalcon,
+      'team2ImagePath': ImagePath.carolinaPanther,
       'date': 'Jan 10, 2025',
+    },
+    {
+      'team1Name': 'Atlanta Falcon',
+      'team1ImagePath': ImagePath.atlantaFalcon,
+      'team1Score': '24',
+      'team2Score': '34',
+      'team2Name': 'Carolina Panther',
+      'team2ImagePath': ImagePath.carolinaPanther,
+      'date': 'Jan 12, 2025',
     },
   ];
 
@@ -186,7 +195,6 @@ class StateTabContainer extends StatelessWidget {
           ),
           SizedBox(height: 32),
           ListView.builder(
-            
             padding: EdgeInsets.zero,
             shrinkWrap: true,
             itemCount: teams.length,

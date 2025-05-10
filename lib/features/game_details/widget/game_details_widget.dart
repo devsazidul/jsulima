@@ -4,6 +4,7 @@ import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/game_details/controller/game_details_controller.dart';
 import 'package:jsulima/features/game_details/widget/player_tab_container.dart';
 import 'package:jsulima/features/game_details/widget/prediction_tab_widget.dart';
+import 'package:jsulima/features/game_details/widget/tuneup_screen.dart';
 
 class GameDetailsContainer extends StatefulWidget {
   final double team1Percentage;
@@ -394,6 +395,8 @@ class _GameDetailsContainerState extends State<GameDetailsContainer> {
                     return PredictionContainer();
                   } else if (gameDetailsController.selectedIndex.value == 1) {
                     return PlayerTabContainer();
+                  } else if (gameDetailsController.selectedIndex.value == 2) {
+                    return TuneupScreen();
                   } else {
                     return Container(color: Colors.white);
                   }

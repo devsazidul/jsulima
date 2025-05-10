@@ -5,7 +5,6 @@ import 'package:jsulima/core/utils/constants/image_path.dart' show ImagePath;
 import 'package:jsulima/features/profile/controller/profile_info_controller.dart';
 import 'package:jsulima/features/profile/controller/notifications_controller.dart';
 import 'package:jsulima/features/profile/screen/change_password_screen.dart';
-import 'package:jsulima/features/profile/screen/field_screen.dart';
 import 'package:jsulima/features/profile/screen/personal_info_screen.dart';
 import 'package:jsulima/features/profile/widgest/profile_tile_widget.dart';
 
@@ -70,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
 
                 GestureDetector(
-                  onTap: () => Get.to(() => FieldScreen()),
+                  onTap: () {},
                   child: ProfileTileWidget(
                     title: "Subscription",
                     icon: Icons.arrow_forward,

@@ -4,6 +4,7 @@ import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/game_details/controller/game_details_controller.dart';
 import 'package:jsulima/features/game_details/widget/player_tab_container.dart';
 import 'package:jsulima/features/game_details/widget/prediction_tab_widget.dart';
+import 'package:jsulima/features/game_details/widget/tuneup_screen.dart';
 import 'package:jsulima/features/game_details/widget/state_tab_container.dart';
 
 class GameDetailsContainer extends StatelessWidget {
@@ -391,7 +392,7 @@ class GameDetailsContainer extends StatelessWidget {
                   } else if (gameDetailsController.selectedIndex.value == 1) {
                     return PlayerTabContainer();
                   } else if (gameDetailsController.selectedIndex.value == 2) {
-                    return Container();
+                    return TuneupScreen();
                   } else {
                     return StateTabContainer(team1Win: 3, team2Win: 2, draw: 0);
                   }

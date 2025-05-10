@@ -8,6 +8,7 @@ class PasswordFieldWidget extends StatelessWidget {
   final VoidCallback toggleVisibility;
 
   const PasswordFieldWidget({
+    super.key,
     required this.controller,
     required this.hint,
     required this.isObscured,

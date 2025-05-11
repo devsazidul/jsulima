@@ -15,7 +15,7 @@ class GameDetailsScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: GameDetailsContainer(team1Percentage: 55, team2Percentage: 45),
+        child: GameDetailsContainer(team1Percentage: 55, team2Percentage: 45,),
       ),
     );
   }

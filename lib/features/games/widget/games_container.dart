@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/games/controller/game_controller.dart';
 import 'package:jsulima/features/games/widget/prediction_container.dart';
 
@@ -10,7 +11,7 @@ class GamesContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> gameList = [
+    List<Map<String, dynamic>> nflGameList = [
       //Game 1
       {
         'team1Name': "New England Patriots",
@@ -19,7 +20,7 @@ class GamesContainer extends StatelessWidget {
         'team2Image': "assets/images/team2.png",
         'matchTime': " 14 Feb\n3:00 PM",
         'predictionText':
-            "Prediction: Mac Jones is predicted to throw for 275 yards, with 2 touchdowns and 1 interception in the upcoming game against the Buffalo Bills.",
+            "Mac Jones is predicted to throw for 275 yards, with 2 touchdowns and 1 interception in the upcoming game against the Buffalo Bills.",
         'team1Percentage': 30.0,
         'team2Percentage': 70.0,
       },
@@ -31,7 +32,7 @@ class GamesContainer extends StatelessWidget {
         'team2Image': "assets/images/team2.png",
         'matchTime': " 14 Feb\n6:30 PM",
         'predictionText':
-            "Prediction: Aaron Rodgers is expected to pass for 300 yards, with 3 touchdowns and no interceptions against the Bears.",
+            "Aaron Rodgers is expected to pass for 300 yards, with 3 touchdowns and no interceptions against the Bears.",
         'team1Percentage': 65.0,
         'team2Percentage': 35.0,
       },
@@ -43,7 +44,7 @@ class GamesContainer extends StatelessWidget {
         'team2Image': "assets/images/team2.png",
         'matchTime': " 15 Feb\n1:00 PM",
         'predictionText':
-            "Prediction: Dak Prescott is forecasted to throw for 250 yards, with 2 touchdowns and 1 interception versus the Giants.",
+            "Dak Prescott is forecasted to throw for 250 yards, with 2 touchdowns and 1 interception versus the Giants.",
         'team1Percentage': 70.0,
         'team2Percentage': 30.0,
       },
@@ -55,7 +56,58 @@ class GamesContainer extends StatelessWidget {
         'team2Image': "assets/images/team2.png",
         'matchTime': " 16 Feb\n8:20 PM",
         'predictionText':
-            "Prediction: Tua Tagovailoa is projected to pass for 295 yards, with 3 touchdowns and 1 interception against the Titans.",
+            "Tua Tagovailoa is projected to pass for 295 yards, with 3 touchdowns and 1 interception against the Titans.",
+        'team1Percentage': 75.0,
+        'team2Percentage': 25.0,
+      },
+    ];
+
+    List<Map<String, dynamic>> mlbGameList = [
+      //Game 1
+      {
+        'team1Name': "New York Yankees",
+        'team2Name': "Boston Red Sox",
+        'team1Image': ImagePath.newYorkYankees,
+        'team2Image': ImagePath.bostonRedSox,
+        'matchTime': " 14 Feb\n3:00 PM",
+        'predictionText':
+            "Mac Jones is predicted to throw for 275 yards, with 2 touchdowns and 1 interception in the upcoming game against the Buffalo Bills.",
+        'team1Percentage': 30.0,
+        'team2Percentage': 70.0,
+      },
+      //Game 2
+      {
+        'team1Name': "New York Yankees",
+        'team2Name': "Boston Red Sox",
+        'team1Image': ImagePath.newYorkYankees,
+        'team2Image': ImagePath.bostonRedSox,
+        'matchTime': " 14 Feb\n6:30 PM",
+        'predictionText':
+            "Aaron Rodgers is expected to pass for 300 yards, with 3 touchdowns and no interceptions against the Bears.",
+        'team1Percentage': 65.0,
+        'team2Percentage': 35.0,
+      },
+      //Game 3
+      {
+        'team1Name': "New York Yankees",
+        'team2Name': "Boston Red Sox",
+        'team1Image': ImagePath.newYorkYankees,
+        'team2Image': ImagePath.bostonRedSox,
+        'matchTime': " 15 Feb\n1:00 PM",
+        'predictionText':
+            "Dak Prescott is forecasted to throw for 250 yards, with 2 touchdowns and 1 interception versus the Giants.",
+        'team1Percentage': 70.0,
+        'team2Percentage': 30.0,
+      },
+      //Game 4
+      {
+        'team1Name': "New York Yankees",
+        'team2Name': "Boston Red Sox",
+        'team1Image': ImagePath.newYorkYankees,
+        'team2Image': ImagePath.bostonRedSox,
+        'matchTime': " 16 Feb\n8:20 PM",
+        'predictionText':
+            "Tua Tagovailoa is projected to pass for 295 yards, with 3 touchdowns and 1 interception against the Titans.",
         'team1Percentage': 75.0,
         'team2Percentage': 25.0,
       },
@@ -210,25 +262,46 @@ class GamesContainer extends StatelessWidget {
             ],
           ),
           SizedBox(height: 40.0),
-
           Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.zero,
-              itemCount: gameList.length,
-              itemBuilder: (context, index) {
-                var game = gameList[index];
-                return PredictionContainer(
-                  team1Name: game['team1Name']!,
-                  team2Name: game['team2Name']!,
-                  team1Image: game['team1Image']!,
-                  team2Image: game['team2Image']!,
-                  matchTime: game['matchTime']!,
-                  predictionText: game['predictionText']!,
-                  team1Percentage: game['team1Percentage']!,
-                  team2Percentage: game['team2Percentage']!,
+            child: Obx(() {
+              if (buttonController.selectedButton.value == 0) {
+                return ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: nflGameList.length,
+                  itemBuilder: (context, index) {
+                    var game = nflGameList[index];
+                    return PredictionContainer(
+                      team1Name: game['team1Name']!,
+                      team2Name: game['team2Name']!,
+                      team1Image: game['team1Image']!,
+                      team2Image: game['team2Image']!,
+                      matchTime: game['matchTime']!,
+                      predictionText: game['predictionText']!,
+                      team1Percentage: game['team1Percentage']!,
+                      team2Percentage: game['team2Percentage']!,
+                    );
+                  },
                 );
-              },
-            ),
+              } else {
+                return ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: mlbGameList.length,
+                  itemBuilder: (context, index) {
+                    var game = mlbGameList[index];
+                    return PredictionContainer(
+                      team1Name: game['team1Name']!,
+                      team2Name: game['team2Name']!,
+                      team1Image: game['team1Image']!,
+                      team2Image: game['team2Image']!,
+                      matchTime: game['matchTime']!,
+                      predictionText: game['predictionText']!,
+                      team1Percentage: game['team1Percentage']!,
+                      team2Percentage: game['team2Percentage']!,
+                    );
+                  },
+                );
+              }
+            }),
           ),
         ],
       ),

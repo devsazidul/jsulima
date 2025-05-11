@@ -44,10 +44,9 @@ class PredictionContainer extends StatelessWidget {
                   Image.asset(team1Image, height: 26, width: 48),
                   SizedBox(height: 2),
                   SizedBox(
-                    width: 50,
+                    width: 83,
                     child: Text(
                       team1Name,
-                      maxLines: 2,
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Color(0xFFEBEBEB), fontSize: 16),
                     ),
@@ -77,9 +76,13 @@ class PredictionContainer extends StatelessWidget {
                 children: [
                   Image.asset(team2Image, height: 26, width: 48),
                   SizedBox(height: 2),
-                  Text(
-                    team2Name,
-                    style: TextStyle(color: Color(0xFFEBEBEB), fontSize: 16),
+                  SizedBox(
+                    width: 83,
+                    child: Text(
+                      team2Name,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Color(0xFFEBEBEB), fontSize: 16),
+                    ),
                   ),
                 ],
               ),
@@ -168,17 +171,31 @@ class PredictionContainer extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16),
-          Text(
-            predictionText,
-            style: TextStyle(
-              color: Color(0xFFABABAB),
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              letterSpacing: 0,
-              height: 1.5,
+          RichText(
+            text: TextSpan(
+              style: TextStyle(
+                color: Color(0xFFABABAB),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0,
+                height: 1.5,
+              ),
+              children: [
+                TextSpan(
+                  text: 'Prediction: ',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
+                    color: Colors.red,
+                  ),
+                ),
+                TextSpan(text: predictionText),
+              ],
             ),
             textAlign: TextAlign.center,
           ),
+
           SizedBox(height: 20),
           CustomButton(),
         ],

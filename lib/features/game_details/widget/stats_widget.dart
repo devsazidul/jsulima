@@ -15,7 +15,6 @@ class StatsContainer extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(right: 10),
       padding: EdgeInsets.symmetric(horizontal: 9, vertical: 12),
-      width: 113,
       decoration: BoxDecoration(
         color: Color(0xFFFFF2E6),
         borderRadius: BorderRadius.circular(8),

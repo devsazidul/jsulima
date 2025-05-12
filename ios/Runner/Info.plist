@@ -47,5 +47,9 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 <string>Allow access to photo library to select a profile picture.</string>
+<key>NSCameraUsageDescription</key>
+<string>Scan your card to add it automatically</string>
+<key>NSCameraUsageDescription</key>
+<string>To scan cards</string>
 </dict>
 </plist>

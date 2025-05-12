@@ -87,7 +87,10 @@ class PaymentPlans extends StatelessWidget {
                     ),
                     SizedBox(height: 20),
                     CustomButton(text: "Get Started", onPressed: (){
+                      
                       Get.to(ApplyCodePaymentScreen()); 
+                      controller.selectedPrice.value = (subscription['price'] as num).toDouble();
+
                     }),
 
                     SizedBox(

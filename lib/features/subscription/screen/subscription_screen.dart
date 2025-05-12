@@ -1,12 +1,25 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:jsulima/core/common/styles/global_text_style.dart' show getTextStyle;
+import 'package:jsulima/core/common/styles/global_text_style.dart'
+    show getTextStyle;
 import 'package:jsulima/core/utils/constants/image_path.dart' show ImagePath;
 import 'package:jsulima/features/subscription/controller/subscription_controller.dart';
-import 'package:jsulima/features/subscription/widgets/subscription_list.dart' show SubscriptionList;
+import 'package:jsulima/features/subscription/model/plan.dart';
+import 'package:jsulima/features/subscription/widgets/plan_container.dart';
+import 'package:jsulima/features/subscription/widgets/subscription_list.dart'
+    show SubscriptionList;
 
 class SubscriptionScreen extends StatelessWidget {
-   SubscriptionScreen({super.key});
+  Future<Plan> loadPlan() async {
+    String jsonString = await rootBundle.loadString('assets/plans.json');
+    final jsonResponse = json.decode(jsonString);
+    return Plan.fromJson(jsonResponse);
+  }
+
+  SubscriptionScreen({super.key});
 
   final SubscriptionController controller = Get.put(SubscriptionController());
 
@@ -37,10 +50,24 @@ class SubscriptionScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ), 
-               SubscriptionList(), 
+                FutureBuilder<Plan>(
+                  future: loadPlan(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return SizedBox(height: 24);
+                    }
+                    final plan = snapshot.data!;
+                    return Center(
+                      child: PlanContainer(
+                        planName: plan.planName,
+                        price: plan.price,
+                        planTime: plan.planTime,
+                      ),
+                    );
+                  },
+                ),
+
+                SubscriptionList(),
               ],
             ),
           ),

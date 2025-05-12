@@ -23,7 +23,7 @@ class ContentContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.70,
+     // height: MediaQuery.of(context).size.height * 0.70,
       decoration: BoxDecoration(
         color: Color(0xFF393939),
         borderRadius: BorderRadius.circular(12),

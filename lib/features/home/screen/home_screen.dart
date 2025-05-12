@@ -216,13 +216,16 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      StatBoxWidget(value: '310', label: 'Passing Yards'),
-                      StatBoxWidget(value: '2', label: 'Touchdowns'),
-                      StatBoxWidget(value: '1', label: 'Interceptions'),
-                    ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        StatBoxWidget(value: '310', label: 'Passing Yards'),
+                        StatBoxWidget(value: '2', label: 'Touchdowns'),
+                        StatBoxWidget(value: '1', label: 'Interceptions'),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 16),
                   Row(

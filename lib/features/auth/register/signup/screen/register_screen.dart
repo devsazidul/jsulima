@@ -21,10 +21,12 @@ class RegisterScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: MediaQuery.of(context).size.height * 0.18),
-            child: RegisterContentContainer(),
+        child: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30, vertical: MediaQuery.of(context).size.height * 0.18),
+              child: RegisterContentContainer(),
+            ),
           ),
         ),
       ),

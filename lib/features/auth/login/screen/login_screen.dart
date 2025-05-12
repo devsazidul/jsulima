@@ -21,10 +21,12 @@ class LoginScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30),
-            child: ContentContainer(),
+        child: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 100),
+              child: ContentContainer(),
+            ),
           ),
         ),
       ),

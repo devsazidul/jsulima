@@ -7,6 +7,7 @@ import 'package:jsulima/features/profile/controller/notifications_controller.dar
 import 'package:jsulima/features/profile/screen/change_password_screen.dart';
 import 'package:jsulima/features/profile/screen/personal_info_screen.dart';
 import 'package:jsulima/features/profile/widgest/profile_tile_widget.dart';
+import 'package:jsulima/features/subscription/screen/subscription_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
@@ -69,7 +70,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
 
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(SubscriptionScreen()); 
+                  },
                   child: ProfileTileWidget(
                     title: "Subscription",
                     icon: Icons.arrow_forward,

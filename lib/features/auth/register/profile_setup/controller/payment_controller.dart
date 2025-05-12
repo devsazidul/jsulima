@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
+import 'package:jsulima/core/services/stripe_services.dart';
 import 'package:jsulima/core/utils/constants/icon_path.dart';
 
 class PaymentController extends GetxController {
+  var selectedPrice = 0.0.obs; 
   final List<Map<String, dynamic>> subscriptionList = [
     {
       "name": "Premium Plan",
@@ -42,4 +44,13 @@ class PaymentController extends GetxController {
       "discount" : 25,
      }
   ]; 
+
+  void makePayment(double amount) {
+      StripeService.makePayment(amount, "usd"); 
+  }
+
+  void discountPayment(double amount, double discount) {
+    var discountedAmount = amount - (amount * (discount / 100));
+    StripeService.makePayment(discountedAmount, "usd"); 
+  }
 }

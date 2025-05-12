@@ -146,7 +146,7 @@ class ApplyCodePaymentScreen extends StatelessWidget {
                                   ),
                                   child: InkWell(
                                     onTap: (){
-                                      
+                                      controller.discountPayment(controller.selectedPrice.toDouble(), (promo['discount'] as num).toDouble()); 
                                     },
                                     child: Text("Apply Code", 
                                      style: getTextStyle(
@@ -168,7 +168,9 @@ class ApplyCodePaymentScreen extends StatelessWidget {
                   ),
               ), 
              
-              CustomButton(text: "Next", onPressed: (){})
+              CustomButton(text: "Next", onPressed: (){
+                controller.makePayment(controller.selectedPrice.toDouble()); 
+              })
             ],
           )
           ,

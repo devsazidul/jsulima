@@ -4,12 +4,11 @@ import 'package:jsulima/features/game_details/widget/field_widget.dart';
 import 'package:jsulima/features/game_details/widget/lineup_button.dart';
 import 'package:jsulima/features/game_details/widget/mlb_players_widget.dart';
 import 'package:jsulima/features/game_details/widget/player_list.dart';
-
-import 'package:jsulima/features/home/controller/home_controller.dart';
+import 'package:jsulima/features/games/controller/game_controller.dart';
 
 class TuneupScreen extends StatelessWidget {
-  TuneupScreen({super.key}) {}
-  final HomeController controller = Get.put(HomeController());
+  TuneupScreen({super.key});
+  final GameController gameController = Get.put(GameController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class TuneupScreen extends StatelessWidget {
         children: [
           Obx(
             () =>
-                controller.selectedLeague.value == "NFL"
+                gameController.selectedButton.value == 0
                     ? FieldWidget()
                     : MlbPlayersWidget(),
           ),

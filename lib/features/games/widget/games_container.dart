@@ -133,31 +133,33 @@ class GamesContainer extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                height: 50.0,
-                width: 308.0,
-                decoration: BoxDecoration(
-                  color: Color(0xFF393939),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Search ...",
-                    hintStyle: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xFFABB7C2),
-                    ),
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 11.5,
+              Expanded(
+                child: Container(
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF393939),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Search ...",
+                      hintStyle: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFFABB7C2),
+                      ),
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 11.5,
+                      ),
                     ),
                   ),
                 ),
               ),
+              SizedBox(width: 14,),
               Container(
                 height: 50,
                 width: 48,

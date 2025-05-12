@@ -13,20 +13,22 @@ class PlayerList extends StatelessWidget {
           child: ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.transparent,
-              child:
-                  index < 2
-                      ? Image.asset('assets/icons/userprofile.png')
-                      : null,
+              child: Image.asset(
+                'assets/icons/userprofile.png',
+                errorBuilder: (context, error, stackTrace) {
+                  return Icon(Icons.person, color: Colors.grey);
+                },
+              ),
             ),
             title: Text(
-              'Item \$index',
+              'Item $index',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
             ),
             subtitle: Text(
-              'Subtitle \$index',
+              'Subtitle $index',
               style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w400),
             ),
             trailing: CircleAvatar(

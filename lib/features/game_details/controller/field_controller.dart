@@ -15,6 +15,8 @@ class PlayerModel {
     required this.color,
     required Offset initialPosition,
   }) : position = initialPosition.obs;
+
+  get id => null;
 }
 
 class FieldController extends GetxController {

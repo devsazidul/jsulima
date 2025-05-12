@@ -3,9 +3,8 @@ import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/game_details/widget/teams_widget.dart';
 
 class StateTabContainer extends StatelessWidget {
-  final int team1Win;
-  final int team2Win;
-  final int draw;
+  final int team1Win, team2Win, draw;
+
   StateTabContainer({
     super.key,
     required this.team1Win,
@@ -72,10 +71,9 @@ class StateTabContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int totalWins = team1Win + team2Win;
-
-    double team1Percentage = totalWins > 0 ? (team1Win / totalWins) * 100 : 0.0;
-    double team2Percentage = totalWins > 0 ? (team2Win / totalWins) * 100 : 0.0;
+    final totalWins = team1Win + team2Win;
+    final team1Percentage = totalWins > 0 ? (team1Win / totalWins) * 100 : 0.0;
+    final team2Percentage = totalWins > 0 ? (team2Win / totalWins) * 100 : 0.0;
 
     return SingleChildScrollView(
       child: Column(
@@ -109,9 +107,7 @@ class StateTabContainer extends StatelessWidget {
                   color: Color(0xFFEBEBEB),
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
-                  height: 1.5,
                 ),
-                textAlign: TextAlign.center,
               ),
               Spacer(),
               Text(
@@ -120,9 +116,7 @@ class StateTabContainer extends StatelessWidget {
                   color: Color(0xFFEBEBEB),
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
-                  height: 1.5,
                 ),
-                textAlign: TextAlign.center,
               ),
               Spacer(),
               Text(
@@ -131,9 +125,7 @@ class StateTabContainer extends StatelessWidget {
                   color: Color(0xFFEBEBEB),
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
-                  height: 1.5,
                 ),
-                textAlign: TextAlign.center,
               ),
             ],
           ),
@@ -145,9 +137,7 @@ class StateTabContainer extends StatelessWidget {
                   color: Color(0xFFABABAB),
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
-                  height: 1.5,
                 ),
-                textAlign: TextAlign.center,
               ),
               Spacer(),
               Text(
@@ -156,9 +146,7 @@ class StateTabContainer extends StatelessWidget {
                   color: Color(0xFFABABAB),
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
-                  height: 1.5,
                 ),
-                textAlign: TextAlign.center,
               ),
               Spacer(),
               Text(
@@ -167,9 +155,7 @@ class StateTabContainer extends StatelessWidget {
                   color: Color(0xFFABABAB),
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
-                  height: 1.5,
                 ),
-                textAlign: TextAlign.center,
               ),
             ],
           ),

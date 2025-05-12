@@ -28,12 +28,7 @@ class FieldController extends GetxController {
     super.onReady();
     _initializePlayers();
   }
-
   void _initializePlayers() {
-    const double fieldWidth = 350;
-    const double fieldHeight = 560;
-
-    // 4-3-3 formation for red players (Team 1, left half)
     final List<PlayerModel> redPlayers = [
       PlayerModel(
         name: 'Ryan',
@@ -113,8 +108,6 @@ class FieldController extends GetxController {
         initialPosition: const Offset(110, 350),
       ),
     ];
-
-    // 4-3-3 formation for black players (Team 2, right half)
     final List<PlayerModel> blackPlayers = [
       PlayerModel(
         name: 'Evans',
@@ -198,14 +191,11 @@ class FieldController extends GetxController {
     players.value = [
       ...redPlayers,
       ...blackPlayers,
-    ]; // Include both red and black players
-
-    // Initialize positions map
+    ];
     for (var player in players) {
       positions[player.number] = player.position.value;
     }
   }
-
   void movePlayer(PlayerModel player, Offset newPosition) {
     player.position.value = newPosition;
     positions[player.number] = newPosition;

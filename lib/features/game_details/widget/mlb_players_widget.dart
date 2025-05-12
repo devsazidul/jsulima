@@ -43,15 +43,14 @@ class PlayerWidget extends StatelessWidget {
   final Function(Offset) onPositionChanged;
 
   const PlayerWidget({
-    Key? key,
+    super.key,
     required this.player,
     required this.onPositionChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<MlbPlayerController>();
-    final screenBounds = controller.getScreenBounds();
+    Get.find<MlbPlayerController>();
     final maxWidth = 600;
     final maxHeight = 200;
 

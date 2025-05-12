@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
-import 'package:jsulima/features/game_details/widget/game_details_widget.dart';
+import 'package:jsulima/features/game_details/widget/details/game_details_container.dart';
 
 class GameDetailsScreen extends StatelessWidget {
   const GameDetailsScreen({super.key});

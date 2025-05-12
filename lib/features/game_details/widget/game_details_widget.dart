@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/game_details/controller/game_details_controller.dart';
+import 'package:jsulima/features/game_details/widget/game_details_top_container.dart';
 import 'package:jsulima/features/game_details/widget/player_tab_container.dart';
 import 'package:jsulima/features/game_details/widget/prediction_tab_widget.dart';
 import 'package:jsulima/features/game_details/widget/tuneup_screen.dart';
 import 'package:jsulima/features/game_details/widget/state_tab_container.dart';
+import 'package:jsulima/features/games/controller/game_controller.dart';
 
 class GameDetailsContainer extends StatelessWidget {
   final double team1Percentage;
@@ -21,170 +23,31 @@ class GameDetailsContainer extends StatelessWidget {
     final GameDetailsController gameDetailsController = Get.put(
       GameDetailsController(),
     );
+    final GameController gameController = Get.put(GameController());
     return SingleChildScrollView(
       child: Column(
         children: [
-          Stack(
-            children: [
-              Image.asset(
-                height: 330,
-                width: 402,
-                "assets/images/playground.png",
-                fit: BoxFit.cover,
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: 115,
-                  left: 28,
-                  right: 28,
-                  bottom: 20,
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset(
-                          ImagePath.atlantaFalcon,
-                          height: 76,
-                          width: 80,
-                        ),
-                        Spacer(),
-                        Text(
-                          'VS',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 32,
-                            height: 1.2,
-                            color: Color(0xFFFFFFFF),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        Spacer(),
-                        Image.asset(
-                          ImagePath.carolinaPanther,
-                          height: 76,
-                          width: 80,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Text(
-                          'Atlanta\nFalcon',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            height: 1.2,
-                            color: Color(0xFFFFFFFF),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        Spacer(),
-
-                        Text(
-                          "14 Feb\n3:00 PM",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            height: 1.4,
-                            color: Color(0xFFFFFFFF),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        Spacer(),
-                        SizedBox(height: 8),
-                        Text(
-                          'Carolina\nPanther',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            height: 1.2,
-                            color: Color(0xFFFFFFFF),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Atlanta Falcon",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              "${team1Percentage.toStringAsFixed(0)}%",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14,
-                                height: 1.5,
-                                letterSpacing: 0,
-                                color: Color(0xFFC60C30),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(width: 4),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              'Carolina Panther',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              "${team2Percentage.toStringAsFixed(0)}%",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14,
-                                height: 1.5,
-                                letterSpacing: 0,
-                                color: Color(0xFF216AFD),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: (team1Percentage).toInt(),
-                          child: Container(
-                            height: 5,
-                            decoration: BoxDecoration(color: Color(0xFFC60C30)),
-                          ),
-                        ),
-                        SizedBox(width: 3),
-                        Expanded(
-                          flex: (team2Percentage).toInt(),
-                          child: Container(
-                            height: 5,
-                            decoration: BoxDecoration(color: Color(0xFF216AFD)),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          Obx(() {
+            if (gameController.selectedButton.value == 0) {
+              return GameDetailsTopContainer(
+                team1Image: ImagePath.atlantaFalcon,
+                team2Image: ImagePath.carolinaPanther,
+                team1Name: 'Atlanta\nFalcon',
+                team2Name: 'Carolina\nPanther',
+                team1Per: 40,
+                team2Per: 60,
+              );
+            } else {
+              return GameDetailsTopContainer(
+                team1Image: ImagePath.newYorkYankees,
+                team2Image: ImagePath.bostonRedSox,
+                team1Name: 'New York\nYankees',
+                team2Name: 'Boston Red\nSox',
+                team1Per: 55,
+                team2Per: 45,
+              );
+            }
+          }),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(

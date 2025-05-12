@@ -18,5 +18,7 @@ class ImagePath {
   static const String atlantaFalcon = 'assets/icons/falcon.png';
   static const String carolinaPanther = 'assets/icons/panther.png';
   static const String promo = 'assets/images/promo.png';
+  static const String newYorkYankees = 'assets/images/newYorkYankees.png';
+  static const String bostonRedSox = 'assets/images/bostonRedSox.png';
 }
 

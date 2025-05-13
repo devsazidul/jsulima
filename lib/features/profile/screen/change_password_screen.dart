@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jsulima/core/utils/constants/colors.dart';
+import 'package:jsulima/core/common/widgets/custom_button.dart';
+
 import 'package:jsulima/features/profile/controller/change_password_controller.dart';
 import 'package:jsulima/features/profile/widgest/password_field_widget.dart';
 
@@ -75,24 +76,28 @@ class ChangePasswordScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryColor,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: const RoundedRectangleBorder(),
-                      ),
-                      onPressed: controller.saveChanges,
-                      child: const Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: Text(
-                          "Save Changes",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: ElevatedButton(
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: AppColors.primaryColor,
+                  //       padding: const EdgeInsets.symmetric(vertical: 14),
+                  //       shape: const RoundedRectangleBorder(),
+                  //     ),
+                  //     onPressed: controller.saveChanges,
+                  //     child: const Padding(
+                  //       padding: EdgeInsets.all(5.0),
+                  //       child: Text(
+                  //         "Save Changes",
+                  //         style: TextStyle(color: Colors.white),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+
+                  CustomButton(
+                    vertical: 20,
+                    text: "Save Changes", onPressed: (){})
                 ],
               ),
             ),

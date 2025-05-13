@@ -7,11 +7,13 @@ class CustomButton extends StatelessWidget {
   final String text; 
   final VoidCallback onPressed;
   final Color? color;
+  final double? vertical; 
   final Color? textColor;
   const CustomButton({
     super.key,
     required this.text,
     required this.onPressed,
+    this.vertical = 16, 
     this.color = AppColors.primaryColor,
     this.textColor = Colors.white,
 
@@ -33,8 +35,8 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 16, 
+          padding:  EdgeInsets.symmetric(
+            vertical: vertical!, 
           ),
           child: Center(
             child: Text(

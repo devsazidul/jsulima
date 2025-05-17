@@ -86,10 +86,15 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-                ProfileTileWidget(
-                  title: "Log Out",
-                  icon: Icons.power_settings_new,
-                  isLogout: true,
+                InkWell(
+                  onTap: () {
+                    controller.logout(); 
+                  },
+                  child: ProfileTileWidget(
+                    title: "Log Out",
+                    icon: Icons.power_settings_new,
+                    isLogout: true,
+                  ),
                 ),
                 SizedBox(height: 20),
               ],

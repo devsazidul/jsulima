@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
+import 'package:jsulima/core/services/shared_preferences_helper.dart';
 import 'package:jsulima/core/services/stripe_services.dart';
 import 'package:jsulima/core/utils/constants/icon_path.dart';
+import 'package:jsulima/features/welcome_screen/screen/welcome_screen.dart';
 
 class PaymentController extends GetxController {
   var selectedPrice = 0.0.obs; 
@@ -52,5 +54,10 @@ class PaymentController extends GetxController {
   void discountPayment(double amount, double discount) {
     var discountedAmount = amount - (amount * (discount / 100));
     StripeService.makePayment(discountedAmount, "usd"); 
+  }
+
+  void getBacktoLogin(){
+    SharedPreferencesHelper.clearAllData();
+    Get.offAll(() => WelcomeScreen());
   }
 }

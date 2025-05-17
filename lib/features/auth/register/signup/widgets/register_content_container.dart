@@ -10,7 +10,6 @@ import 'package:jsulima/core/common/widgets/custom_textfield.dart'
     show CustomTextField;
 import 'package:jsulima/core/utils/constants/colors.dart' show AppColors;
 import 'package:jsulima/features/auth/login/screen/login_screen.dart';
-import 'package:jsulima/features/auth/register/profile_setup/screens/upload_image_screen.dart';
 import 'package:jsulima/features/auth/register/signup/controller/register_controller.dart';
 
 class RegisterContentContainer extends StatelessWidget {
@@ -150,7 +149,7 @@ class RegisterContentContainer extends StatelessWidget {
 
             SizedBox(height: 24),
             CustomButton(text: "Register", onPressed: () {
-              Get.offAll(() => UploadImageScreen());
+              controller.register(); 
             }),
           ],
         ),

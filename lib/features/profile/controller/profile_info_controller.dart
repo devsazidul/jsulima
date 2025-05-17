@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:jsulima/core/services/shared_preferences_helper.dart' show SharedPreferencesHelper;
+import 'package:jsulima/features/welcome_screen/screen/welcome_screen.dart';
 
 class ProfileInfoController extends GetxController {
   final userNameStatic = 'henry88';
@@ -35,5 +37,11 @@ class ProfileInfoController extends GetxController {
         break;
     }
     stopEditing();
+  }
+
+
+  void logout() {
+    SharedPreferencesHelper.clearAllData();
+    Get.offAll(() => WelcomeScreen()); 
   }
 }

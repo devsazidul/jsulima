@@ -11,7 +11,6 @@ import 'package:jsulima/core/utils/constants/colors.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/auth/login/controller/login_screen_controller.dart';
 import 'package:jsulima/features/auth/register/signup/screen/register_screen.dart';
-import 'package:jsulima/features/bottom_navbar/screen/bottom_navbar_screen.dart';
 import 'package:jsulima/features/welcome_screen/widget/signinmethod.dart';
 
 class ContentContainer extends StatelessWidget {
@@ -152,7 +151,7 @@ class ContentContainer extends StatelessWidget {
             ),
             SizedBox(height: 14),
             CustomButton(text: "Log In", onPressed: () {
-              Get.offAll(() => BottomNavbarScreen()); 
+              controller.login(); 
             }),
             SizedBox(height: 16),
             Row(

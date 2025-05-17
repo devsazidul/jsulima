@@ -146,6 +146,37 @@ class RegisterContentContainer extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 16),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Confirm Password",
+                style: getTextStyle(
+                  color: AppColors.greyColor,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            Obx(
+              () => CustomTextField(
+                controller: controller.confirmPasswordController,
+                hintText: "********",
+                isObscure: controller.isConfirmPasswordVisible.value,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    controller.toggleConfirmPasswordVisibility();
+                  },
+                  icon: Icon(
+                    controller.isConfirmPasswordVisible.value
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    color: AppColors.greyColor,
+                  ),
+                ),
+              ),
+            ),
 
             SizedBox(height: 24),
             CustomButton(text: "Register", onPressed: () {

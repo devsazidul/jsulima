@@ -8,6 +8,7 @@ import 'package:jsulima/core/common/widgets/custom_button.dart';
 import 'package:jsulima/core/utils/constants/colors.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart' show ImagePath;
 import 'package:jsulima/features/auth/register/profile_setup/controller/profile_setup_controller.dart';
+import 'package:jsulima/features/auth/register/profile_setup/screens/select_preferred_game.dart' show SelectPreferredGame;
 
 class UploadImageScreen extends StatelessWidget {
    UploadImageScreen({super.key});
@@ -74,7 +75,7 @@ class UploadImageScreen extends StatelessWidget {
                 textColor: AppColors.primaryColor,
                 text: "Skip", 
                 onPressed: (){
-
+                  Get.to(() => SelectPreferredGame()); 
                 })
             ],
           ),

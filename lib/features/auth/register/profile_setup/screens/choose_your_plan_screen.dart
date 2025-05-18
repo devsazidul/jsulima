@@ -41,8 +41,9 @@ class ChooseYourPlanScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+                SizedBox(height: 20),
                 PaymentPlans(),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 Text.rich(
                   TextSpan(
                     children: [

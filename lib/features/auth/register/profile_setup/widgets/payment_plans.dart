@@ -6,7 +6,8 @@ import 'package:jsulima/core/common/widgets/custom_button.dart';
 import 'package:jsulima/core/utils/constants/icon_path.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/auth/register/profile_setup/controller/payment_controller.dart';
-import 'package:jsulima/features/auth/register/profile_setup/screens/apply_code_payment_screen.dart' show ApplyCodePaymentScreen;
+import 'package:jsulima/features/auth/register/profile_setup/screens/apply_code_payment_screen.dart'
+    show ApplyCodePaymentScreen;
 
 class PaymentPlans extends StatelessWidget {
   PaymentPlans({super.key});
@@ -17,10 +18,9 @@ class PaymentPlans extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.8,
-      child: Obx(
-        () { 
-          return ListView.builder(
-          padding: EdgeInsets.zero,  
+      child: Obx(() {
+        return ListView.builder(
+          padding: EdgeInsets.zero,
           shrinkWrap: true,
           itemCount: controller.plans.length,
           itemBuilder: (context, index) {
@@ -90,32 +90,29 @@ class PaymentPlans extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 20),
-                      CustomButton(text: "Get Started", onPressed: (){
-                        
-                        Get.to(ApplyCodePaymentScreen()); 
-                        controller.selectedPrice.value = (subscription.price as num).toDouble();
-        
-                      }),
-        
-                      SizedBox(
-                        height: 20,
-                      ), 
-                      Divider(
-                        color:  Colors.white.withValues(alpha: 0.16),
-                      ), 
-                      SizedBox(
-                        height: 20,
-                      ), 
-                      Text("You will get", 
-                       style: getTextStyle(
-                        color: Colors.white, 
-                        fontSize: 18, 
-                        fontWeight: FontWeight.w500
-                       ),
-                      ), 
-                      SizedBox(
-                        height: 20,
-                      ), 
+                      CustomButton(
+                        text: "Get Started",
+                        onPressed: () {
+                          Get.to(ApplyCodePaymentScreen());
+                          controller.selectedPrice.value =
+                              (subscription.price as num).toDouble();
+                          controller.selectedPlanId.value =
+                              subscription.id.toString();
+                        },
+                      ),
+
+                      SizedBox(height: 20),
+                      Divider(color: Colors.white.withValues(alpha: 0.16)),
+                      SizedBox(height: 20),
+                      Text(
+                        "You will get",
+                        style: getTextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: 20),
                       ...List.generate(
                         (subscription.features as List).length,
                         (i) => Padding(
@@ -132,7 +129,7 @@ class PaymentPlans extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   "${subscription.features?[i]}",
-                                  
+
                                   style: GoogleFonts.poppins(
                                     color: Colors.white.withValues(alpha: 0.8),
                                     fontSize: 16,
@@ -151,7 +148,7 @@ class PaymentPlans extends StatelessWidget {
             );
           },
         );
-         } ),
+      }),
     );
   }
 }

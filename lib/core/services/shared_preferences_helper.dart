@@ -9,6 +9,8 @@ class SharedPreferencesHelper {
   static const String _isWelcomeDialogShownKey =
       'isDriverVerificationDialogShown';
 
+  static const String _selectedGameKey = 'selected_game';
+
   // Save categories (id and name only)
   static Future<void> saveCategories(
     List<Map<String, String>> categories,
@@ -29,27 +31,36 @@ class SharedPreferencesHelper {
   }
 
   // Save access token
-  static Future<void> saveTokenAndRole(String token, String role) async {
+  static Future<void> saveTokenAndRole(
+    String token,
+    String role,
+    var userId,
+  ) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(_accessTokenKey, token);
     await prefs.setString(_selectedRoleKey, role);
+    await prefs.setString('userId', userId.toString());
     await prefs.setBool('isLogin', true);
   }
 
-  // Save isSubscribed 
+  // Save isSubscribed
   static Future<void> isSubscribed(dynamic isSubscribed) async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  if (isSubscribed != null) {
-    await prefs.setString('isSubscribed', isSubscribed.toString());
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (isSubscribed != null) {
+      await prefs.setString('isSubscribed', isSubscribed.toString());
+    }
   }
-}
-
-
 
   // Retrieve access token
   static Future<String?> getAccessToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(_accessTokenKey);
+  }
+
+  // Retrieve userId
+  static Future<String?> getUserId() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('userId');
   }
 
   // Get Subscription status
@@ -90,18 +101,30 @@ class SharedPreferencesHelper {
   }
 
   // Key for showOnboard
-static const String _showOnboardKey = 'showOnboard';
+  static const String _showOnboardKey = 'showOnboard';
 
-// Save the showOnboard flag
-static Future<void> setShowOnboard(bool value) async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setBool(_showOnboardKey, value);
-}
+  // Save the showOnboard flag
+  static Future<void> setShowOnboard(bool value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_showOnboardKey, value);
+  }
 
-// Retrieve the showOnboard flag
-static Future<bool> getShowOnboard() async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getBool(_showOnboardKey) ?? false; // Default to false if not set
-}
+  // Retrieve the showOnboard flag
+  static Future<bool> getShowOnboard() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_showOnboardKey) ??
+        false; // Default to false if not set
+  }
 
+  // Save selected game
+  static Future<void> saveSelectedGame(String game) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_selectedGameKey, game);
+  }
+
+  // Get selected game
+  static Future<String?> getSelectedGame() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_selectedGameKey);
+  }
 }

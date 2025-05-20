@@ -1,71 +1,74 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:jsulima/core/services/end_points.dart' show Urls;
 import 'package:jsulima/core/services/shared_preferences_helper.dart';
 import 'package:jsulima/core/services/stripe_services.dart';
 import 'package:jsulima/core/utils/constants/icon_path.dart';
-import 'package:jsulima/features/auth/register/profile_setup/model/plan_model.dart' show PlanModel;
+import 'package:jsulima/features/auth/register/profile_setup/model/plan_model.dart'
+    show PlanModel;
+import 'package:jsulima/features/bottom_navbar/screen/bottom_navbar_screen.dart';
 import 'package:jsulima/features/welcome_screen/screen/welcome_screen.dart';
 
 class PaymentController extends GetxController {
-  var selectedPrice = 0.0.obs; 
+  var selectedPrice = 0.0.obs;
+  RxString selectedPlanId = ''.obs;
+
   final List<Map<String, dynamic>> subscriptionList = [
     {
       "name": "Premium Plan",
-      "description": "Users who want complete access to all match predictions, performance data, and a premium experience.", 
+      "description":
+          "Users who want complete access to all match predictions, performance data, and a premium experience.",
       "price": 99,
       "limit": "per month",
-      "icon": IconPath.perMonthPlan, 
+      "icon": IconPath.perMonthPlan,
       "included": [
         "Unlimited AI Predictions for all upcoming matches",
         "Detailed Prediction Accuracy Stats",
-        "Advanced Player Performance Predictions", 
+        "Advanced Player Performance Predictions",
         "Access to Historical Data",
         "Progress Tracking",
-        "Exclusive Match Insights and team/player analytics"
+        "Exclusive Match Insights and team/player analytics",
       ],
     },
     {
       "name": "Premium Plan",
-      "description": "Users who want complete access to all match predictions, performance data, and a premium experience.", 
+      "description":
+          "Users who want complete access to all match predictions, performance data, and a premium experience.",
       "price": 999,
       "limit": "per year",
-      "icon": IconPath.perYearPlan, 
+      "icon": IconPath.perYearPlan,
       "included": [
         "Unlimited AI Predictions for all upcoming matches",
         "Detailed Prediction Accuracy Stats",
-        "Advanced Player Performance Predictions", 
-        "Access to Historical Data", 
-        "Generate Custom Mock Interview", 
-        "Exclusive Match Insights and team/player analytics", 
+        "Advanced Player Performance Predictions",
+        "Access to Historical Data",
+        "Generate Custom Mock Interview",
+        "Exclusive Match Insights and team/player analytics",
       ],
     },
   ];
 
   List<Map<String, dynamic>> prompList = [
-     {
-      "name" : "Flat \$25 off", 
-      "code" : "Prediction25", 
-      "discount" : 25,
-     }
-  ]; 
+    {"name": "Flat \$25 off", "code": "Prediction25", "discount": 25},
+  ];
 
   void makePayment(double amount) {
-      StripeService.makePayment(amount, "usd"); 
+    StripeService.makePayment(amount, "usd");
   }
 
   void discountPayment(double amount, double discount) {
     var discountedAmount = amount - (amount * (discount / 100));
-    StripeService.makePayment(discountedAmount, "usd"); 
+    StripeService.makePayment(discountedAmount, "usd");
   }
 
-  void getBacktoLogin(){
+  void getBacktoLogin() {
     SharedPreferencesHelper.clearAllData();
     Get.offAll(() => WelcomeScreen());
   }
-
 
   @override
   void onInit() {
@@ -78,6 +81,8 @@ class PaymentController extends GetxController {
 
   Future<void> fetchPlans() async {
     try {
+      EasyLoading.show(status: "Loading...");
+
       isLoading.value = true;
       final response = await http.get(Uri.parse('${Urls.baseUrl}/plans'));
 
@@ -87,12 +92,52 @@ class PaymentController extends GetxController {
         final List<dynamic> data = json.decode(response.body);
         plans.value = data.map((e) => PlanModel.fromJson(e)).toList();
       } else {
+        EasyLoading.showError("Something went wrong");
         print("Failed to fetch plans. Status code: ${response.statusCode}");
       }
     } catch (e) {
-      print("The error is $e"); 
+      EasyLoading.showError("Something went wrong");
+      print("The error is $e");
     } finally {
       isLoading.value = false;
+      EasyLoading.dismiss();
+    }
+  }
+
+  // Function to handle payment checkout
+  Future<void> paymentCheckout(String userId, String planId, int amount) async {
+    try {
+      final response = await http.post(
+        Uri.parse('${Urls.paymentCheckout}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization':
+              'Bearer ${await SharedPreferencesHelper.getAccessToken()}',
+        },
+        body: jsonEncode({
+          'userId': userId,
+          'planId': planId,
+          'amount': amount,
+        }),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = json.decode(response.body);
+
+        Get.offAll(BottomNavbarScreen());
+
+        if (kDebugMode) {
+          print("Payment checkout successful: $data");
+        }
+      } else {
+        if (kDebugMode) {
+          print("Payment checkout failed. Status code: ${response.statusCode}");
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error during payment checkout: $e");
+      }
     }
   }
 }

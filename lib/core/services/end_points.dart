@@ -18,4 +18,5 @@ class Urls {
   static const String authorizePayment = '$baseUrl/payment/authorize-payment';
   static const String capturePayment = '$baseUrl/payment/capture-payment';
   static const String notifications = '$baseUrl/notifications';
+  static const String paymentCheckout = '$baseUrl/payment/checkout';
 }

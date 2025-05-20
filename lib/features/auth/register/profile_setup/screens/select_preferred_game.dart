@@ -68,21 +68,20 @@ class SelectPreferredGame extends StatelessWidget {
                   }),
                 ],
               ),
-              SizedBox(
-                height: 60,
-              ), 
-              CustomButton(text: "Continue", onPressed: (){
-                Get.to(() => ChooseYourPlanScreen()); 
-              },), 
-              SizedBox(
-                height: 16,
-              ), 
+              SizedBox(height: 60),
+              CustomButton(
+                text: "Continue",
+                onPressed: () {
+                  Get.to(() => ChooseYourPlanScreen());
+                },
+              ),
+              SizedBox(height: 16),
               CustomButton(
                 color: Colors.transparent,
                 textColor: AppColors.primaryColor,
-                text: "Skip", 
-                onPressed: (){},
-              )
+                text: "Skip",
+                onPressed: () {},
+              ),
             ],
           ),
         ),

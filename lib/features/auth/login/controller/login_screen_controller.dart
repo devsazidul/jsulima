@@ -48,8 +48,13 @@ class LoginScreenController extends GetxController {
         var accessToken = body['access_token'];
         var role = body['user']['role'];
         var isSubscribed = body['user']['isSubscribed'];
+        var userId = body['user']['id'];
 
-        await SharedPreferencesHelper.saveTokenAndRole(accessToken, role);
+        await SharedPreferencesHelper.saveTokenAndRole(
+          accessToken,
+          role,
+          userId,
+        );
         await SharedPreferencesHelper.isSubscribed(isSubscribed);
 
         if (isSubscribed == null) {

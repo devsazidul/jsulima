@@ -89,13 +89,7 @@ class HomeScreen extends StatelessWidget {
                         team1LogoPath: 'assets/icons/falcon.png',
                         team2Name: 'Carolina\nPanther',
                         team2LogoPath: 'assets/icons/panther.png',
-                        matchDateTime: DateTime(
-                          2025,
-                          2,
-                          14,
-                          15,
-                          0,
-                        ), // February 14, 2025, 3:00 PM
+                        matchDateTime: DateTime(2025, 2, 14, 15, 0),
                       )
                       : MatchCard(
                         team1Name: 'New York\nYankees',

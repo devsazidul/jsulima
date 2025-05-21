@@ -141,6 +141,8 @@ class ApplyCodePaymentScreen extends StatelessWidget {
                                       controller.discountPayment(
                                         controller.selectedPrice.toDouble(),
                                         (promo['discount'] as num).toDouble(),
+                                        context,
+                                        controller.selectedPlanId.value,
                                       );
                                     },
                                     child: Text(

@@ -1,7 +1,7 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jsulima/core/services/end_points.dart';
 import 'package:jsulima/features/bottom_navbar/screen/bottom_navbar_screen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -17,6 +17,7 @@ class PaymentWebViewScreen extends StatefulWidget {
 class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
   late final WebViewController _controller;
   bool _isLoading = true;
+  String baseUrl = Urls.baseUrl;
 
   @override
   void initState() {
@@ -48,8 +49,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
                   print("Page finished loading: $url");
                 }
                 // Only navigate if the URL indicates payment completion
-                // Example: Check for a specific redirect URL
-                if (url.contains("success") ||
+                if (url.contains("$baseUrl/success") ||
                     url.contains("http://localhost:3000/success")) {
                   Get.off(() => BottomNavbarScreen());
                 }

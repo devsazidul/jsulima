@@ -12,7 +12,6 @@ import 'package:jsulima/core/utils/constants/icon_path.dart';
 import 'package:jsulima/features/auth/register/profile_setup/model/plan_model.dart'
     show PlanModel;
 import 'package:jsulima/features/auth/register/profile_setup/screens/webview_payment.dart';
-import 'package:jsulima/features/bottom_navbar/screen/bottom_navbar_screen.dart';
 import 'package:jsulima/features/welcome_screen/screen/welcome_screen.dart';
 
 class PaymentController extends GetxController {
@@ -66,9 +65,15 @@ class PaymentController extends GetxController {
     paymentCheckout(context, planId, amount.toInt());
   }
 
-  void discountPayment(double amount, double discount) {
+  void discountPayment(
+    double amount,
+    double discount,
+    BuildContext context,
+    String planId,
+  ) {
     var discountedAmount = amount - (amount * (discount / 100));
-    StripeService.makePayment(discountedAmount, "usd");
+    // StripeService.makePayment(discountedAmount, "usd");
+    paymentCheckout(context, planId, discountedAmount.toInt());
   }
 
   void getBacktoLogin() {

@@ -1,18 +1,39 @@
 import 'package:get/get.dart';
-import 'package:jsulima/core/services/shared_preferences_helper.dart' show SharedPreferencesHelper;
+import 'package:jsulima/core/services/profile_services.dart';
+import 'package:jsulima/core/services/shared_preferences_helper.dart'
+    show SharedPreferencesHelper;
 import 'package:jsulima/features/welcome_screen/screen/welcome_screen.dart';
 
 class ProfileInfoController extends GetxController {
-  final userNameStatic = 'henry88';
-  final fullName = 'Courtney Henry';
+  final ProfileServices profileServices = ProfileServices();
 
-  var name = 'Courtney Henry'.obs;
-  var username = 'henry88'.obs;
-  var email = 'abcdefg@gmail.com'.obs;
-  var phoneNumber = '12345678900'.obs;
-  var country = 'USA'.obs;
-
+  var image = ''.obs;
+  var name = ''.obs;
+  var username = ''.obs;
+  var email = ''.obs;
+  var phoneNumber = ''.obs;
+  var country = ''.obs;
   var isEditing = ''.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchProfile();
+  }
+
+  // Fetch profile data
+  Future<void> fetchProfile() async {
+    try {
+      final profile = await profileServices.getProfile();
+      name.value = profile.name ?? '';
+      username.value = profile.userName ?? '';
+      phoneNumber.value = profile.phone ?? '';
+      country.value = profile.country ?? '';
+      image.value = profile.image ?? '';
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to fetch profile data: $e');
+    }
+  }
 
   void startEditing(String field) => isEditing.value = field;
 
@@ -39,9 +60,8 @@ class ProfileInfoController extends GetxController {
     stopEditing();
   }
 
-
   void logout() {
     SharedPreferencesHelper.clearAllData();
-    Get.offAll(() => WelcomeScreen()); 
+    Get.offAll(() => WelcomeScreen());
   }
 }

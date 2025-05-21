@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/core/common/styles/global_text_style.dart';
@@ -34,23 +35,59 @@ class ProfileScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                CircleAvatar(
-                  radius: 50,
-                  backgroundImage: AssetImage(ImagePath.profileImage),
-                ),
+                Obx(() {
+                  return CircleAvatar(
+                    radius: 50,
+                    child: ClipOval(
+                      child:
+                          controller.image.value.isNotEmpty
+                              ? CachedNetworkImage(
+                                imageUrl: controller.image.value,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                                placeholder:
+                                    (context, url) => Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                errorWidget: (context, url, error) {
+                                  debugPrint(
+                                    'Image load error: $error for URL: $url',
+                                  );
+                                  return Image.asset(
+                                    ImagePath.profileImage,
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  );
+                                },
+                              )
+                              : Image.asset(
+                                ImagePath.profileImage,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                    ),
+                  );
+                }),
                 SizedBox(height: 10),
-                Text(
-                  controller.fullName,
-                  style: getTextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
+                Obx(
+                  () => Text(
+                    controller.name.value,
+                    style: getTextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
                 SizedBox(height: 10),
-                Text(
-                  controller.userNameStatic,
-                  style: getTextStyle(color: Colors.grey),
+                Obx(
+                  () => Text(
+                    controller.username.value,
+                    style: getTextStyle(color: Colors.grey),
+                  ),
                 ),
                 SizedBox(height: 30),
                 GestureDetector(
@@ -71,7 +108,7 @@ class ProfileScreen extends StatelessWidget {
 
                 GestureDetector(
                   onTap: () {
-                    Get.to(SubscriptionScreen()); 
+                    Get.to(SubscriptionScreen());
                   },
                   child: ProfileTileWidget(
                     title: "Subscription",
@@ -88,7 +125,7 @@ class ProfileScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 InkWell(
                   onTap: () {
-                    controller.logout(); 
+                    controller.logout();
                   },
                   child: ProfileTileWidget(
                     title: "Log Out",

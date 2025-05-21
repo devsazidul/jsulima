@@ -166,7 +166,11 @@ class ApplyCodePaymentScreen extends StatelessWidget {
               CustomButton(
                 text: "Next",
                 onPressed: () {
-                  controller.makePayment(controller.selectedPrice.toDouble());
+                  controller.makeWebPayment(
+                    controller.selectedPrice.toDouble(),
+                    controller.selectedPlanId.value,
+                    context,
+                  );
                 },
               ),
             ],

@@ -7,6 +7,7 @@ class HomeController extends GetxController {
   var selectedLeague = SharedPreferencesHelper.getSelectedGame().toString().obs;
 
   void selectLeague(String league) {
+    print("Selected league: $league");
     selectedLeague.value = league;
   }
 }

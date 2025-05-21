@@ -34,7 +34,7 @@ class StripeService {
       String? userId = await SharedPreferencesHelper.getUserId();
       String planId = controller.selectedPlanId.value;
 
-      controller.paymentCheckout(userId!, planId, amount.toInt());
+      // controller.paymentCheckout(planId, amount.toInt());
 
       if (kDebugMode) {
         print('\$$amount payment successful');

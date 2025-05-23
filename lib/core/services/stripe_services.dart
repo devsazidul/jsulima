@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:jsulima/core/services/shared_preferences_helper.dart';
-import 'package:jsulima/features/auth/register/profile_setup/controller/payment_controller.dart';
 
 class StripeService {
   static Future<void> init() async {
@@ -14,9 +11,6 @@ class StripeService {
   }
 
   static Future<void> makePayment(double amount, String currency) async {
-    // get controller instance
-    final PaymentController controller = Get.put(PaymentController());
-
     try {
       final int amountInCents = (amount * 100).toInt();
       final paymentIntent = await _createPaymentIntent(amountInCents, currency);
@@ -29,12 +23,6 @@ class StripeService {
       );
 
       await Stripe.instance.presentPaymentSheet();
-
-      // Handle successful payment here
-      String? userId = await SharedPreferencesHelper.getUserId();
-      String planId = controller.selectedPlanId.value;
-
-      controller.paymentCheckout(userId!, planId, amount.toInt());
 
       if (kDebugMode) {
         print('\$$amount payment successful');

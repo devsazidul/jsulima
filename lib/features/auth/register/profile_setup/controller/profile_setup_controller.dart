@@ -37,6 +37,7 @@ class ProfileSetupController extends GetxController {
       selectedGame.value = '';
     } else {
       selectedGame.value = game;
+      // Save the selected game to shared preferences
       SharedPreferencesHelper.saveSelectedGame(game);
     }
   }

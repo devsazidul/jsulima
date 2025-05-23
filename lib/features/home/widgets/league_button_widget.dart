@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/home_controller.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 
 class LeagueButtonWidget extends StatelessWidget {
   final String league;
@@ -18,9 +19,14 @@ class LeagueButtonWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () => controller.selectLeague(league),
       child: Obx(() {
+        if (kDebugMode) {
+          print(
+            "Building LeagueButtonWidget: $league, Selected League: ${controller.selectedLeague.value}",
+          );
+        }
         bool isSelected = controller.selectedLeague.value == league;
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
             color: isSelected ? Colors.white : Colors.transparent,
             border: Border.all(
@@ -37,7 +43,7 @@ class LeagueButtonWidget extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(width: 6),
+              const SizedBox(width: 6),
               Image.asset(iconPath, width: 40, height: 35),
             ],
           ),

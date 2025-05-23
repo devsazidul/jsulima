@@ -9,7 +9,6 @@ import '../controller/home_controller.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final HomeController controller = Get.put(HomeController());
-  // bool isSelected = controller.selectedLeague.value as bool;
 
   @override
   Widget build(BuildContext context) => Scaffold(

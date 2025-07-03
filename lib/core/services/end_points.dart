@@ -1,5 +1,6 @@
 class Urls {
   static const String baseUrl = 'https://jsulima-backend.onrender.com';
+  static const String baseUrlAi = 'https://game-api-ai.onrender.com';
 
   static const String login = '$baseUrl/auth/login';
   static const String authentication = '$baseUrl/auth/verify-auth';
@@ -20,4 +21,6 @@ class Urls {
   static const String notifications = '$baseUrl/notifications';
   static const String paymentCheckout = '$baseUrl/payment/checkout';
   static const String getProfileInfo = '$baseUrl/profile/me';
+
+  static const String getLineupPlayer = '$baseUrlAi/predict/mlb/lineup/lineup/';
 }

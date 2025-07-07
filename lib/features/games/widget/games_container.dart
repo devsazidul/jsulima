@@ -101,10 +101,10 @@ class GamesContainer extends StatelessWidget {
       },
       //Game 4
       {
-        'team1Name': "New York Yankees",
-        'team2Name': "Boston Red Sox",
-        'team1Image': ImagePath.newYorkYankees,
-        'team2Image': ImagePath.bostonRedSox,
+        'team1Name': "Boston Red Sox",
+        'team2Name': "New York Yankees",
+        'team1Image': ImagePath.bostonRedSox,
+        'team2Image': ImagePath.newYorkYankees,
         'matchTime': " 16 Feb\n8:20 PM",
         'predictionText':
             "Tua Tagovailoa is projected to pass for 295 yards, with 3 touchdowns and 1 interception against the Titans.",
@@ -159,7 +159,7 @@ class GamesContainer extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 14,),
+              SizedBox(width: 14),
               Container(
                 height: 50,
                 width: 48,

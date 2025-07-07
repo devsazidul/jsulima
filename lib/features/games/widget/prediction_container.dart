@@ -197,7 +197,15 @@ class PredictionContainer extends StatelessWidget {
           ),
 
           SizedBox(height: 20),
-          CustomButton(team1Name: team1Name, team2Name: team2Name, team1Image: team1Image, team2Image: team2Image, matchTime: matchTime, team1Percentage: team1Percentage, team2Percentage: team2Percentage,),
+          CustomButton(
+            team1Name: team1Name,
+            team2Name: team2Name,
+            team1Image: team1Image,
+            team2Image: team2Image,
+            matchTime: matchTime,
+            team1Percentage: team1Percentage,
+            team2Percentage: team2Percentage,
+          ),
         ],
       ),
     );

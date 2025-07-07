@@ -5,9 +5,10 @@ class GameDetailsTopContainer extends StatelessWidget {
   final String team1Name;
   final String team2Image;
   final String team2Name;
+  final String matchTime;
   final double team1Per;
   final double team2Per;
-  const GameDetailsTopContainer({super.key, required this.team1Image, required this.team2Image, required this.team1Name, required this.team2Name, required this.team1Per, required this.team2Per});
+  const GameDetailsTopContainer({super.key, required this.team1Image, required this.team2Image, required this.team1Name, required this.team2Name, required this.team1Per, required this.team2Per, required this.matchTime});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +73,7 @@ class GameDetailsTopContainer extends StatelessWidget {
                           ),
                           Spacer(),
                           Text(
-                            "14 Feb\n3:00 PM",
+                            matchTime,
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 12,

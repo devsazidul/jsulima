@@ -12,13 +12,18 @@ import 'package:jsulima/features/game_details/widget/tuneup_screen.dart';
 import 'package:jsulima/features/games/controller/game_controller.dart';
 
 class GameDetailsContainer extends StatelessWidget {
+  final String team1Name;
+  final String team2Name;
+  final String team1Image;
+  final String team2Image;
+  final String matchTime;
   final double team1Percentage;
   final double team2Percentage;
 
   const GameDetailsContainer({
     super.key,
     required this.team1Percentage,
-    required this.team2Percentage,
+    required this.team2Percentage, required this.team1Name, required this.team2Name, required this.team1Image, required this.team2Image, required this.matchTime,
   });
 
   @override
@@ -31,7 +36,7 @@ class GameDetailsContainer extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          GameDetailsTopSection(gameController: gameController),
+          GameDetailsTopSection(gameController: gameController,team1Name: team1Name, team2Name: team2Name, team1Image: team1Image, team2Image: team2Image, matchTime: matchTime, team1Percentage: team1Percentage, team2Percentage: team2Percentage,),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(

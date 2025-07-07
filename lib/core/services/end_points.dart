@@ -22,5 +22,5 @@ class Urls {
   static const String paymentCheckout = '$baseUrl/payment/checkout';
   static const String getProfileInfo = '$baseUrl/profile/me';
 
-  static const String getLineupPlayer = '$baseUrlAi/predict/mlb/lineup/lineup/';
+  static const String getLineupPlayer = '$baseUrlAi/predict/mlb/lineup';
 }

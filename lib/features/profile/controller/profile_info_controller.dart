@@ -3,6 +3,7 @@ import 'package:jsulima/core/services/profile_services.dart';
 import 'package:jsulima/core/services/shared_preferences_helper.dart'
     show SharedPreferencesHelper;
 import 'package:jsulima/features/welcome_screen/screen/welcome_screen.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class ProfileInfoController extends GetxController {
   final ProfileServices profileServices = ProfileServices();
@@ -31,7 +32,7 @@ class ProfileInfoController extends GetxController {
       country.value = profile.country ?? '';
       image.value = profile.image ?? '';
     } catch (e) {
-      Get.snackbar('Error', 'Failed to fetch profile data: $e');
+      EasyLoading.showError('Failed to fetch profile data: $e');
     }
   }
 

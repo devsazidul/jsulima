@@ -12,6 +12,7 @@ import 'package:jsulima/core/services/shared_preferences_helper.dart'
     show SharedPreferencesHelper;
 import 'package:jsulima/features/auth/register/profile_setup/screens/select_preferred_game.dart'
     show SelectPreferredGame;
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class ProfileSetupController extends GetxController {
   final RxString selectedImagePath = ''.obs;
@@ -46,11 +47,11 @@ class ProfileSetupController extends GetxController {
     try {
       final String? token = await SharedPreferencesHelper.getAccessToken();
       if (token == null) {
-        Get.snackbar('Error', 'Authentication token not found');
+        EasyLoading.showError('Authentication token not found');
         return;
       }
       if (selectedImagePath.value.isEmpty) {
-        Get.snackbar('Error', 'Please select an image');
+        EasyLoading.showError('Please select an image');
         return;
       }
 
@@ -63,14 +64,14 @@ class ProfileSetupController extends GetxController {
       // Validate file
       final file = File(selectedImagePath.value);
       if (!await file.exists()) {
-        Get.snackbar('Error', 'Selected image file does not exist');
+        EasyLoading.showError('Selected image file does not exist');
         return;
       }
 
       final fileSize = await file.length();
       if (fileSize > 5 * 1024 * 1024) {
         // Limit to 5MB
-        Get.snackbar('Error', 'Image file is too large (max 5MB)');
+        EasyLoading.showError('Image file is too large (max 5MB)');
         return;
       }
 
@@ -82,7 +83,7 @@ class ProfileSetupController extends GetxController {
       } else if (extension == '.jpg' || extension == '.jpeg') {
         mimeType = 'image/jpeg';
       } else {
-        Get.snackbar('Error', 'Unsupported image format: $extension');
+        EasyLoading.showError('Unsupported image format: $extension');
         return;
       }
 
@@ -117,7 +118,7 @@ class ProfileSetupController extends GetxController {
         if (kDebugMode) {
           print('Upload success: $responseBody');
         }
-        Get.snackbar('Success', 'Profile image uploaded successfully');
+        EasyLoading.showSuccess('Profile image uploaded successfully');
         Get.to(() => SelectPreferredGame());
       } else {
         if (kDebugMode) {
@@ -125,18 +126,15 @@ class ProfileSetupController extends GetxController {
             'Upload failed with status ${response.statusCode}: $responseBody',
           );
         }
-        Get.snackbar(
-          'Error',
+        EasyLoading.showError(
           'Failed to upload image: ${response.statusCode} - $responseBody',
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 5),
         );
       }
     } catch (e) {
       if (kDebugMode) {
         print('Upload error: $e');
       }
-      Get.snackbar('Error', 'Upload failed: $e');
+      EasyLoading.showError('Upload failed: $e');
     }
   }
 }

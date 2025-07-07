@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class ChangePasswordController extends GetxController {
   final currentPasswordController = TextEditingController();
@@ -26,19 +27,9 @@ class ChangePasswordController extends GetxController {
 
   void saveChanges() {
     if (newPasswordController.text == confirmPasswordController.text) {
-      Get.snackbar(
-        "Success",
-        "Password changed successfully",
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
+      EasyLoading.showSuccess("Password changed successfully");
     } else {
-      Get.snackbar(
-        "Error",
-        "Passwords do not match",
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
+      EasyLoading.showError("Passwords do not match");
     }
   }
 

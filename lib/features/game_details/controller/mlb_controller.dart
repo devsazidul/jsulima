@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import '../api_service/lineup_service.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class MlbPlayerController extends GetxController {
   final RxString imageBase64 = ''.obs;
@@ -18,7 +19,7 @@ class MlbPlayerController extends GetxController {
       final lineupResponse = await LineupService().getTeamLineup(teamName);
       imageBase64.value = lineupResponse.imageBase64;
     } catch (e) {
-      Get.snackbar('Error', 'Failed to fetch lineup: $e');
+      EasyLoading.showError('Failed to fetch lineup: $e');
     } finally {
       isLoading.value = false;
     }

@@ -28,7 +28,9 @@ class HomeController extends GetxController {
   }
 
   void selectLeague(String league) {
-    print("Selected league: $league");
+    if (kDebugMode) {
+      print("Selected league: $league");
+    }
     selectedLeague.value = league;
   }
 }

@@ -7,7 +7,9 @@ import 'package:jsulima/features/game_details/widget/player_list.dart';
 import 'package:jsulima/features/games/controller/game_controller.dart';
 
 class TuneupScreen extends StatelessWidget {
-  TuneupScreen({super.key});
+  final String team1Name;
+  final String team2Name;
+  TuneupScreen({super.key, required this.team1Name, required this.team2Name});
   final GameController gameController = Get.put(GameController());
 
   @override
@@ -19,7 +21,7 @@ class TuneupScreen extends StatelessWidget {
           Obx(
             () =>
                 gameController.selectedButton.value == 0
-                    ? FieldWidget()
+                    ? FieldWidget(team1Name: team1Name, team2Name: team2Name,)
                     : MlbPlayersWidget(),
           ),
 

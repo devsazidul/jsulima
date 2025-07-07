@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:jsulima/core/models/profile_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:jsulima/core/services/end_points.dart';
@@ -15,7 +15,7 @@ class ProfileServices {
       print("token: $token");
     }
     if (token == '') {
-      Get.snackbar('Error', 'Token is empty');
+      EasyLoading.showError('Token is empty');
       throw Exception('Token is empty');
     }
     try {
@@ -38,14 +38,14 @@ class ProfileServices {
         final data = jsonDecode(response.body);
         return ProfileModel.fromJson(data);
       } else {
-        Get.snackbar('Error', 'Failed to fetch profile data');
+        EasyLoading.showError('Failed to fetch profile data');
         throw Exception('Failed to load profile data');
       }
     } catch (e) {
       if (kDebugMode) {
         print("profile error: $e");
       }
-      Get.snackbar('Error', 'Failed to fetch profile data: $e');
+      EasyLoading.showError('Failed to fetch profile data: $e');
       rethrow;
     }
   }

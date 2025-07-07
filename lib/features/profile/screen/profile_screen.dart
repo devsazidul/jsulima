@@ -9,6 +9,7 @@ import 'package:jsulima/features/profile/screen/change_password_screen.dart';
 import 'package:jsulima/features/profile/screen/personal_info_screen.dart';
 import 'package:jsulima/features/profile/widgest/profile_tile_widget.dart';
 import 'package:jsulima/features/subscription/screen/subscription_screen.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
@@ -48,7 +49,18 @@ class ProfileScreen extends StatelessWidget {
                                 fit: BoxFit.cover,
                                 placeholder:
                                     (context, url) => Center(
-                                      child: CircularProgressIndicator(),
+                                      child: Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: Colors.grey[100]!,
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            shape: BoxShape.circle,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                 errorWidget: (context, url, error) {
                                   debugPrint(

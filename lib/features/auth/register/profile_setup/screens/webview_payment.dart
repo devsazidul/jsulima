@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:jsulima/core/services/end_points.dart';
 import 'package:jsulima/features/bottom_navbar/screen/bottom_navbar_screen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:shimmer/shimmer.dart';
 
 class PaymentWebViewScreen extends StatefulWidget {
   final String paymentUrl;
@@ -59,12 +61,10 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
                   _isLoading = false;
                 });
                 if (kDebugMode) {
-                  print("WebView error: ${error.description}");
+                  print("WebView error: [31m${error.description}");
                 }
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("Failed to load page: ${error.description}"),
-                  ),
+                EasyLoading.showError(
+                  "Failed to load page: ${error.description}",
                 );
               },
             ),
@@ -78,9 +78,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
             if (kDebugMode) {
               print("Error loading URL: $e");
             }
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text("Failed to load URL: $e")));
+            EasyLoading.showError("Failed to load URL: $e");
           });
   }
 
@@ -91,8 +89,25 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
       body: Stack(
         children: [
           WebViewWidget(controller: _controller),
-          if (_isLoading) const Center(child: CircularProgressIndicator()),
+          if (_isLoading) const Center(child: _ShimmerLoadingWidget()),
         ],
+      ),
+    );
+  }
+}
+
+class _ShimmerLoadingWidget extends StatelessWidget {
+  const _ShimmerLoadingWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        width: 60,
+        height: 60,
+        decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
       ),
     );
   }

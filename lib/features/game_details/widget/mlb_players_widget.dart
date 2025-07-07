@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/features/game_details/controller/mlb_controller.dart';
 import 'dart:convert';
+import 'package:shimmer/shimmer.dart';
 
 class MlbPlayersWidget extends StatelessWidget {
   const MlbPlayersWidget({super.key});
@@ -18,7 +19,20 @@ class MlbPlayersWidget extends StatelessWidget {
 
     return Obx(() {
       if (controller.isLoading.value) {
-        return Center(child: CircularProgressIndicator());
+        return Center(
+          child: Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: Container(
+              width: 400,
+              height: 400,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
+          ),
+        );
       }
       if (controller.imageBase64.value.isEmpty) {
         return Center(child: Image.asset('assets/icons/mlb.png'));

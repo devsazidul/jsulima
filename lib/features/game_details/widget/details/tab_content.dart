@@ -1,69 +1,101 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
 import 'package:jsulima/features/game_details/controller/game_details_controller.dart';
-import 'package:jsulima/features/game_details/widget/details/tab_item.dart';
+import 'package:jsulima/features/game_details/widget/player_tab_container.dart';
+import 'package:jsulima/features/game_details/widget/prediction_tab_widget.dart';
+import 'package:jsulima/features/game_details/widget/state_tab_container.dart';
+import 'package:jsulima/features/game_details/widget/tuneup_screen.dart';
 
-class TabNavigation extends StatelessWidget {
-  final GameDetailsController gameDetailsController;
+class TabNavigation extends StatefulWidget {
+  final String team1Name;
+  final String team2Name;
 
-  const TabNavigation({super.key, required this.gameDetailsController});
+  const TabNavigation({
+    super.key,
+    required this.team1Name,
+    required this.team2Name,
+  });
+
+  @override
+  State<TabNavigation> createState() => _TabNavigationState();
+}
+
+class _TabNavigationState extends State<TabNavigation>
+    with TickerProviderStateMixin {
+  final GameDetailsController controller = Get.find<GameDetailsController>();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.initializeTabController(this);
+  }
+
+  @override
+  void dispose() {
+    controller.disposeTabController();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            TabItem(
-              label: 'Prediction',
-              index: 0,
-              onTap: () => gameDetailsController.updateSelectedIndex(0),
-              selectedIndex: gameDetailsController.selectedIndex,
+    return Obx(() {
+      final tabController = controller.tabController.value;
+      if (tabController == null) {
+        return SizedBox.shrink();
+      }
+
+      return Column(
+        children: [
+          TabBar(
+            controller: tabController,
+            onTap: (index) => controller.updateSelectedIndex(index),
+            indicatorColor: Color(0xFFCA0101),
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicator: UnderlineTabIndicator(
+              borderSide: BorderSide(width: 6, color: Color(0xFFCA0101)),
+              insets: EdgeInsets.only(bottom: 0),
             ),
-            SizedBox(width: 47.67),
-            TabItem(
-              label: 'Players',
-              index: 1,
-              onTap: () => gameDetailsController.updateSelectedIndex(1),
-              selectedIndex: gameDetailsController.selectedIndex,
+            labelColor: Color(0xFFCA0101),
+            unselectedLabelColor: Color(0xFFABABAB),
+            labelStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              height: 1.3,
             ),
-            SizedBox(width: 47.67),
-            TabItem(
-              label: 'Line Up',
-              index: 2,
-              onTap: () => gameDetailsController.updateSelectedIndex(2),
-              selectedIndex: gameDetailsController.selectedIndex,
+            unselectedLabelStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              height: 1.3,
             ),
-            SizedBox(width: 47.67),
-            TabItem(
-              label: 'State',
-              index: 3,
-              onTap: () => gameDetailsController.updateSelectedIndex(3),
-              selectedIndex: gameDetailsController.selectedIndex,
-            ),
-          ],
-        ),
-        Obx(() {
-          return Positioned(
-            left:
-                gameDetailsController.selectedIndex.value *
-                (MediaQuery.of(context).size.width / 4),
-            bottom: 0,
-            child: Container(
-              height: 6,
-              width: 79,
-              decoration: BoxDecoration(
-                color: Color(0xFFCA0101),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(8),
-                  bottomRight: Radius.circular(8),
+            tabs: [
+              Tab(text: 'Prediction'),
+              Tab(text: 'Players'),
+              Tab(text: 'Line Up'),
+              Tab(text: 'State'),
+            ],
+          ),
+          SizedBox(height: 24),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.6, // Fixed height
+            child: IndexedStack(
+              index: controller.selectedIndex.value,
+              children: [
+                SingleChildScrollView(child: PredictionContainer()),
+                SingleChildScrollView(child: PlayerTabContainer()),
+                SingleChildScrollView(
+                  child: TuneupScreen(
+                    team1Name: widget.team1Name,
+                    team2Name: widget.team2Name,
+                  ),
                 ),
-              ),
+                SingleChildScrollView(
+                  child: StateTabContainer(team1Win: 3, team2Win: 2, draw: 0),
+                ),
+              ],
             ),
-          );
-        }),
-      ],
-    );
+          ),
+        ],
+      );
+    });
   }
 }

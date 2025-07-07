@@ -10,7 +10,16 @@ class GameDetailsScreen extends StatelessWidget {
   final String matchTime;
   final double team1Percentage;
   final double team2Percentage;
-  const GameDetailsScreen({super.key, required this.team1Name, required this.team2Name, required this.team1Image, required this.team2Image, required this.matchTime, required this.team1Percentage, required this.team2Percentage});
+  const GameDetailsScreen({
+    super.key,
+    required this.team1Name,
+    required this.team2Name,
+    required this.team1Image,
+    required this.team2Image,
+    required this.matchTime,
+    required this.team1Percentage,
+    required this.team2Percentage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +31,15 @@ class GameDetailsScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: GameDetailsContainer(team1Name: team1Name, team2Name: team2Name, team1Image: team1Image, team2Image: team2Image, matchTime: matchTime, team1Percentage: team1Percentage, team2Percentage: team2Percentage,),
+        child: GameDetailsContainer(
+          team1Name: team1Name,
+          team2Name: team2Name,
+          team1Image: team1Image,
+          team2Image: team2Image,
+          matchTime: matchTime,
+          team1Percentage: team1Percentage,
+          team2Percentage: team2Percentage,
+        ),
       ),
     );
   }

@@ -22,12 +22,12 @@ class GameDetailsTopContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 335,
+      height: 380,
       width: double.infinity,
       child: Stack(
         children: [
           Image.asset(
-            height: 330,
+            height: 350,
             width: 402,
             "assets/images/playground.png",
             fit: BoxFit.cover,

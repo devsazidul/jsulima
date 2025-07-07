@@ -52,7 +52,7 @@ class GameDetailsContainer extends StatelessWidget {
                   } else if (gameDetailsController.selectedIndex.value == 1) {
                     return PlayerTabContainer();
                   } else if (gameDetailsController.selectedIndex.value == 2) {
-                    return TuneupScreen();
+                    return TuneupScreen(team1Name: team1Name, team2Name: team2Name,);
                   } else {
                     return StateTabContainer(team1Win: 3, team2Win: 2, draw: 0);
                   }

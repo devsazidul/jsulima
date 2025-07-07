@@ -6,13 +6,16 @@ import 'package:jsulima/features/game_details/controller/field_controller.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FieldWidget extends StatelessWidget {
-  const FieldWidget({super.key});
+  final String team1Name;
+  final String team2Name;
+  const FieldWidget({super.key, required this.team1Name, required this.team2Name});
 
   @override
   Widget build(BuildContext context) {
     final FieldController controller = Get.put(FieldController());
+    controller.fetchLineupAndImage(team1Name, team2Name);
     if (controller.imageBase64.value.isEmpty && !controller.isLoading.value) {
-      controller.fetchLineupAndImage('Arizona Cardinals', 'Atlanta Falcons');
+      controller.fetchLineupAndImage(team1Name, team2Name);
     }
 
     return Obx(() {

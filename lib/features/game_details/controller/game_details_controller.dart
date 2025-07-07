@@ -6,14 +6,16 @@ class GameDetailsController extends GetxController {
   Rx<TabController?> tabController = Rx<TabController?>(null);
 
   void initializeTabController(TickerProvider vsync) {
-    tabController.value = TabController(length: 4, vsync: vsync);
+    if (tabController.value == null) {
+      tabController.value = TabController(length: 4, vsync: vsync);
 
-    // Listen to changes in selectedIndex and update tabController
-    selectedIndex.listen((index) {
-      if (tabController.value?.index != index) {
-        tabController.value?.animateTo(index);
-      }
-    });
+      // Listen to changes in selectedIndex and update tabController
+      selectedIndex.listen((index) {
+        if (tabController.value?.index != index) {
+          tabController.value?.animateTo(index);
+        }
+      });
+    }
   }
 
   void disposeTabController() {

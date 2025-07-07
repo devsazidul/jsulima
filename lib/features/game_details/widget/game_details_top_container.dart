@@ -28,7 +28,7 @@ class GameDetailsTopContainer extends StatelessWidget {
         children: [
           Image.asset(
             height: 350,
-            width: 402,
+            width: MediaQuery.of(context).size.width,
             "assets/images/playground.png",
             fit: BoxFit.cover,
           ),

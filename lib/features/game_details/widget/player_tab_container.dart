@@ -99,64 +99,62 @@ class PlayerTabContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Top Performer Prediction',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 24,
-              height: 1.3,
-              color: Color(0xFFFFFFFF),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Top Performer Prediction',
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 24,
+            height: 1.3,
+            color: Color(0xFFFFFFFF),
           ),
-          SizedBox(height: 20),
-          TeamButton(
-            teamName: 'Atlanta Falcon',
-            imagePath: ImagePath.atlantaFalcon,
-          ),
-          SizedBox(height: 20),
-          ListView.builder(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: teams1.length,
-            itemBuilder: (context, index) {
-              final team1 = teams1[index];
-              return PlayerTabWidget(
-                aiConfidence: team1['aiConfidence'],
-                playerImagePath: team1['playerImagePath'],
-                playerName: team1['playerName'],
-                playerPosition: team1['playerPosition'],
-                stats: List<Map<String, String>>.from(team1['stats']),
-              );
-            },
-          ),
-          SizedBox(height: 48),
-          TeamButton(
-            teamName: 'Carolina Panther',
-            imagePath: ImagePath.carolinaPanther,
-          ),
-          ListView.builder(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: teams2.length,
-            itemBuilder: (context, index) {
-              final team2 = teams2[index];
-              return PlayerTabWidget(
-                aiConfidence: team2['aiConfidence'],
-                playerImagePath: team2['playerImagePath'],
-                playerName: team2['playerName'],
-                playerPosition: team2['playerPosition'],
-                stats: List<Map<String, String>>.from(team2['stats']),
-              );
-            },
-          ),
-        ],
-      ),
+        ),
+        SizedBox(height: 20),
+        TeamButton(
+          teamName: 'Atlanta Falcon',
+          imagePath: ImagePath.atlantaFalcon,
+        ),
+        SizedBox(height: 20),
+        ListView.builder(
+          padding: EdgeInsets.zero,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: teams1.length,
+          itemBuilder: (context, index) {
+            final team1 = teams1[index];
+            return PlayerTabWidget(
+              aiConfidence: team1['aiConfidence'],
+              playerImagePath: team1['playerImagePath'],
+              playerName: team1['playerName'],
+              playerPosition: team1['playerPosition'],
+              stats: List<Map<String, String>>.from(team1['stats']),
+            );
+          },
+        ),
+        SizedBox(height: 48),
+        TeamButton(
+          teamName: 'Carolina Panther',
+          imagePath: ImagePath.carolinaPanther,
+        ),
+        ListView.builder(
+          padding: EdgeInsets.zero,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: teams2.length,
+          itemBuilder: (context, index) {
+            final team2 = teams2[index];
+            return PlayerTabWidget(
+              aiConfidence: team2['aiConfidence'],
+              playerImagePath: team2['playerImagePath'],
+              playerName: team2['playerName'],
+              playerPosition: team2['playerPosition'],
+              stats: List<Map<String, String>>.from(team2['stats']),
+            );
+          },
+        ),
+      ],
     );
   }
 }

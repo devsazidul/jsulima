@@ -1,203 +1,25 @@
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
-
-class PlayerModel {
-  final String name;
-  final String role;
-  final int number;
-  final Color color;
-  Rx<Offset> position;
-
-  PlayerModel({
-    required this.name,
-    required this.role,
-    required this.number,
-    required this.color,
-    required Offset initialPosition,
-  }) : position = initialPosition.obs;
-
-  get id => null;
-}
+import 'package:jsulima/features/game_details/api_service/lineup_service_nfl.dart';
 
 class FieldController extends GetxController {
-  var players = <PlayerModel>[].obs;
-  var positions = <int, Offset>{}.obs;
+  final RxString imageBase64 = ''.obs;
+  final RxBool isLoading = false.obs;
 
   @override
-  void onReady() {
-    super.onReady();
-    _initializePlayers();
+  void onInit() {
+    super.onInit();
+    fetchLineupAndImage('Arizona Cardinals', 'Atlanta Falcons');
   }
-  void _initializePlayers() {
-    final List<PlayerModel> redPlayers = [
-      PlayerModel(
-        name: 'Ryan',
-        role: 'PR',
-        number: 1,
-        color: Colors.red,
-        initialPosition: const Offset(50, 140),
-      ),
-      PlayerModel(
-        name: 'Smith',
-        role: 'HK',
-        number: 2,
-        color: Colors.red,
-        initialPosition: const Offset(80, 140),
-      ),
-      PlayerModel(
-        name: 'Jones',
-        role: 'PR',
-        number: 3,
-        color: Colors.red,
-        initialPosition: const Offset(110, 140),
-      ),
-      PlayerModel(
-        name: 'Brown',
-        role: 'LK',
-        number: 4,
-        color: Colors.red,
-        initialPosition: const Offset(50, 210),
-      ),
-      PlayerModel(
-        name: 'Davis',
-        role: 'LK',
-        number: 5,
-        color: Colors.red,
-        initialPosition: const Offset(110, 210),
-      ),
-      PlayerModel(
-        name: 'Wilson',
-        role: 'FL',
-        number: 6,
-        color: Colors.red,
-        initialPosition: const Offset(50, 280),
-      ),
-      PlayerModel(
-        name: 'Moore',
-        role: 'FL',
-        number: 7,
-        color: Colors.red,
-        initialPosition: const Offset(80, 280),
-      ),
-      PlayerModel(
-        name: 'Taylor',
-        role: 'N8',
-        number: 8,
-        color: Colors.red,
-        initialPosition: const Offset(110, 280),
-      ),
-      PlayerModel(
-        name: 'Clark',
-        role: 'SH',
-        number: 9,
-        color: Colors.red,
-        initialPosition: const Offset(50, 350),
-      ),
-      PlayerModel(
-        name: 'Adams',
-        role: 'FH',
-        number: 10,
-        color: Colors.red,
-        initialPosition: const Offset(80, 350),
-      ),
-      PlayerModel(
-        name: 'Harris',
-        role: 'CE',
-        number: 11,
-        color: Colors.red,
-        initialPosition: const Offset(110, 350),
-      ),
-    ];
-    final List<PlayerModel> blackPlayers = [
-      PlayerModel(
-        name: 'Evans',
-        role: 'PR',
-        number: 12,
-        color: Colors.black,
-        initialPosition: const Offset(200, 140),
-      ),
-      PlayerModel(
-        name: 'Lewis',
-        role: 'HK',
-        number: 13,
-        color: Colors.black,
-        initialPosition: const Offset(230, 140),
-      ),
-      PlayerModel(
-        name: 'King',
-        role: 'PR',
-        number: 14,
-        color: Colors.black,
-        initialPosition: const Offset(260, 140),
-      ),
-      PlayerModel(
-        name: 'Allen',
-        role: 'LK',
-        number: 15,
-        color: Colors.black,
-        initialPosition: const Offset(200, 210),
-      ),
-      PlayerModel(
-        name: 'Green',
-        role: 'LK',
-        number: 16,
-        color: Colors.black,
-        initialPosition: const Offset(260, 210),
-      ),
-      PlayerModel(
-        name: 'Hill',
-        role: 'FL',
-        number: 17,
-        color: Colors.black,
-        initialPosition: const Offset(200, 280),
-      ),
-      PlayerModel(
-        name: 'Turner',
-        role: 'FL',
-        number: 18,
-        color: Colors.black,
-        initialPosition: const Offset(230, 280),
-      ),
-      PlayerModel(
-        name: 'Parker',
-        role: 'N8',
-        number: 19,
-        color: Colors.black,
-        initialPosition: const Offset(260, 280),
-      ),
-      PlayerModel(
-        name: 'Young',
-        role: 'SH',
-        number: 20,
-        color: Colors.black,
-        initialPosition: const Offset(200, 350),
-      ),
-      PlayerModel(
-        name: 'White',
-        role: 'FH',
-        number: 21,
-        color: Colors.black,
-        initialPosition: const Offset(230, 350),
-      ),
-      PlayerModel(
-        name: 'Martin',
-        role: 'CE',
-        number: 22,
-        color: Colors.black,
-        initialPosition: const Offset(260, 350),
-      ),
-    ];
 
-    players.value = [
-      ...redPlayers,
-      ...blackPlayers,
-    ];
-    for (var player in players) {
-      positions[player.number] = player.position.value;
+  Future<void> fetchLineupAndImage(String homeTeam, String awayTeam) async {
+    isLoading.value = true;
+    try {
+      final lineupResponse = await LineupServiceNfl().getTeamLineup(homeTeam, awayTeam);
+      imageBase64.value = lineupResponse.imageBase64;
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to fetch lineup: $e');
+    } finally {
+      isLoading.value = false;
     }
-  }
-  void movePlayer(PlayerModel player, Offset newPosition) {
-    player.position.value = newPosition;
-    positions[player.number] = newPosition;
   }
 }

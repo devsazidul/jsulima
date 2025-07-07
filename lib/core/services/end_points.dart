@@ -23,4 +23,5 @@ class Urls {
   static const String getProfileInfo = '$baseUrl/profile/me';
 
   static const String getLineupPlayer = '$baseUrlAi/predict/mlb/lineup';
+  static const String getLineupPlayerNfl = '$baseUrlAi/predict/nfl/lineup';
 }

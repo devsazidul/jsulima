@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/core/models/profile_model.dart';
 import 'package:http/http.dart' as http;
@@ -10,10 +11,8 @@ class ProfileServices {
   Future<ProfileModel> getProfile() async {
     var token = await SharedPreferencesHelper.getAccessToken().toString();
 
-    print("token: $token");
-    if (token == null) {
-      Get.snackbar('Error', 'Token is null');
-      throw Exception('Token is null');
+    if (kDebugMode) {
+      print("token: $token");
     }
     if (token == '') {
       Get.snackbar('Error', 'Token is empty');
@@ -28,8 +27,12 @@ class ProfileServices {
         },
       );
 
-      print("response: ${response.body}");
-      print("status code: ${response.statusCode}");
+      if (kDebugMode) {
+        print("response: ${response.body}");
+      }
+      if (kDebugMode) {
+        print("status code: ${response.statusCode}");
+      }
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -39,7 +42,9 @@ class ProfileServices {
         throw Exception('Failed to load profile data');
       }
     } catch (e) {
-      print("profile error: $e");
+      if (kDebugMode) {
+        print("profile error: $e");
+      }
       Get.snackbar('Error', 'Failed to fetch profile data: $e');
       rethrow;
     }

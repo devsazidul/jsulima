@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jsulima/features/game_details/model/lineup_player_model.dart';
 
 import '../../games/controller/game_controller.dart';
 
@@ -35,20 +34,20 @@ class PlayerList extends StatelessWidget {
               ),
             ),
             title: Text(
-              player.playerName ?? 'Unknown',
+              player.playerName,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
             ),
             subtitle: Text(
-              player.playerPosition ?? '',
+              player.playerPosition,
               style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w400),
             ),
             trailing: CircleAvatar(
               backgroundColor: Colors.white,
               child: Text(
-                '#${player.playerNumber ?? ''}',
+                '#${player.playerNumber}',
                 style: TextStyle(
                   color: Colors.redAccent,
                   fontWeight: FontWeight.bold,

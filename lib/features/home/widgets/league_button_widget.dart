@@ -6,18 +6,20 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 class LeagueButtonWidget extends StatelessWidget {
   final String league;
   final String iconPath;
+  final VoidCallback onTap; 
 
   const LeagueButtonWidget({
     super.key,
     required this.league,
     required this.iconPath,
+    required this.onTap, 
   });
 
   @override
   Widget build(BuildContext context) {
     final HomeController controller = Get.find();
     return GestureDetector(
-      onTap: () => controller.selectLeague(league),
+      onTap: onTap, 
       child: Obx(() {
         if (kDebugMode) {
           print(

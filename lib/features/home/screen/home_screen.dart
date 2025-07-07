@@ -10,12 +10,64 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final HomeController controller = Get.put(HomeController());
 
+  void _showComingSoonDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xFF2F2F2F),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          content: Container(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset('assets/icons/padlock.png', width: 60, height: 60),
+                const SizedBox(height: 16),
+                const Text(
+                  'Coming soon is our Ultra VIP Consensus',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Please check back soon...',
+                  style: TextStyle(color: Colors.grey, fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.redAccent,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
     body: SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.only(top: 80, left: 10, right: 10),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.only(top: 80, left: 10, right: 10),
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/splashImage.png'),
             fit: BoxFit.cover,
@@ -26,20 +78,22 @@ class HomeScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 20,
                   backgroundImage: AssetImage('assets/images/profile.png'),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: TextField(
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       hintText: 'Search ...',
                       hintStyle: TextStyle(color: Colors.grey[400]),
                       filled: true,
                       fillColor: Colors.grey[850],
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide.none,
@@ -47,7 +101,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Container(
                   height: 48,
                   width: 48,
@@ -56,13 +110,13 @@ class HomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: IconButton(
-                    icon: Icon(Icons.search, color: Colors.redAccent),
+                    icon: const Icon(Icons.search, color: Colors.redAccent),
                     onPressed: () {},
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Center(
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -70,16 +124,24 @@ class HomeScreen extends StatelessWidget {
                   LeagueButtonWidget(
                     league: 'NFL',
                     iconPath: 'assets/icons/nlf.png',
+                    onTap: () => controller.selectLeague('NFL'),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   LeagueButtonWidget(
                     league: 'MLB',
                     iconPath: 'assets/icons/mlb.png',
+                    onTap: () => controller.selectLeague('MLB'),
+                  ),
+                  const SizedBox(width: 10),
+                  LeagueButtonWidget(
+                    league: 'Vault',
+                    iconPath: 'assets/icons/padlock.png',
+                    onTap: () => _showComingSoonDialog(context),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Obx(
               () =>
                   controller.selectedLeague.value == 'NFL'
@@ -95,51 +157,43 @@ class HomeScreen extends StatelessWidget {
                         team1LogoPath: 'assets/icons/newyork.png',
                         team2Name: 'Boston Red\nSox',
                         team2LogoPath: 'assets/icons/boston.png',
-                        matchDateTime: DateTime(
-                          2025,
-                          2,
-                          14,
-                          15,
-                          0,
-                        ), // February 14, 2025, 3:00 PM
+                        matchDateTime: DateTime(2025, 2, 14, 15, 0),
                       ),
             ),
-
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Obx(
               () => Container(
                 height: 70,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
+                  image: const DecorationImage(
                     image: AssetImage('assets/images/predictions-bg.png'),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       '${controller.winningPrediction.value}%',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.green,
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Winning Prediction',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
-
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       '${100 - controller.winningPrediction.value}%',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.red,
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -149,8 +203,8 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Top Predictions',
               style: TextStyle(
                 color: Colors.white,
@@ -158,11 +212,11 @@ class HomeScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Color(0xFF2F2F2F),
+                color: const Color(0xFF2F2F2F),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -176,11 +230,11 @@ class HomeScreen extends StatelessWidget {
                         height: 60,
                         fit: BoxFit.cover,
                       ),
-                      SizedBox(width: 12),
+                      const SizedBox(width: 12),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Matt Ryan',
                             style: TextStyle(
                               color: Colors.white,
@@ -199,8 +253,8 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
-                  Text(
+                  const SizedBox(height: 16),
+                  const Text(
                     'Predicted Stats',
                     style: TextStyle(
                       color: Colors.white,
@@ -208,7 +262,7 @@ class HomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -220,27 +274,27 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         'AI Confidence',
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Obx(
                         () => Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 12,
                             vertical: 12,
                           ),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.red,
                             shape: BoxShape.circle,
                           ),
                           child: Text(
                             '${controller.aiConfidence.value}%',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -253,8 +307,8 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 25),
-            Center(
+            const SizedBox(height: 25),
+            const Center(
               child: Text(
                 'Table Stats',
                 style: TextStyle(
@@ -264,22 +318,25 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
               decoration: BoxDecoration(
-                color: Color(0xFF2F2F2F),
+                color: const Color(0xFF2F2F2F),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
                           flex: 2,
-                          child: Text(
+                          child: const Text(
                             'Team',
                             style: TextStyle(
                               fontSize: 12,
@@ -289,10 +346,10 @@ class HomeScreen extends StatelessWidget {
                             textAlign: TextAlign.left,
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                           flex: 1,
-                          child: Text(
+                          child: const Text(
                             'W : L',
                             style: TextStyle(
                               fontSize: 12,
@@ -302,10 +359,10 @@ class HomeScreen extends StatelessWidget {
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                           flex: 1,
-                          child: Text(
+                          child: const Text(
                             'Avg PTS',
                             style: TextStyle(
                               fontSize: 12,
@@ -315,10 +372,10 @@ class HomeScreen extends StatelessWidget {
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                           flex: 1,
-                          child: Text(
+                          child: const Text(
                             'Prediction',
                             style: TextStyle(
                               fontSize: 12,
@@ -394,7 +451,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
           ],
         ),
       ),

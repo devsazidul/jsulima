@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 import '../../game_details/api_service/lineup_service.dart';
-import '../../game_details/model/lineup_player_model.dart';
 
 class GameController extends GetxController {
   var selectedButton = 0.obs;

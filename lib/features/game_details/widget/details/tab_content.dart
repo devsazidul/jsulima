@@ -80,27 +80,30 @@ class TabNavigationContent extends GetView<GameDetailsController> {
                 ],
               ),
               SizedBox(height: 24),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
-                child: IndexedStack(
-                  index: controller.selectedIndex.value,
-                  children: [
-                    SingleChildScrollView(child: PredictionContainer()),
-                    SingleChildScrollView(child: PlayerTabContainer()),
-                    SingleChildScrollView(
-                      child: TuneupScreen(
-                        team1Name: team1Name,
-                        team2Name: team2Name,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  child: IndexedStack(
+                    index: controller.selectedIndex.value,
+                    children: [
+                      SingleChildScrollView(child: PredictionContainer()),
+                      SingleChildScrollView(child: PlayerTabContainer()),
+                      SingleChildScrollView(
+                        child: TuneupScreen(
+                          team1Name: team1Name,
+                          team2Name: team2Name,
+                        ),
                       ),
-                    ),
-                    SingleChildScrollView(
-                      child: StateTabContainer(
-                        team1Win: 3,
-                        team2Win: 2,
-                        draw: 0,
+                      SingleChildScrollView(
+                        child: StateTabContainer(
+                          team1Win: 3,
+                          team2Win: 2,
+                          draw: 0,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

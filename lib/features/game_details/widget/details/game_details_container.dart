@@ -29,6 +29,7 @@ class GameDetailsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final GameDetailsController gameDetailsController = Get.put(
       GameDetailsController(),
     );

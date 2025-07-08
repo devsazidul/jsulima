@@ -32,7 +32,7 @@ class ProfileInfoController extends GetxController {
       country.value = profile.country ?? '';
       image.value = profile.image ?? '';
     } catch (e) {
-      EasyLoading.showError('Failed to fetch profile data: $e');
+      EasyLoading.showError('Failed to fetch profile data.');
     }
   }
 

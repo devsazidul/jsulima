@@ -45,7 +45,7 @@ class ProfileServices {
       if (kDebugMode) {
         print("profile error: $e");
       }
-      EasyLoading.showError('Failed to fetch profile data: $e');
+      EasyLoading.showError('Failed to fetch profile data.');
       rethrow;
     }
   }

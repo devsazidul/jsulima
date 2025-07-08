@@ -19,7 +19,7 @@ class MlbPlayerController extends GetxController {
       final lineupResponse = await LineupService().getTeamLineup(teamName);
       imageBase64.value = lineupResponse.imageBase64;
     } catch (e) {
-      EasyLoading.showError('Failed to fetch lineup: $e');
+      EasyLoading.showError('Failed to fetch lineup');
     } finally {
       isLoading.value = false;
     }

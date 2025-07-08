@@ -1,3 +1,4 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/features/game_details/api_service/lineup_service_nfl.dart';
 
@@ -20,7 +21,7 @@ class FieldController extends GetxController {
       );
       imageBase64.value = lineupResponse.imageBase64;
     } catch (e) {
-      Get.snackbar('Error', 'Failed to fetch lineup: $e');
+      EasyLoading.showError('Failed to fetch lineup.');
     } finally {
       isLoading.value = false;
     }

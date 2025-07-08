@@ -7,5 +7,3 @@ void main() async {
   await StripeService.init();
   runApp(const Jsulima());
 }
-// avijitavi338895@gmail.com
-// avijitdas

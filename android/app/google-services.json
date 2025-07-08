@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "677990275079",
+    "project_id": "jsulima-badb3",
+    "storage_bucket": "jsulima-badb3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677990275079:android:6974272d5782a1324df2a2",
+        "android_client_info": {
+          "package_name": "com.example.jsulima"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfU6fB1CJzU-5LTFY2JlN-b4BKNwa1no4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

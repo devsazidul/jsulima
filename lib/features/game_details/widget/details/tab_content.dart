@@ -50,6 +50,8 @@ class TabNavigationContent extends GetView<GameDetailsController> {
           return Column(
             children: [
               TabBar(
+                automaticIndicatorColorAdjustment: true,
+                // dividerHeight: 0,
                 controller: tabController,
                 onTap: (index) => controller.updateSelectedIndex(index),
                 indicatorColor: Color(0xFFCA0101),
@@ -78,8 +80,8 @@ class TabNavigationContent extends GetView<GameDetailsController> {
                 ],
               ),
               SizedBox(height: 24),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.6,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
                 child: IndexedStack(
                   index: controller.selectedIndex.value,
                   children: [

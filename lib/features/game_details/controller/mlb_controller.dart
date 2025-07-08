@@ -10,7 +10,7 @@ class MlbPlayerController extends GetxController {
   void onInit() {
     super.onInit();
     // Optionally fetch default team on init
-    fetchLineupAndImage('Boston Red Sox');
+    // fetchLineupAndImage('Boston Red Sox');
   }
 
   Future<void> fetchLineupAndImage(String teamName) async {

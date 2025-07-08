@@ -34,10 +34,11 @@ class GameDetailsContainer extends StatelessWidget {
     );
     final GameController gameController = Get.put(GameController());
 
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: GameDetailsTopSection(
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GameDetailsTopSection(
             gameController: gameController,
             team1Name: team1Name,
             team2Name: team2Name,
@@ -47,21 +48,12 @@ class GameDetailsContainer extends StatelessWidget {
             team1Percentage: team1Percentage,
             team2Percentage: team2Percentage,
           ),
-        ),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AIConfidenceRow(),
-                SizedBox(height: 50),
-                TabNavigation(team1Name: team1Name, team2Name: team2Name),
-              ],
-            ),
-          ),
-        ),
-      ],
+          AIConfidenceRow(),
+          SizedBox(height: 20),
+          TabNavigation(team1Name: team1Name, team2Name: team2Name),
+          SizedBox(height: 50),
+        ],
+      ),
     );
   }
 }

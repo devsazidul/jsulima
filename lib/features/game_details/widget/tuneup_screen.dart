@@ -21,18 +21,21 @@ class TuneupScreen extends StatelessWidget {
           Obx(
             () =>
                 gameController.selectedButton.value == 0
-                    ? FieldWidget(team1Name: team1Name, team2Name: team2Name,)
-                    : MlbPlayersWidget(),
+                    ? FieldWidget(team1Name: team1Name, team2Name: team2Name)
+                    : MlbPlayersWidget(
+                      team1Name: team1Name,
+                      team2Name: team2Name,
+                    ),
           ),
 
           SizedBox(height: 20),
           LineupButton(playerName: "Atlanta Braves"),
           SizedBox(height: 20),
-          PlayerList(teamName: 'Atlanta Braves'),
-          SizedBox(height: 10),
+
+          // PlayerList(teamName: 'Atlanta Braves'),
           LineupButton(playerName: "Boston Red Sox"),
-          SizedBox(height: 20),
-          PlayerList(teamName: 'Boston Red Sox'),
+
+          // PlayerList(teamName: 'Boston Red Sox'),
           SizedBox(height: 10),
         ],
       ),

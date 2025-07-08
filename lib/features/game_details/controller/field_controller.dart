@@ -14,7 +14,10 @@ class FieldController extends GetxController {
   Future<void> fetchLineupAndImage(String homeTeam, String awayTeam) async {
     isLoading.value = true;
     try {
-      final lineupResponse = await LineupServiceNfl().getTeamLineup(homeTeam, awayTeam);
+      final lineupResponse = await LineupServiceNfl().getTeamLineup(
+        homeTeam,
+        awayTeam,
+      );
       imageBase64.value = lineupResponse.imageBase64;
     } catch (e) {
       Get.snackbar('Error', 'Failed to fetch lineup: $e');

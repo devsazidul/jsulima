@@ -8,7 +8,11 @@ import 'package:shimmer/shimmer.dart';
 class FieldWidget extends StatelessWidget {
   final String team1Name;
   final String team2Name;
-  const FieldWidget({super.key, required this.team1Name, required this.team2Name});
+  const FieldWidget({
+    super.key,
+    required this.team1Name,
+    required this.team2Name,
+  });
 
   @override
   Widget build(BuildContext context) {

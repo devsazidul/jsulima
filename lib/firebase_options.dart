@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBfU6fB1CJzU-5LTFY2JlN-b4BKNwa1no4',
-    appId: '1:677990275079:android:6974272d5782a1324df2a2',
-    messagingSenderId: '677990275079',
-    projectId: 'jsulima-badb3',
-    storageBucket: 'jsulima-badb3.firebasestorage.app',
+    apiKey: 'AIzaSyC7covICMbl106osqOx0-bTvmE-IMNXFqg',
+    appId: '1:625068421926:android:9901b5df0b6e4b33a787e7',
+    messagingSenderId: '625068421926',
+    projectId: 'jsulima-de009',
+    storageBucket: 'jsulima-de009.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDzkD5dzln87akb-nYSY37k5ommSpEErmA',
-    appId: '1:677990275079:ios:50a258363bdb26ba4df2a2',
-    messagingSenderId: '677990275079',
-    projectId: 'jsulima-badb3',
-    storageBucket: 'jsulima-badb3.firebasestorage.app',
+    apiKey: 'AIzaSyB7S6DjJwd98iA6Tv0h5EKJFWuXa7fZn4A',
+    appId: '1:625068421926:ios:4a8cda14927ba2e8a787e7',
+    messagingSenderId: '625068421926',
+    projectId: 'jsulima-de009',
+    storageBucket: 'jsulima-de009.firebasestorage.app',
     iosBundleId: 'com.example.jsulima',
   );
+
 }

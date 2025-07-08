@@ -4,7 +4,13 @@ import 'package:jsulima/features/game_details/widget/player_tab_widget.dart';
 import 'package:jsulima/features/game_details/widget/team_button.dart';
 
 class PlayerTabContainer extends StatelessWidget {
-  PlayerTabContainer({super.key});
+  final String team1Name;
+  final String team2Name;
+  PlayerTabContainer({
+    super.key,
+    required this.team1Name,
+    required this.team2Name,
+  });
 
   final List<Map<String, dynamic>> teams1 = [
     {
@@ -112,10 +118,7 @@ class PlayerTabContainer extends StatelessWidget {
           ),
         ),
         SizedBox(height: 20),
-        TeamButton(
-          teamName: 'Atlanta Falcon',
-          imagePath: ImagePath.atlantaFalcon,
-        ),
+        TeamButton(teamName: team1Name, imagePath: ImagePath.atlantaFalcon),
         SizedBox(height: 20),
         ListView.builder(
           padding: EdgeInsets.zero,
@@ -134,10 +137,7 @@ class PlayerTabContainer extends StatelessWidget {
           },
         ),
         SizedBox(height: 48),
-        TeamButton(
-          teamName: 'Carolina Panther',
-          imagePath: ImagePath.carolinaPanther,
-        ),
+        TeamButton(teamName: team2Name, imagePath: ImagePath.carolinaPanther),
         ListView.builder(
           padding: EdgeInsets.zero,
           shrinkWrap: true,

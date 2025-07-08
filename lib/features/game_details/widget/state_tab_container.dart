@@ -4,12 +4,15 @@ import 'package:jsulima/features/game_details/widget/teams_widget.dart';
 
 class StateTabContainer extends StatelessWidget {
   final int team1Win, team2Win, draw;
+  final String team1Name, team2Name;
 
   StateTabContainer({
     super.key,
     required this.team1Win,
     required this.team2Win,
     required this.draw,
+    required this.team1Name,
+    required this.team2Name,
   });
 
   final List<Map<String, dynamic>> teams = [
@@ -99,65 +102,74 @@ class StateTabContainer extends StatelessWidget {
         ),
         SizedBox(height: 24),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Atlanta Falcon',
-              style: TextStyle(
-                color: Color(0xFFEBEBEB),
-                fontWeight: FontWeight.w400,
-                fontSize: 12,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  team1Name,
+                  style: TextStyle(
+                    color: Color(0xFFEBEBEB),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  '$team1Win Wins',
+                  style: TextStyle(
+                    color: Color(0xFFABABAB),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
             ),
-            Spacer(),
-            Text(
-              'Draws',
-              style: TextStyle(
-                color: Color(0xFFEBEBEB),
-                fontWeight: FontWeight.w400,
-                fontSize: 12,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Draws',
+                  style: TextStyle(
+                    color: Color(0xFFEBEBEB),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  '$draw',
+                  style: TextStyle(
+                    color: Color(0xFFABABAB),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
             ),
-            Spacer(),
-            Text(
-              'Carolina Panther',
-              style: TextStyle(
-                color: Color(0xFFEBEBEB),
-                fontWeight: FontWeight.w400,
-                fontSize: 12,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  team2Name,
+                  style: TextStyle(
+                    color: Color(0xFFEBEBEB),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  '$team2Win Wins',
+                  style: TextStyle(
+                    color: Color(0xFFABABAB),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-        Row(
-          children: [
-            Text(
-              '$team1Win Wins',
-              style: TextStyle(
-                color: Color(0xFFABABAB),
-                fontWeight: FontWeight.w400,
-                fontSize: 12,
-              ),
-            ),
-            Spacer(),
-            Text(
-              '$draw',
-              style: TextStyle(
-                color: Color(0xFFABABAB),
-                fontWeight: FontWeight.w400,
-                fontSize: 12,
-              ),
-            ),
-            Spacer(),
-            Text(
-              '$team2Win Wins',
-              style: TextStyle(
-                color: Color(0xFFABABAB),
-                fontWeight: FontWeight.w400,
-                fontSize: 12,
-              ),
-            ),
-          ],
-        ),
+
         SizedBox(height: 12),
         Row(
           children: [

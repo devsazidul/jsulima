@@ -14,10 +14,8 @@ import 'package:jsulima/features/bottom_navbar/screen/bottom_navbar_screen.dart'
     show BottomNavbarScreen;
 
 class LoginScreenController extends GetxController {
-  var emailController = TextEditingController(
-    text: 'avijitavi338895@gmail.com',
-  );
-  var passwordController = TextEditingController(text: 'avijitdas');
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
   var isPasswordVisible = false.obs;
   var isRememberMeChecked = false.obs;
 

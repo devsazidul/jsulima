@@ -88,7 +88,12 @@ class TabNavigationContent extends GetView<GameDetailsController> {
                     index: controller.selectedIndex.value,
                     children: [
                       SingleChildScrollView(child: PredictionContainer()),
-                      SingleChildScrollView(child: PlayerTabContainer()),
+                      SingleChildScrollView(
+                        child: PlayerTabContainer(
+                          team1Name: team1Name,
+                          team2Name: team2Name,
+                        ),
+                      ),
                       SingleChildScrollView(
                         child: TuneupScreen(
                           team1Name: team1Name,
@@ -100,6 +105,8 @@ class TabNavigationContent extends GetView<GameDetailsController> {
                           team1Win: 3,
                           team2Win: 2,
                           draw: 0,
+                          team1Name: team1Name,
+                          team2Name: team2Name,
                         ),
                       ),
                     ],

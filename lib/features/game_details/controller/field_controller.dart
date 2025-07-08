@@ -6,11 +6,6 @@ class FieldController extends GetxController {
   final RxString imageBase64 = ''.obs;
   final RxBool isLoading = false.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    fetchLineupAndImage('Arizona Cardinals', 'Atlanta Falcons');
-  }
 
   Future<void> fetchLineupAndImage(String homeTeam, String awayTeam) async {
     isLoading.value = true;

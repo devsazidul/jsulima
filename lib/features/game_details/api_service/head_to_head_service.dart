@@ -8,11 +8,24 @@ class HeadToHeadService {
   Future<HeadToHeadModel> getHeadToHead({
     required String homeTeam,
     required String awayTeam,
+    required String sport,
   }) async {
-    final url = Uri.parse(Urls.getHeadToHeadNfl);
+    String url;
+    switch (sport.toLowerCase()) {
+      case 'nfl':
+        url = Urls.getHeadToHeadNfl;
+        break;
+      case 'mlb':
+        url = Urls.getHeadToHeadMlb;
+        break;
+      default:
+        throw Exception('Unsupported sport: $sport');
+    }
+
+    final uri = Uri.parse(url);
     try {
       final response = await http.post(
-        url,
+        uri,
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',

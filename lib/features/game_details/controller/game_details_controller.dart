@@ -10,7 +10,6 @@ class GameDetailsController extends GetxController {
   // Head-to-head state
   final Rx<HeadToHeadModel?> headToHead = Rx<HeadToHeadModel?>(null);
   final RxBool isHeadToHeadLoading = false.obs;
-  final RxString headToHeadError = ''.obs;
 
   void initializeTabController(TickerProvider vsync) {
     if (tabController.value == null) {
@@ -37,17 +36,19 @@ class GameDetailsController extends GetxController {
   Future<void> fetchHeadToHead({
     required String homeTeam,
     required String awayTeam,
+    required String sport,
   }) async {
     isHeadToHeadLoading.value = true;
-    headToHeadError.value = '';
+
     try {
       final result = await HeadToHeadService().getHeadToHead(
         homeTeam: homeTeam,
         awayTeam: awayTeam,
+        sport: sport,
       );
       headToHead.value = result;
     } catch (e) {
-      headToHeadError.value = e.toString();
+      debugPrint("$e");
     } finally {
       isHeadToHeadLoading.value = false;
     }

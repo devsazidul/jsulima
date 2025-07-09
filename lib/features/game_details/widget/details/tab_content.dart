@@ -5,6 +5,8 @@ import 'package:jsulima/features/game_details/widget/player_tab_container.dart';
 import 'package:jsulima/features/game_details/widget/prediction_tab_widget.dart';
 import 'package:jsulima/features/game_details/widget/state_tab_container.dart';
 import 'package:jsulima/features/game_details/widget/tuneup_screen.dart';
+import 'package:jsulima/features/games/controller/game_controller.dart';
+import 'package:jsulima/features/game_details/widget/head_to_head_shimmer.dart';
 
 class TabNavigation extends StatelessWidget {
   final String team1Name;
@@ -22,23 +24,30 @@ class TabNavigation extends StatelessWidget {
   }
 }
 
-// Pure GetX widget using TabBar without StatefulWidget
 class TabNavigationContent extends GetView<GameDetailsController> {
   final String team1Name;
   final String team2Name;
 
   const TabNavigationContent({
+    super.key,
     required this.team1Name,
     required this.team2Name,
   });
 
   @override
   Widget build(BuildContext context) {
+    final GameController gameController = Get.find<GameController>();
+
     // Fetch head-to-head data on first build
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (controller.headToHead.value == null &&
           !controller.isHeadToHeadLoading.value) {
-        controller.fetchHeadToHead(homeTeam: team1Name, awayTeam: team2Name);
+        final sport = gameController.selectedButton.value == 0 ? 'nfl' : 'mlb';
+        controller.fetchHeadToHead(
+          homeTeam: team1Name,
+          awayTeam: team2Name,
+          sport: sport,
+        );
       }
     });
 
@@ -111,15 +120,9 @@ class TabNavigationContent extends GetView<GameDetailsController> {
                       SingleChildScrollView(
                         child: Obx(() {
                           if (controller.isHeadToHeadLoading.value) {
-                            return Center(child: CircularProgressIndicator());
+                            return const HeadToHeadShimmer();
                           }
-                          if (controller.headToHeadError.value.isNotEmpty) {
-                            return Center(
-                              child: Text(
-                                'Error: ' + controller.headToHeadError.value,
-                              ),
-                            );
-                          }
+
                           final data = controller.headToHead.value;
                           if (data == null) {
                             return Center(child: Text('No data'));
@@ -150,7 +153,7 @@ class TabNavigationContent extends GetView<GameDetailsController> {
 class TickerProviderBuilder extends StatelessWidget {
   final Widget Function(BuildContext context, TickerProvider vsync) builder;
 
-  const TickerProviderBuilder({required this.builder});
+  const TickerProviderBuilder({super.key, required this.builder});
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +164,7 @@ class TickerProviderBuilder extends StatelessWidget {
 class TickerProviderScope extends StatefulWidget {
   final Widget Function(BuildContext context, TickerProvider vsync) builder;
 
-  const TickerProviderScope({required this.builder});
+  const TickerProviderScope({super.key, required this.builder});
 
   @override
   State<TickerProviderScope> createState() => TickerProviderScopeState();

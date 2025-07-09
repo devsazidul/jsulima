@@ -40,7 +40,7 @@ class StateTabContainer extends StatelessWidget {
         Text(
           'Last ${matches.length} Matches',
           style: TextStyle(
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w800,
             fontSize: 16,
             height: 1.5,
             color: Color(0xFFABABAB),
@@ -58,14 +58,16 @@ class StateTabContainer extends StatelessWidget {
                   style: TextStyle(
                     color: Color(0xFFEBEBEB),
                     fontWeight: FontWeight.w400,
+
                     fontSize: 12,
                   ),
                 ),
+                SizedBox(height: 10),
                 Text(
                   ' $team1Win Wins',
                   style: TextStyle(
                     color: Color(0xFFABABAB),
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w800,
                     fontSize: 12,
                   ),
                 ),
@@ -82,11 +84,12 @@ class StateTabContainer extends StatelessWidget {
                     fontSize: 12,
                   ),
                 ),
+                SizedBox(height: 10),
                 Text(
                   ' $draw',
                   style: TextStyle(
                     color: Color(0xFFABABAB),
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w800,
                     fontSize: 12,
                   ),
                 ),
@@ -103,6 +106,7 @@ class StateTabContainer extends StatelessWidget {
                     fontSize: 12,
                   ),
                 ),
+                SizedBox(height: 10),
                 Text(
                   ' $team2Win Wins',
                   style: TextStyle(

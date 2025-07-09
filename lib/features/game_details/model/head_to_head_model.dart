@@ -1,5 +1,3 @@
-// head_to_head_model.dart
-
 class HeadToHeadMatch {
   final String date;
   final String homeTeam;

@@ -24,4 +24,5 @@ class Urls {
 
   static const String getLineupPlayer = '$baseUrlAi/predict/mlb/lineup';
   static const String getLineupPlayerNfl = '$baseUrlAi/predict/nfl/lineup';
+  static const String getHeadToHeadNfl = '$baseUrlAi/predict/nfl/head_to_head';
 }

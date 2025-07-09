@@ -34,6 +34,14 @@ class TabNavigationContent extends GetView<GameDetailsController> {
 
   @override
   Widget build(BuildContext context) {
+    // Fetch head-to-head data on first build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (controller.headToHead.value == null &&
+          !controller.isHeadToHeadLoading.value) {
+        controller.fetchHeadToHead(homeTeam: team1Name, awayTeam: team2Name);
+      }
+    });
+
     return TickerProviderBuilder(
       builder: (context, vsync) {
         // Initialize TabController when widget builds
@@ -101,13 +109,30 @@ class TabNavigationContent extends GetView<GameDetailsController> {
                         ),
                       ),
                       SingleChildScrollView(
-                        child: StateTabContainer(
-                          team1Win: 3,
-                          team2Win: 2,
-                          draw: 0,
-                          team1Name: team1Name,
-                          team2Name: team2Name,
-                        ),
+                        child: Obx(() {
+                          if (controller.isHeadToHeadLoading.value) {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                          if (controller.headToHeadError.value.isNotEmpty) {
+                            return Center(
+                              child: Text(
+                                'Error: ' + controller.headToHeadError.value,
+                              ),
+                            );
+                          }
+                          final data = controller.headToHead.value;
+                          if (data == null) {
+                            return Center(child: Text('No data'));
+                          }
+                          return StateTabContainer(
+                            team1Win: data.wins,
+                            team2Win: data.losses,
+                            draw: data.draws,
+                            team1Name: team1Name,
+                            team2Name: team2Name,
+                            matches: data.matches,
+                          );
+                        }),
                       ),
                     ],
                   ),

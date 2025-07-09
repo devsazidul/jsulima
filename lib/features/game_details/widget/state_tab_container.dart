@@ -1,76 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/game_details/widget/teams_widget.dart';
+import 'package:jsulima/features/game_details/model/head_to_head_model.dart';
 
 class StateTabContainer extends StatelessWidget {
   final int team1Win, team2Win, draw;
   final String team1Name, team2Name;
+  final List<HeadToHeadMatch> matches;
 
-  StateTabContainer({
+  const StateTabContainer({
     super.key,
     required this.team1Win,
     required this.team2Win,
     required this.draw,
     required this.team1Name,
     required this.team2Name,
+    required this.matches,
   });
-
-  final List<Map<String, dynamic>> teams = [
-    {
-      'team1Name': 'Atlanta Falcon',
-      'team1ImagePath': ImagePath.atlantaFalcon,
-      'team1Score': '38',
-      'team2Score': '44',
-      'team2Name': 'Carolina Panther',
-      'team2ImagePath': ImagePath.carolinaPanther,
-      'date': 'Jan 6, 2025',
-    },
-    {
-      'team1Name': 'Atlanta Falcon',
-      'team1ImagePath': ImagePath.atlantaFalcon,
-      'team1Score': '21',
-      'team2Score': '30',
-      'team2Name': 'Carolina Panther',
-      'team2ImagePath': ImagePath.carolinaPanther,
-      'date': 'Jan 7, 2025',
-    },
-    {
-      'team1Name': 'Atlanta Falcon',
-      'team1ImagePath': ImagePath.atlantaFalcon,
-      'team1Score': '25',
-      'team2Score': '18',
-      'team2Name': 'Carolina Panther',
-      'team2ImagePath': ImagePath.carolinaPanther,
-      'date': 'Jan 8, 2025',
-    },
-    {
-      'team1Name': 'Atlanta Falcon',
-      'team1ImagePath': ImagePath.atlantaFalcon,
-      'team1Score': '19',
-      'team2Score': '27',
-      'team2Name': 'Carolina Panther',
-      'team2ImagePath': ImagePath.carolinaPanther,
-      'date': 'Jan 9, 2025',
-    },
-    {
-      'team1Name': 'Atlanta Falcon',
-      'team1ImagePath': ImagePath.atlantaFalcon,
-      'team1Score': '24',
-      'team2Score': '21',
-      'team2Name': 'Carolina Panther',
-      'team2ImagePath': ImagePath.carolinaPanther,
-      'date': 'Jan 10, 2025',
-    },
-    {
-      'team1Name': 'Atlanta Falcon',
-      'team1ImagePath': ImagePath.atlantaFalcon,
-      'team1Score': '24',
-      'team2Score': '34',
-      'team2Name': 'Carolina Panther',
-      'team2ImagePath': ImagePath.carolinaPanther,
-      'date': 'Jan 12, 2025',
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +38,7 @@ class StateTabContainer extends StatelessWidget {
         ),
         SizedBox(height: 8),
         Text(
-          'Last 5 Matches',
+          'Last ${matches.length} Matches',
           style: TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 16,
@@ -116,7 +62,7 @@ class StateTabContainer extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '$team1Win Wins',
+                  ' $team1Win Wins',
                   style: TextStyle(
                     color: Color(0xFFABABAB),
                     fontWeight: FontWeight.w400,
@@ -137,7 +83,7 @@ class StateTabContainer extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '$draw',
+                  ' $draw',
                   style: TextStyle(
                     color: Color(0xFFABABAB),
                     fontWeight: FontWeight.w400,
@@ -158,7 +104,7 @@ class StateTabContainer extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '$team2Win Wins',
+                  ' $team2Win Wins',
                   style: TextStyle(
                     color: Color(0xFFABABAB),
                     fontWeight: FontWeight.w400,
@@ -169,7 +115,6 @@ class StateTabContainer extends StatelessWidget {
             ),
           ],
         ),
-
         SizedBox(height: 12),
         Row(
           children: [
@@ -194,17 +139,18 @@ class StateTabContainer extends StatelessWidget {
         ListView.builder(
           padding: EdgeInsets.zero,
           shrinkWrap: true,
-          itemCount: teams.length,
+          itemCount: matches.length,
           itemBuilder: (context, index) {
-            final team = teams[index];
+            final match = matches[index];
+            // You may want to map team names to images if available, else use a placeholder
             return TeamsWidget(
-              team1Name: team['team1Name'],
-              team1ImagePath: team['team1ImagePath'],
-              team1Score: team['team1Score'],
-              team2Score: team['team2Score'],
-              team2Name: team['team2Name'],
-              team2ImagePath: team['team2ImagePath'],
-              date: team['date'],
+              team1Name: match.homeTeam,
+              team1ImagePath: ImagePath.atlantaFalcon, // TODO: Map by name
+              team1Score: match.homeScore.toString(),
+              team2Score: match.awayScore.toString(),
+              team2Name: match.awayTeam,
+              team2ImagePath: ImagePath.carolinaPanther, // TODO: Map by name
+              date: match.date,
             );
           },
         ),

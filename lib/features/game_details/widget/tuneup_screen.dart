@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:jsulima/features/game_details/widget/field_widget.dart';
 import 'package:jsulima/features/game_details/widget/lineup_button.dart';
 import 'package:jsulima/features/game_details/widget/mlb_players_widget.dart';
+import 'package:jsulima/features/game_details/widget/player_list.dart';
 import 'package:jsulima/features/games/controller/game_controller.dart';
 
 class TuneupScreen extends StatelessWidget {
@@ -27,15 +28,15 @@ class TuneupScreen extends StatelessWidget {
                     ),
           ),
 
-          SizedBox(height: 20),
-          LineupButton(playerName: "Atlanta Braves"),
-          SizedBox(height: 20),
+          // SizedBox(height: 20),
+          // LineupButton(playerName: team1Name),
+          // SizedBox(height: 20),
 
-          // PlayerList(teamName: 'Atlanta Braves'),
-          LineupButton(playerName: "Boston Red Sox"),
+          // PlayerList(teamName: team1Name),
+          // LineupButton(playerName: team2Name),
 
-          // PlayerList(teamName: 'Boston Red Sox'),
-          SizedBox(height: 10),
+          // PlayerList(teamName: team2Name),
+          // SizedBox(height: 10),
         ],
       ),
     );

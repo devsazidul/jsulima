@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
 
 import '../../game_details/api_service/lineup_service.dart';
+import '../../game_details/model/mlb_lineup_model.dart';
 
 class GameController extends GetxController {
   var selectedButton = 0.obs;
-  LineupResponse? lineupResponse;
+  MlbLineupResponse? lineupResponse;
 
   void onButtonClick(int buttonIndex) {
     selectedButton.value = buttonIndex;

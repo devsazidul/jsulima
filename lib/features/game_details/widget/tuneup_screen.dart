@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/features/game_details/widget/field_widget.dart';
-import 'package:jsulima/features/game_details/widget/lineup_button.dart';
 import 'package:jsulima/features/game_details/widget/mlb_players_widget.dart';
-import 'package:jsulima/features/game_details/widget/player_list.dart';
 import 'package:jsulima/features/games/controller/game_controller.dart';
 
 class TuneupScreen extends StatelessWidget {

@@ -38,32 +38,30 @@ class PlayerTabController extends GetxController {
   }
 
   List<Map<String, dynamic>> getFilteredHomePlayers() {
-    final homePlayers = [
-      if (apiData.value['home_team']?['top_batter'] != null)
-        apiData.value['home_team']['top_batter'],
-      if (apiData.value['home_team']?['top_pitcher'] != null)
-        apiData.value['home_team']['top_pitcher'],
-    ];
-    final teams = PlayerModelMlb.mapPlayersToTeam(homePlayers);
-    return teams.where((player) {
-      return homeTeamFilter.value == 'batter'
-          ? player['playerPosition'] != 'Pitcher'
-          : player['playerPosition'] == 'Pitcher';
-    }).toList();
+    final homeTeamData = apiData.value['home_team'];
+    if (homeTeamData == null) return [];
+
+    final player = homeTeamFilter.value == 'batter'
+        ? homeTeamData['top_batter']
+        : homeTeamData['top_pitcher'];
+
+    if (player == null) return [];
+
+    final mappedPlayer = PlayerModelMlb.mapPlayersToTeam([player]);
+    return mappedPlayer;
   }
 
   List<Map<String, dynamic>> getFilteredAwayPlayers() {
-    final awayPlayers = [
-      if (apiData.value['away_team']?['top_batter'] != null)
-        apiData.value['away_team']['top_batter'],
-      if (apiData.value['away_team']?['top_pitcher'] != null)
-        apiData.value['away_team']['top_pitcher'],
-    ];
-    final teams = PlayerModelMlb.mapPlayersToTeam(awayPlayers);
-    return teams.where((player) {
-      return awayTeamFilter.value == 'batter'
-          ? player['playerPosition'] != 'Pitcher'
-          : player['playerPosition'] == 'Pitcher';
-    }).toList();
+    final awayTeamData = apiData.value['away_team'];
+    if (awayTeamData == null) return [];
+
+    final player = awayTeamFilter.value == 'batter'
+        ? awayTeamData['top_batter']
+        : awayTeamData['top_pitcher'];
+
+    if (player == null) return [];
+
+    final mappedPlayer = PlayerModelMlb.mapPlayersToTeam([player]);
+    return mappedPlayer;
   }
 }

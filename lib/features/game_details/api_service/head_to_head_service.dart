@@ -21,7 +21,7 @@ class HeadToHeadService {
       default:
         throw Exception('Unsupported sport: $sport');
     }
-
+    
     final uri = Uri.parse(url);
     try {
       final response = await http.post(

@@ -65,8 +65,8 @@ class GamesContainer extends StatelessWidget {
     List<Map<String, dynamic>> mlbGameList = [
       //Game 1
       {
-        'team1Name': "New York Yankees",
-        'team2Name': "Boston Red Sox",
+        'team1Name': "Boston Red Sox",
+        'team2Name': "Chicago Cubs",
         'team1Image': ImagePath.newYorkYankees,
         'team2Image': ImagePath.bostonRedSox,
         'matchTime': " 14 Feb\n3:00 PM",

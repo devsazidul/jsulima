@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/features/game_details/controller/game_details_controller.dart';
 import 'package:jsulima/features/game_details/widget/player_tab_container.dart';
+import 'package:jsulima/features/game_details/widget/player_tab_container_mlb.dart';
 import 'package:jsulima/features/game_details/widget/prediction_tab_widget.dart';
 import 'package:jsulima/features/game_details/widget/state_tab_container.dart';
 import 'package:jsulima/features/game_details/widget/tuneup_screen.dart';
@@ -106,10 +107,15 @@ class TabNavigationContent extends GetView<GameDetailsController> {
                     children: [
                       SingleChildScrollView(child: PredictionContainer()),
                       SingleChildScrollView(
-                        child: PlayerTabContainer(
-                          team1Name: team1Name,
-                          team2Name: team2Name,
-                        ),
+                        child: gameController.selectedButton.value == 0
+                            ? PlayerTabContainer(
+                                team1Name: team1Name,
+                                team2Name: team2Name,
+                              )
+                            : PlayerTabContainerMlb(
+                                team1Name: team1Name,
+                                team2Name: team2Name,
+                              ),
                       ),
                       SingleChildScrollView(
                         child: TuneupScreen(

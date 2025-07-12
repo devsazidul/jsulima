@@ -25,16 +25,6 @@ class TuneupScreen extends StatelessWidget {
                       team2Name: team2Name,
                     ),
           ),
-
-          // SizedBox(height: 20),
-          // LineupButton(playerName: team1Name),
-          // SizedBox(height: 20),
-
-          // PlayerList(teamName: team1Name),
-          // LineupButton(playerName: team2Name),
-
-          // PlayerList(teamName: team2Name),
-          // SizedBox(height: 10),
         ],
       ),
     );

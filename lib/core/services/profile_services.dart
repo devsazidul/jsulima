@@ -9,7 +9,7 @@ import 'package:jsulima/core/services/shared_preferences_helper.dart';
 
 class ProfileServices {
   Future<ProfileModel> getProfile() async {
-    var token = await SharedPreferencesHelper.getAccessToken().toString();
+    var token = SharedPreferencesHelper.getAccessToken().toString();
 
     if (kDebugMode) {
       print("token: $token");

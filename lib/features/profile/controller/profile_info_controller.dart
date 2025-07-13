@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/core/services/profile_services.dart';
 import 'package:jsulima/core/services/shared_preferences_helper.dart'
@@ -22,19 +23,22 @@ class ProfileInfoController extends GetxController {
     fetchProfile();
   }
 
-  // Fetch profile data
   Future<void> fetchProfile() async {
-    try {
-      final profile = await profileServices.getProfile();
-      name.value = profile.name ?? '';
-      username.value = profile.userName ?? '';
-      phoneNumber.value = profile.phone ?? '';
-      country.value = profile.country ?? '';
-      image.value = profile.image ?? '';
-    } catch (e) {
-      EasyLoading.showError('Failed to fetch profile data.');
+  try {
+    final profile = await profileServices.getProfile();
+    name.value = profile.name ?? '';
+    username.value = profile.userName ?? '';
+    phoneNumber.value = profile.phone ?? '';
+    country.value = profile.country ?? '';
+    image.value = profile.image ?? '';
+    email.value = profile.email ?? '';
+    if (kDebugMode) {
+      print("Fetched email: ${email.value}");
     }
+  } catch (e) {
+    EasyLoading.showError('Failed to fetch profile data.');
   }
+}
 
   void startEditing(String field) => isEditing.value = field;
 

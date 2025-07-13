@@ -20,7 +20,9 @@ class Urls {
   static const String capturePayment = '$baseUrl/payment/capture-payment';
   static const String notifications = '$baseUrl/notifications';
   static const String paymentCheckout = '$baseUrl/payment/checkout';
-  static const String getProfileInfo = '$baseUrl/users/profile';
+  static const String getProfileInfo = '$baseUrl/users/profile';  
+  static const String updateProfileInfo = '$baseUrl/users/update-profile';
+
 
   static const String getLineupPlayer = '$baseUrlAi/predict/mlb/lineup';
   static const String getLineupPlayerNfl = '$baseUrlAi/predict/nfl/lineup';

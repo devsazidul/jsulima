@@ -40,44 +40,46 @@ class ProfileScreen extends StatelessWidget {
                   return CircleAvatar(
                     radius: 50,
                     child: ClipOval(
-                      child: controller.image.value.isNotEmpty
-                          ? CachedNetworkImage(
-                              imageUrl: controller.image.value,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) => Center(
-                                child: Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Container(
+                      child:
+                          controller.image.value.isNotEmpty
+                              ? CachedNetworkImage(
+                                imageUrl: controller.image.value,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                                placeholder:
+                                    (context, url) => Center(
+                                      child: Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: Colors.grey[100]!,
+                                        child: Container(
+                                          width: 100,
+                                          height: 100,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            shape: BoxShape.circle,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                errorWidget: (context, url, error) {
+                                  debugPrint(
+                                    'Image load error: $error for URL: $url',
+                                  );
+                                  return Image.asset(
+                                    ImagePath.profileImage,
                                     width: 100,
                                     height: 100,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                    ),
-                                  ),
-                                ),
+                                    fit: BoxFit.cover,
+                                  );
+                                },
+                              )
+                              : Image.asset(
+                                ImagePath.profileImage,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
                               ),
-                              errorWidget: (context, url, error) {
-                                debugPrint(
-                                  'Image load error: $error for URL: $url',
-                                );
-                                return Image.asset(
-                                  ImagePath.profileImage,
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                );
-                              },
-                            )
-                          : Image.asset(
-                              ImagePath.profileImage,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
                     ),
                   );
                 }),
@@ -102,7 +104,7 @@ class ProfileScreen extends StatelessWidget {
                 SizedBox(height: 10),
                 Obx(
                   () => Text(
-                    controller.email.value, // Added email display
+                    controller.email.value, 
                     style: getTextStyle(color: Colors.grey),
                   ),
                 ),

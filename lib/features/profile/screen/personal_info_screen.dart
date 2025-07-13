@@ -64,7 +64,7 @@ class PersonalInfoScreen extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 6),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        color: Colors.grey[900]?.withValues(alpha:  0.9),
+        color: Colors.grey[900]?.withValues(alpha: 0.9),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -82,15 +82,15 @@ class PersonalInfoScreen extends StatelessWidget {
                 const SizedBox(height: 4),
                 isEditing
                     ? TextField(
-                      controller: controllerField,
-                      style: const TextStyle(color: Colors.white, fontSize: 14),
-                      onSubmitted: (val) => controller.updateValue(label, val),
-                      autofocus: true,
-                    )
+                        controller: controllerField,
+                        style: const TextStyle(color: Colors.white, fontSize: 14),
+                        onSubmitted: (val) => controller.updateValue(label, val),
+                        autofocus: true,
+                      )
                     : Text(
-                      value.value,
-                      style: const TextStyle(color: Colors.white, fontSize: 14),
-                    ),
+                        value.value,
+                        style: const TextStyle(color: Colors.white, fontSize: 14),
+                      ),
               ],
             ),
           ),

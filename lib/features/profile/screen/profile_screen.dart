@@ -40,46 +40,44 @@ class ProfileScreen extends StatelessWidget {
                   return CircleAvatar(
                     radius: 50,
                     child: ClipOval(
-                      child:
-                          controller.image.value.isNotEmpty
-                              ? CachedNetworkImage(
-                                imageUrl: controller.image.value,
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
-                                placeholder:
-                                    (context, url) => Center(
-                                      child: Shimmer.fromColors(
-                                        baseColor: Colors.grey[300]!,
-                                        highlightColor: Colors.grey[100]!,
-                                        child: Container(
-                                          width: 100,
-                                          height: 100,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            shape: BoxShape.circle,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                errorWidget: (context, url, error) {
-                                  debugPrint(
-                                    'Image load error: $error for URL: $url',
-                                  );
-                                  return Image.asset(
-                                    ImagePath.profileImage,
+                      child: controller.image.value.isNotEmpty
+                          ? CachedNetworkImage(
+                              imageUrl: controller.image.value,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => Center(
+                                child: Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
                                     width: 100,
                                     height: 100,
-                                    fit: BoxFit.cover,
-                                  );
-                                },
-                              )
-                              : Image.asset(
-                                ImagePath.profileImage,
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
                               ),
+                              errorWidget: (context, url, error) {
+                                debugPrint(
+                                  'Image load error: $error for URL: $url',
+                                );
+                                return Image.asset(
+                                  ImagePath.profileImage,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                );
+                              },
+                            )
+                          : Image.asset(
+                              ImagePath.profileImage,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
                     ),
                   );
                 }),
@@ -101,7 +99,14 @@ class ProfileScreen extends StatelessWidget {
                     style: getTextStyle(color: Colors.grey),
                   ),
                 ),
-                SizedBox(height: 30),
+                SizedBox(height: 10),
+                Obx(
+                  () => Text(
+                    controller.email.value, // Added email display
+                    style: getTextStyle(color: Colors.grey),
+                  ),
+                ),
+                SizedBox(height: 20),
                 GestureDetector(
                   onTap: () => Get.to(() => PersonalInfoScreen()),
                   child: ProfileTileWidget(
@@ -117,7 +122,6 @@ class ProfileScreen extends StatelessWidget {
                     onToggle: controller2.toggleNotification,
                   ),
                 ),
-
                 GestureDetector(
                   onTap: () {
                     Get.to(SubscriptionScreen());

@@ -6,6 +6,7 @@ class ProfileModel {
   final String? image;
   final String? country;
   final String? userId;
+  final String? email; 
 
   ProfileModel({
     required this.id,
@@ -15,31 +16,32 @@ class ProfileModel {
     this.image,
     this.country,
     this.userId,
+    this.email, 
   });
 
-  // Parse JSON to ProfileModel
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
       id: json['id'] as String,
-      name: json['name'] as String?,
+      name: json['fullName'] as String?, 
       userName: json['userName'] as String?,
-      phone: json['phone'] as String?,
+      phone: json['phoneNumber'] as String?, 
       image: json['image'] as String?,
       country: json['country'] as String?,
       userId: json['userId'] as String?,
+      email: json['email'] as String?, 
     );
   }
 
-  // Convert ProfileModel to JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'name': name,
+      'fullName': name, 
       'userName': userName,
-      'phone': phone,
+      'phoneNumber': phone, 
       'image': image,
       'country': country,
       'userId': userId,
+      'email': email, 
     };
   }
 }

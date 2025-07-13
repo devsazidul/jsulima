@@ -5,7 +5,7 @@ import 'package:jsulima/core/services/shared_preferences_helper.dart';
 class HomeController extends GetxController {
   var winningPrediction = 60.obs;
   var aiConfidence = 90.obs;
-  RxString selectedLeague = ''.obs;
+  RxString selectedLeague = 'NFL'.obs;
 
   @override
   void onInit() {

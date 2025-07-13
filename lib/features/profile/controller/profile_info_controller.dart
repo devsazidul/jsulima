@@ -52,7 +52,7 @@ obs;
         break;
       case 'User Name':
         username.value = value;
-        updatedFields['user POSSIBLE_NESTED_TAG: Name'] = value;
+        updatedFields['userName'] = value;
         break;
       case 'Email':
         email.value = value;

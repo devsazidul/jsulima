@@ -63,9 +63,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
                 if (kDebugMode) {
                   print("WebView error: [31m${error.description}");
                 }
-                EasyLoading.showError(
-                  "Failed to load page: ${error.description}",
-                );
+                EasyLoading.showError("${error.description}");
               },
             ),
           )

@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jsulima/core/common/styles/global_text_style.dart';
 
 class SelectPreferredGameContainer extends StatelessWidget {
-  final VoidCallback onTap; 
-  final String text; 
-  final String image; 
-  final Color color; 
+  final VoidCallback onTap;
+  final String text;
+  final String image;
+  final Color color;
   final Color textColor;
-  final double? imagewidth; 
-  final double? imageheight; 
+  final double? imagewidth;
+  final double? imageheight;
   const SelectPreferredGameContainer({
     super.key,
     required this.onTap,
@@ -19,7 +19,6 @@ class SelectPreferredGameContainer extends StatelessWidget {
     required this.textColor,
     this.imagewidth = 24,
     this.imageheight = 24,
-
   });
 
   @override
@@ -30,33 +29,25 @@ class SelectPreferredGameContainer extends StatelessWidget {
       child: Container(
         width: size.width * 0.35,
         decoration: BoxDecoration(
-          color: color, 
+          color: color,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: Colors.white,
-            width: 1,
-          ),
+          border: Border.all(color: Colors.white, width: 1),
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 30
-          ),
+          padding: EdgeInsets.symmetric(vertical: 30),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("NFL", 
-               style: getTextStyle(
-                color: textColor, 
-                fontSize: 16.sp, 
-                fontWeight: FontWeight.w600
-               ),
-              ), 
-              SizedBox(width: 5),
-              Image.asset(
-                image,
-                height: 24,
-                width: 24,
+              Text(
+                text,
+                style: getTextStyle(
+                  color: textColor,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
+              SizedBox(width: 5),
+              Image.asset(image, height: 24, width: 24),
             ],
           ),
         ),

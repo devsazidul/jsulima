@@ -146,14 +146,14 @@ class StateTabContainer extends StatelessWidget {
           itemCount: matches.length,
           itemBuilder: (context, index) {
             final match = matches[index];
-            // You may want to map team names to images if available, else use a placeholder
+            
             return TeamsWidget(
               team1Name: match.homeTeam,
-              team1ImagePath: ImagePath.atlantaFalcon, // TODO: Map by name
+              team1ImagePath: ImagePath.atlantaFalcon, 
               team1Score: match.homeScore.toString(),
               team2Score: match.awayScore.toString(),
               team2Name: match.awayTeam,
-              team2ImagePath: ImagePath.carolinaPanther, // TODO: Map by name
+              team2ImagePath: ImagePath.carolinaPanther, 
               date: match.date,
             );
           },

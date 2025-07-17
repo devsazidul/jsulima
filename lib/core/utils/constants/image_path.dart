@@ -19,4 +19,6 @@ class ImagePath {
   static const String promo = 'assets/images/promo.png';
   static const String newYorkYankees = 'assets/images/newYorkYankees.png';
   static const String bostonRedSox = 'assets/images/bostonRedSox.png';
+  static const String nflTeam1 = "assets/images/team1.png";
+  static const String nflTeam2 = "assets/images/team2.png";
 }

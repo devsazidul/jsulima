@@ -12,57 +12,6 @@ class GamesContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> nflGameList = [
-      //Game 1
-      {
-        'team1Name': "New England Patriots",
-        'team2Name': "Buffalo Bills",
-        'team1Image': "assets/images/team1.png",
-        'team2Image': "assets/images/team2.png",
-        'matchTime': " 14 Feb\n3:00 PM",
-        'predictionText':
-            "Mac Jones is predicted to throw for 275 yards, with 2 touchdowns and 1 interception in the upcoming game against the Buffalo Bills.",
-        'team1Percentage': 30.0,
-        'team2Percentage': 70.0,
-      },
-      //Game 2
-      {
-        'team1Name': "Green Bay Packers",
-        'team2Name': "Chicago Bears",
-        'team1Image': "assets/images/team1.png",
-        'team2Image': "assets/images/team2.png",
-        'matchTime': " 14 Feb\n6:30 PM",
-        'predictionText':
-            "Aaron Rodgers is expected to pass for 300 yards, with 3 touchdowns and no interceptions against the Bears.",
-        'team1Percentage': 65.0,
-        'team2Percentage': 35.0,
-      },
-      //Game 3
-      {
-        'team1Name': "Dallas Cowboys",
-        'team2Name': "New York Giants",
-        'team1Image': "assets/images/team1.png",
-        'team2Image': "assets/images/team2.png",
-        'matchTime': " 15 Feb\n1:00 PM",
-        'predictionText':
-            "Dak Prescott is forecasted to throw for 250 yards, with 2 touchdowns and 1 interception versus the Giants.",
-        'team1Percentage': 70.0,
-        'team2Percentage': 30.0,
-      },
-      //Game 4
-      {
-        'team1Name': "Miami Dolphins",
-        'team2Name': "Tennessee Titans",
-        'team1Image': "assets/images/team1.png",
-        'team2Image': "assets/images/team2.png",
-        'matchTime': " 16 Feb\n8:20 PM",
-        'predictionText':
-            "Tua Tagovailoa is projected to pass for 295 yards, with 3 touchdowns and 1 interception against the Titans.",
-        'team1Percentage': 75.0,
-        'team2Percentage': 25.0,
-      },
-    ];
-
     return SafeArea(
       child: Container(
         margin: EdgeInsets.only(top: 0, left: 16.0, right: 16.0),
@@ -218,20 +167,33 @@ class GamesContainer extends StatelessWidget {
             Expanded(
               child: Obx(() {
                 if (buttonController.selectedButton.value == 0) {
-                  return ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: nflGameList.length,
-                    itemBuilder: (context, index) {
-                      var game = nflGameList[index];
-                      return PredictionContainer(
-                        team1Name: game['team1Name']!,
-                        team2Name: game['team2Name']!,
-                        team1Image: game['team1Image']!,
-                        team2Image: game['team2Image']!,
-                        matchTime: game['matchTime']!,
-                        predictionText: game['predictionText']!,
-                        team1Percentage: game['team1Percentage']!,
-                        team2Percentage: game['team2Percentage']!,
+                  return FutureBuilder<List<Map<String, dynamic>>>(
+                    future: matchService.fetchNFLGames(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Center(child: Text('No NFL games available'));
+                      }
+                      final nflGameList = snapshot.data!;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: nflGameList.length,
+                        itemBuilder: (context, index) {
+                          var game = nflGameList[index];
+                          return PredictionContainer(
+                            team1Name: game['team1Name']!,
+                            team2Name: game['team2Name']!,
+                            team1Image: game['team1Image']!,
+                            team2Image: game['team2Image']!,
+                            matchTime: game['matchTime']!,
+                            predictionText: game['predictionText']!,
+                            team1Percentage: game['team1Percentage']!,
+                            team2Percentage: game['team2Percentage']!,
+                          );
+                        },
                       );
                     },
                   );

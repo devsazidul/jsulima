@@ -330,7 +330,73 @@ class HomeScreen extends StatelessWidget {
                 ),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
+                    // Shimmer effect for loading table rows
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF2F2F2F),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                      child: Column(
+                        children: List.generate(
+                          6,
+                          (index) => Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 6.0),
+                            child: Row(
+                              children: [
+                                // Team shimmer
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    height: 18,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[700],
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                // W:L shimmer
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    height: 18,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[700],
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                // Avg PTS shimmer
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    height: 18,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[700],
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                // Prediction shimmer
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    height: 18,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[700],
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
                   } else if (snapshot.hasError) {
                     return Center(
                       child: Text(

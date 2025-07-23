@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:jsulima/core/models/table_model.dart';
+import 'package:jsulima/core/services/table_service.dart';
 import 'package:jsulima/features/home/widgets/league_button_widget.dart';
 import 'package:jsulima/features/home/widgets/match_card.dart';
 import 'package:jsulima/features/home/widgets/stat_box_widget.dart';
@@ -9,6 +11,7 @@ import '../controller/home_controller.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final HomeController controller = Get.put(HomeController());
+  final TableService tableService = TableService();
 
   void _showComingSoonDialog(BuildContext context) {
     showDialog(
@@ -320,136 +323,116 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFF2F2F2F),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
+            Obx(
+              () => FutureBuilder<List<TableModel>>(
+                future: tableService.fetchTableData(
+                  controller.selectedLeague.value,
+                ),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        'Error: ${snapshot.error}',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    );
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'No data available',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    );
+                  }
+
+                  final tableData = snapshot.data!;
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF2F2F2F),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Column(
                       children: [
-                        Expanded(
-                          flex: 2,
-                          child: const Text(
-                            'Team',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.left,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Expanded(
+                                flex: 2,
+                                child: Text(
+                                  'Team',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              const Expanded(
+                                flex: 1,
+                                child: Text(
+                                  'W : L',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              const Expanded(
+                                flex: 1,
+                                child: Text(
+                                  'Avg PTS',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              const Expanded(
+                                flex: 1,
+                                child: Text(
+                                  'Prediction',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          flex: 1,
-                          child: const Text(
-                            'W : L',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          flex: 1,
-                          child: const Text(
-                            'Avg PTS',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          flex: 1,
-                          child: const Text(
-                            'Prediction',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                        ...tableData
+                            .map(
+                              (data) => TableRowWidget(
+                                team: data.teamName,
+                                win: data.winCount.toString(),
+                                loss: data.lossCount.toString(),
+                                avgPts: data.averageScore.toStringAsFixed(1),
+                                prediction:
+                                    '${(data.winPercentage * 100).toStringAsFixed(1)}%',
+                              ),
+                            )
+                            .toList(),
                       ],
                     ),
-                  ),
-                  TableRowWidget(
-                    team: 'New England\nPatriots',
-                    record: '12 : 4',
-                    avgPts: '28.2',
-                    prediction: '65%',
-                  ),
-                  TableRowWidget(
-                    team: 'Buffalo\nBills',
-                    record: '12 : 4',
-                    avgPts: '27.5',
-                    prediction: '35%',
-                  ),
-                  TableRowWidget(
-                    team: 'Kansas City\nChiefs',
-                    record: '12 : 4',
-                    avgPts: '31.5',
-                    prediction: '55%',
-                  ),
-                  TableRowWidget(
-                    team: 'Los Angeles\nChargers',
-                    record: '12 : 4',
-                    avgPts: '24.8',
-                    prediction: '45%',
-                  ),
-                  TableRowWidget(
-                    team: 'Dallas\nCowboys',
-                    record: '12 : 4',
-                    avgPts: '30.0',
-                    prediction: '58%',
-                  ),
-                  TableRowWidget(
-                    team: 'Philadelphia\nEagles',
-                    record: '12 : 4',
-                    avgPts: '26.2',
-                    prediction: '42%',
-                  ),
-                  TableRowWidget(
-                    team: 'Green Bay\nPackers',
-                    record: '12 : 4',
-                    avgPts: '26.2',
-                    prediction: '42%',
-                  ),
-                  TableRowWidget(
-                    team: 'Minnesota\nVikings',
-                    record: '12 : 4',
-                    avgPts: '26.2',
-                    prediction: '42%',
-                  ),
-                  TableRowWidget(
-                    team: 'Miami\nDolphins',
-                    record: '12 : 4',
-                    avgPts: '26.2',
-                    prediction: '42%',
-                  ),
-                  TableRowWidget(
-                    team: 'Baltimore\nRavens',
-                    record: '12 : 4',
-                    avgPts: '26.2',
-                    prediction: '42%',
-                  ),
-                ],
+                  );
+                },
               ),
             ),
             const SizedBox(height: 40),

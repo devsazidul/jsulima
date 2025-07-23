@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:jsulima/features/game_details/controller/game_details_controller.dart';
 import 'package:jsulima/features/game_details/widget/player_tab_container.dart';
 import 'package:jsulima/features/game_details/widget/player_tab_container_mlb.dart';
-import 'package:jsulima/features/game_details/widget/prediction_tab_widget.dart';
+import 'package:jsulima/features/game_details/widget/prediction_tab_widget_mlb.dart';
+import 'package:jsulima/features/game_details/widget/prediction_tab_widget_nfl.dart';
 import 'package:jsulima/features/game_details/widget/state_tab_container.dart';
 import 'package:jsulima/features/game_details/widget/tuneup_screen.dart';
 import 'package:jsulima/features/games/controller/game_controller.dart';
@@ -39,7 +40,6 @@ class TabNavigationContent extends GetView<GameDetailsController> {
   Widget build(BuildContext context) {
     final GameController gameController = Get.find<GameController>();
 
-    // Fetch head-to-head data on first build
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (controller.headToHead.value == null &&
           !controller.isHeadToHeadLoading.value) {
@@ -54,7 +54,6 @@ class TabNavigationContent extends GetView<GameDetailsController> {
 
     return TickerProviderBuilder(
       builder: (context, vsync) {
-        // Initialize TabController when widget builds
         WidgetsBinding.instance.addPostFrameCallback((_) {
           controller.initializeTabController(vsync);
         });
@@ -105,17 +104,29 @@ class TabNavigationContent extends GetView<GameDetailsController> {
                   child: IndexedStack(
                     index: controller.selectedIndex.value,
                     children: [
-                      SingleChildScrollView(child: PredictionContainer()),
                       SingleChildScrollView(
-                        child: gameController.selectedButton.value == 0
-                            ? PlayerTabContainer(
-                                team1Name: team1Name,
-                                team2Name: team2Name,
-                              )
-                            : PlayerTabContainerMlb(
-                                team1Name: team1Name,
-                                team2Name: team2Name,
-                              ),
+                        child:
+                            gameController.selectedButton.value == 0
+                                ? PredictionTabWidgetNfl(
+                                  team1Name: team1Name,
+                                  team2Name: team2Name,
+                                )
+                                : PredictionTabWidgetMlb(
+                                  team1Name: team1Name,
+                                  team2Name: team2Name,
+                                ),
+                      ),
+                      SingleChildScrollView(
+                        child:
+                            gameController.selectedButton.value == 0
+                                ? PlayerTabContainer(
+                                  team1Name: team1Name,
+                                  team2Name: team2Name,
+                                )
+                                : PlayerTabContainerMlb(
+                                  team1Name: team1Name,
+                                  team2Name: team2Name,
+                                ),
                       ),
                       SingleChildScrollView(
                         child: TuneupScreen(

@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 class TableRowWidget extends StatelessWidget {
   final String team;
-  final String record;
+  final String win;
+  final String loss;
   final String avgPts;
   final String prediction;
 
   const TableRowWidget({
     super.key,
     required this.team,
-    required this.record,
     required this.avgPts,
-    required this.prediction,
+    required this.prediction, required this.win, required this.loss,
   });
 
   @override
@@ -35,7 +35,7 @@ class TableRowWidget extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Text(
-              record,
+              '$win : $loss',
               style: TextStyle(color: Colors.white),
               textAlign: TextAlign.center,
             ),

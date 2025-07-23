@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:jsulima/core/services/match_service_mlb.dart';
 import 'package:jsulima/core/services/match_service_nfl.dart';
 import 'package:jsulima/features/games/controller/game_controller.dart';
+import 'package:jsulima/features/games/widget/match_shimmer.dart';
 import 'package:jsulima/features/games/widget/prediction_container.dart';
 
 class GamesContainer extends StatelessWidget {
@@ -179,7 +180,13 @@ class GamesContainer extends StatelessWidget {
                     future: MatchServiceNfl().fetchNFLGames(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            return MatchShimmer();
+                          },
+                        );
                       } else if (snapshot.hasError) {
                         developer.log(
                           'NFL FutureBuilder error: ${snapshot.error}',
@@ -250,7 +257,13 @@ class GamesContainer extends StatelessWidget {
                     future: MatchServiceMlb().fetchMLBGames(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            return MatchShimmer();
+                          },
+                        );
                       } else if (snapshot.hasError) {
                         developer.log(
                           'MLB FutureBuilder error: ${snapshot.error}',

@@ -15,7 +15,7 @@ class HeadToHeadService {
       case 'nfl':
         url = Urls.getHeadToHeadNfl;
         break;
-      case 'mlb':
+      case 'mlb': 
         url = Urls.getHeadToHeadMlb;
         break;
       default:

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:jsulima/core/services/end_points.dart';
+
 class PlayerServiceMlb {
   Future<Map<String, dynamic>> fetchTopPerformers(
     String homeTeam,
     String awayTeam,
   ) async {
-    final url = Uri.parse(
-      'https://game-api-ai.onrender.com/predict/mlb/top_batter_pitcher',
-    );
+    final url = Uri.parse(Urls.getTopBatterPitcherMlb);
     try {
       final response = await http.post(
         url,

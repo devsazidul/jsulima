@@ -6,7 +6,7 @@ import '../model/mlb_lineup_model.dart';
 
 class LineupService {
   Future<MlbLineupResponse> getTeamLineup(String teamName) async {
-    final url = Uri.parse(Urls.getLineupPlayer);
+    final url = Uri.parse(Urls.getLineupMlb);
     try {
       final response = await http.post(
         url,

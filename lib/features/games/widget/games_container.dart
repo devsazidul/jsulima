@@ -1,6 +1,9 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jsulima/core/services/match_service.dart';
+import 'package:jsulima/core/services/match_service_mlb.dart';
+import 'package:jsulima/core/services/match_service_nfl.dart';
 import 'package:jsulima/features/games/controller/game_controller.dart';
 import 'package:jsulima/features/games/widget/prediction_container.dart';
 
@@ -8,7 +11,8 @@ class GamesContainer extends StatelessWidget {
   GamesContainer({super.key});
 
   final GameController buttonController = Get.put(GameController());
-  final MatchService matchService = MatchService();
+  final MatchServiceMlb matchServiceMlb = MatchServiceMlb();
+  final MatchServiceNfl matchServiceNfl = MatchServiceNfl();
 
   @override
   Widget build(BuildContext context) {
@@ -91,13 +95,15 @@ class GamesContainer extends StatelessWidget {
                       height: 40,
                       width: 96,
                       decoration: BoxDecoration(
-                        color: buttonController.selectedButton.value == 0
-                            ? Color(0xFFFFFFFF)
-                            : Colors.transparent,
+                        color:
+                            buttonController.selectedButton.value == 0
+                                ? Color(0xFFFFFFFF)
+                                : Colors.transparent,
                         borderRadius: BorderRadius.circular(8),
-                        border: buttonController.selectedButton.value == 0
-                            ? Border.all(color: Colors.transparent)
-                            : Border.all(color: Color(0xEBEBEBEB)),
+                        border:
+                            buttonController.selectedButton.value == 0
+                                ? Border.all(color: Colors.transparent)
+                                : Border.all(color: Color(0xEBEBEBEB)),
                       ),
                       child: Row(
                         children: [
@@ -133,13 +139,15 @@ class GamesContainer extends StatelessWidget {
                       height: 40,
                       width: 96,
                       decoration: BoxDecoration(
-                        color: buttonController.selectedButton.value == 1
-                            ? Color(0xFFFFFFFF)
-                            : Colors.transparent,
+                        color:
+                            buttonController.selectedButton.value == 1
+                                ? Color(0xFFFFFFFF)
+                                : Colors.transparent,
                         borderRadius: BorderRadius.circular(8),
-                        border: buttonController.selectedButton.value == 1
-                            ? Border.all(color: Colors.transparent)
-                            : Border.all(color: Color(0xEBEBEBEB)),
+                        border:
+                            buttonController.selectedButton.value == 1
+                                ? Border.all(color: Colors.transparent)
+                                : Border.all(color: Color(0xEBEBEBEB)),
                       ),
                       child: Row(
                         children: [
@@ -168,30 +176,70 @@ class GamesContainer extends StatelessWidget {
               child: Obx(() {
                 if (buttonController.selectedButton.value == 0) {
                   return FutureBuilder<List<Map<String, dynamic>>>(
-                    future: matchService.fetchNFLGames(),
+                    future: MatchServiceNfl().fetchNFLGames(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
+                        developer.log(
+                          'NFL FutureBuilder error: ${snapshot.error}',
+                          name: 'MatchListView',
+                        );
+                        return Center(
+                          child: Container(
+                            color: Colors.white,
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              'Error: ${snapshot.error}',
+                              style: const TextStyle(
+                                color: Colors.red,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        );
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Center(child: Text('No NFL games available'));
+                        developer.log(
+                          'No NFL games available, snapshot.data length: ${snapshot.data?.length ?? 0}',
+                          name: 'MatchListView',
+                        );
+                        return Center(
+                          child: Container(
+                            color: Colors.white,
+                            padding: const EdgeInsets.all(16.0),
+                            child: const Text(
+                              'No NFL games available',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        );
                       }
                       final nflGameList = snapshot.data!;
+                      developer.log(
+                        'NFL games loaded: ${nflGameList.length}',
+                        name: 'MatchListView',
+                      );
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         itemCount: nflGameList.length,
                         itemBuilder: (context, index) {
                           var game = nflGameList[index];
+                          developer.log(
+                            'NFL game at index $index: $game',
+                            name: 'MatchListView',
+                          );
                           return PredictionContainer(
-                            team1Name: game['team1Name']!,
-                            team2Name: game['team2Name']!,
-                            team1Image: game['team1Image']!,
-                            team2Image: game['team2Image']!,
-                            matchTime: game['matchTime']!,
-                            predictionText: game['predictionText']!,
-                            team1Percentage: game['team1Percentage']!,
-                            team2Percentage: game['team2Percentage']!,
+                            team1Name: game['team1Name'] as String,
+                            team2Name: game['team2Name'] as String,
+                            team1Image: game['team1Image'] as String,
+                            team2Image: game['team2Image'] as String,
+                            matchTime: game['matchTime'] as String,
+                            predictionText: game['predictionText'] as String,
+                            team1Percentage: game['team1Percentage'] as double,
+                            team2Percentage: game['team2Percentage'] as double,
                           );
                         },
                       );
@@ -199,30 +247,70 @@ class GamesContainer extends StatelessWidget {
                   );
                 } else {
                   return FutureBuilder<List<Map<String, dynamic>>>(
-                    future: matchService.fetchMLBGames(),
+                    future: MatchServiceMlb().fetchMLBGames(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
+                        developer.log(
+                          'MLB FutureBuilder error: ${snapshot.error}',
+                          name: 'MatchListView',
+                        );
+                        return Center(
+                          child: Container(
+                            color: Colors.white,
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              'Error:///// ${snapshot.error}',
+                              style: const TextStyle(
+                                color: Colors.red,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        );
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Center(child: Text('No MLB games available'));
+                        developer.log(
+                          'No MLB games available, snapshot.data length: ${snapshot.data?.length ?? 0}',
+                          name: 'MatchListView',
+                        );
+                        return Center(
+                          child: Container(
+                            color: Colors.white,
+                            padding: const EdgeInsets.all(16.0),
+                            child: const Text(
+                              'No MLB games available',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        );
                       }
                       final mlbGameList = snapshot.data!;
+                      developer.log(
+                        'MLB games loaded: ${mlbGameList.length}',
+                        name: 'MatchListView',
+                      );
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         itemCount: mlbGameList.length,
                         itemBuilder: (context, index) {
                           var game = mlbGameList[index];
+                          developer.log(
+                            'MLB game at index $index: $game',
+                            name: 'MatchListView',
+                          );
                           return PredictionContainer(
-                            team1Name: game['team1Name']!,
-                            team2Name: game['team2Name']!,
-                            team1Image: game['team1Image']!,
-                            team2Image: game['team2Image']!,
-                            matchTime: game['matchTime']!,
-                            predictionText: game['predictionText']!,
-                            team1Percentage: game['team1Percentage']!,
-                            team2Percentage: game['team2Percentage']!,
+                            team1Name: game['team1Name'] as String,
+                            team2Name: game['team2Name'] as String,
+                            team1Image: game['team1Image'] as String,
+                            team2Image: game['team2Image'] as String,
+                            matchTime: game['matchTime'] as String,
+                            predictionText: game['predictionText'] as String,
+                            team1Percentage: game['team1Percentage'] as double,
+                            team2Percentage: game['team2Percentage'] as double,
                           );
                         },
                       );

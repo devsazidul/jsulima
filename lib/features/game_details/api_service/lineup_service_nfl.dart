@@ -5,8 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:jsulima/core/services/end_points.dart';
 
 class LineupServiceNfl {
-  Future<LineupResponse> getTeamLineup(String homeTeam,String awayTeam) async {
-    final url = Uri.parse(Urls.getLineupPlayerNfl);
+  Future<LineupResponse> getTeamLineup(String homeTeam, String awayTeam) async {
+    final url = Uri.parse(Urls.getLineupNfl);
     try {
       final response = await http.post(
         url,

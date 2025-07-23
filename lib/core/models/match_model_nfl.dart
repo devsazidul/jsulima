@@ -1,14 +1,16 @@
-class MatchModel {
+class MatchModelNfl {
   final Prediction? prediction;
   final MatchInfo info;
 
-  MatchModel({required this.prediction, required this.info});
+  MatchModelNfl({required this.prediction, required this.info});
 
-  factory MatchModel.fromJson(Map<String, dynamic> json) {
-    return MatchModel(
-      prediction: json['pred'] != null && json['pred']['error'] == null
-          ? Prediction.fromJson(json['pred'])
-          : json['home_win_probability'] != null && json['home_win_probability'] != ''
+  factory MatchModelNfl.fromJson(Map<String, dynamic> json) {
+    return MatchModelNfl(
+      prediction:
+          json['pred'] != null && json['pred']['error'] == null
+              ? Prediction.fromJson(json['pred'])
+              : json['home_win_probability'] != null &&
+                  json['home_win_probability'] != ''
               ? Prediction.fromNFLJson(json)
               : null,
       info: MatchInfo.fromJson(json['info'] ?? json),
@@ -34,10 +36,17 @@ class Prediction {
       homeWinProbability: json['home_win_probability']?.toString(),
       awayWinProbability: json['away_win_probability']?.toString(),
       confidence: json['confidence']?.toString(),
-      predictedScores: json['predicted_scores'] != null
-          ? Map<String, int>.from(json['predicted_scores'].map(
-              (key, value) => MapEntry(key, value is int ? value : int.parse(value.toString()))))
-          : null,
+      predictedScores:
+          json['predicted_scores'] != null
+              ? Map<String, int>.from(
+                json['predicted_scores'].map(
+                  (key, value) => MapEntry(
+                    key,
+                    value is int ? value : int.parse(value.toString()),
+                  ),
+                ),
+              )
+              : null,
     );
   }
 
@@ -46,10 +55,19 @@ class Prediction {
       homeWinProbability: json['home_win_probability']?.toString(),
       awayWinProbability: json['away_win_probability']?.toString(),
       confidence: json['confidence']?.toString(),
-      predictedScores: json['predicted_scores'] != null
-          ? Map<String, int>.from(json['predicted_scores'].map(
-              (key, value) => MapEntry(key, value is int ? value : (value != '' ? int.parse(value.toString()) : 0))))
-          : null,
+      predictedScores:
+          json['predicted_scores'] != null
+              ? Map<String, int>.from(
+                json['predicted_scores'].map(
+                  (key, value) => MapEntry(
+                    key,
+                    value is int
+                        ? value
+                        : (value != '' ? int.parse(value.toString()) : 0),
+                  ),
+                ),
+              )
+              : null,
     );
   }
 }
@@ -83,8 +101,16 @@ class MatchInfo {
       venue: json['@venue'] ?? json['venue'] ?? '',
       formattedDate: json['@formatted_date'] ?? json['formatted_date'] ?? '',
       datetimeUtc: json['@datetime_utc'] ?? json['datetime_utc'] ?? '',
-      hometeam: json['home_team'] ?? json['hometeam']?['@name'] ?? json['hometeam'] ?? '',
-      awayteam: json['away_team'] ?? json['awayteam']?['@name'] ?? json['awayteam'] ?? '',
+      hometeam:
+          json['home_team'] ??
+          json['hometeam']?['@name'] ??
+          json['hometeam'] ??
+          '',
+      awayteam:
+          json['away_team'] ??
+          json['awayteam']?['@name'] ??
+          json['awayteam'] ??
+          '',
     );
   }
 }

@@ -11,11 +11,11 @@ class FieldLineupService {
   ) async {
     if (kDebugMode) {
       print('FieldLineupService: Starting API call');
-      print('FieldLineupService: URL: ${Urls.getLineupPlayerNfl}');
+      print('FieldLineupService: URL: ${Urls.getLineupNfl}');
       print('FieldLineupService: homeTeam: $homeTeam, awayTeam: $awayTeam');
     }
 
-    final url = Uri.parse(Urls.getLineupPlayerNfl);
+    final url = Uri.parse(Urls.getLineupNfl);
     try {
       final requestBody = {'hometeam': homeTeam, 'awayteam': awayTeam};
       if (kDebugMode) {

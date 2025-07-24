@@ -8,17 +8,16 @@ class MatchCard extends StatelessWidget {
   final DateTime matchDateTime;
 
   const MatchCard({
-    Key? key,
+    super.key,
     required this.team1Name,
     required this.team1LogoPath,
     required this.team2Name,
     required this.team2LogoPath,
     required this.matchDateTime,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    // Format the DateTime object
     final formattedDate =
         '${matchDateTime.day} ${matchDateTime.month.toString().padLeft(2, '0')}';
     final formattedTime =
@@ -42,7 +41,7 @@ class MatchCard extends StatelessWidget {
               Image.asset(team1LogoPath, height: 70),
               const SizedBox(height: 8),
               Text(
-                team1Name,
+                formatVenue(team1Name),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.white,
@@ -75,7 +74,7 @@ class MatchCard extends StatelessWidget {
               Image.asset(team2LogoPath, height: 70),
               const SizedBox(height: 8),
               Text(
-                team2Name,
+                formatVenue(team2Name),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.white,
@@ -88,5 +87,14 @@ class MatchCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String formatVenue(String venue) {
+    List<String> words = venue.split(' ');
+    List<String> groupedWords = [];
+    for (int i = 0; i < words.length; i += 1) {
+      groupedWords.add(words.skip(i).take(1).join(' '));
+    }
+    return groupedWords.join('\n');
   }
 }

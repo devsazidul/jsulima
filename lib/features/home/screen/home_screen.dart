@@ -5,7 +5,6 @@ import 'package:jsulima/core/models/table_model.dart';
 import 'package:jsulima/core/services/table_service.dart';
 import 'package:jsulima/features/home/widgets/league_button_widget.dart';
 import 'package:jsulima/features/home/widgets/match_card.dart';
-import 'package:jsulima/features/home/widgets/stat_box_widget.dart';
 import 'package:jsulima/features/home/widgets/table_row_widget.dart';
 import 'package:shimmer/shimmer.dart';
 import '../controller/home_controller.dart';
@@ -263,110 +262,110 @@ class HomeScreen extends StatelessWidget {
                 ),
               );
             }),
-            const SizedBox(height: 20),
-            const Text(
-              'Top Predictions',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: const Color(0xFF2F2F2F),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/matt-ryan-1.png',
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.cover,
-                      ),
-                      const SizedBox(width: 12),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Matt Ryan',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Quarterback',
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Predicted Stats',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        StatBoxWidget(value: '310', label: 'Passing Yards'),
-                        StatBoxWidget(value: '2', label: 'Touchdowns'),
-                        StatBoxWidget(value: '1', label: 'Interceptions'),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      const Text(
-                        'AI Confidence',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                      const SizedBox(width: 10),
-                      Obx(
-                        () => Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 12,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Text(
-                            '${controller.aiConfidence.value}%',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            // const SizedBox(height: 20),
+            // const Text(
+            //   'Top Predictions',
+            //   style: TextStyle(
+            //     color: Colors.white,
+            //     fontSize: 18,
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
+            // const SizedBox(height: 10),
+            // Container(
+            //   padding: const EdgeInsets.all(10),
+            //   decoration: BoxDecoration(
+            //     color: const Color(0xFF2F2F2F),
+            //     borderRadius: BorderRadius.circular(12),
+            //   ),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Row(
+            //         children: [
+            //           Image.asset(
+            //             'assets/images/matt-ryan-1.png',
+            //             width: 60,
+            //             height: 60,
+            //             fit: BoxFit.cover,
+            //           ),
+            //           const SizedBox(width: 12),
+            //           Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               const Text(
+            //                 'Matt Ryan',
+            //                 style: TextStyle(
+            //                   color: Colors.white,
+            //                   fontSize: 18,
+            //                   fontWeight: FontWeight.bold,
+            //                 ),
+            //               ),
+            //               Text(
+            //                 'Quarterback',
+            //                 style: TextStyle(
+            //                   color: Colors.grey[400],
+            //                   fontSize: 15,
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //         ],
+            //       ),
+            //       const SizedBox(height: 16),
+            //       const Text(
+            //         'Predicted Stats',
+            //         style: TextStyle(
+            //           color: Colors.white,
+            //           fontSize: 16,
+            //           fontWeight: FontWeight.bold,
+            //         ),
+            //       ),
+            //       const SizedBox(height: 10),
+            //       SingleChildScrollView(
+            //         scrollDirection: Axis.horizontal,
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //           children: [
+            //             StatBoxWidget(value: '310', label: 'Passing Yards'),
+            //             StatBoxWidget(value: '2', label: 'Touchdowns'),
+            //             StatBoxWidget(value: '1', label: 'Interceptions'),
+            //           ],
+            //         ),
+            //       ),
+            //       const SizedBox(height: 16),
+            //       Row(
+            //         children: [
+            //           const Text(
+            //             'AI Confidence',
+            //             style: TextStyle(color: Colors.white, fontSize: 16),
+            //           ),
+            //           const SizedBox(width: 10),
+            //           Obx(
+            //             () => Container(
+            //               padding: const EdgeInsets.symmetric(
+            //                 horizontal: 12,
+            //                 vertical: 12,
+            //               ),
+            //               decoration: const BoxDecoration(
+            //                 color: Colors.red,
+            //                 shape: BoxShape.circle,
+            //               ),
+            //               child: Text(
+            //                 '${controller.aiConfidence.value}%',
+            //                 style: const TextStyle(
+            //                   color: Colors.white,
+            //                   fontSize: 16,
+            //                   fontWeight: FontWeight.bold,
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ],
+            //   ),
+            // ),
             const SizedBox(height: 25),
             const Center(
               child: Text(
@@ -386,7 +385,6 @@ class HomeScreen extends StatelessWidget {
                 ),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    // Shimmer effect for loading table rows
                     return Container(
                       decoration: BoxDecoration(
                         color: const Color(0xFF2F2F2F),
@@ -398,7 +396,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       child: Column(
                         children: List.generate(
-                          6,
+                          10,
                           (index) => Padding(
                             padding: const EdgeInsets.symmetric(vertical: 6.0),
                             child: Row(

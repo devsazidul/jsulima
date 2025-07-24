@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:jsulima/core/models/table_model.dart';
 import 'package:jsulima/core/services/table_service.dart';
 import 'package:jsulima/features/home/widgets/league_button_widget.dart';
 import 'package:jsulima/features/home/widgets/match_card.dart';
 import 'package:jsulima/features/home/widgets/stat_box_widget.dart';
 import 'package:jsulima/features/home/widgets/table_row_widget.dart';
+import 'package:shimmer/shimmer.dart';
 import '../controller/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -149,24 +151,74 @@ class HomeScreen extends StatelessWidget {
             Obx(
               () =>
                   controller.selectedLeague.value == 'NFL'
-                      ? MatchCard(
-                        team1Name: 'Atlanta\nFalcon',
-                        team1LogoPath: 'assets/icons/falcon.png',
-                        team2Name: 'Carolina\nPanther',
-                        team2LogoPath: 'assets/icons/panther.png',
-                        matchDateTime: DateTime(2025, 2, 14, 15, 0),
+                      ? controller.isLoadingNflGames.value
+                          ? Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
+                              width: Get.width,
+                              height: 200,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                          )
+                          : controller.nflGames.isEmpty
+                          ? const Center(
+                            child: Text(
+                              'No NFL games available',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                          : MatchCard(
+                            team1Name: controller.nflGames[0]['team1Name'],
+                            team1LogoPath: controller.nflGames[0]['team1Image'],
+                            team2Name: controller.nflGames[0]['team2Name'],
+                            team2LogoPath: controller.nflGames[0]['team2Image'],
+                            matchDateTime: _parseMatchTime(
+                              controller.nflGames[0]['matchTime'],
+                            ),
+                          )
+                      : controller.isLoadingMlbGames.value
+                      ? Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          width: Get.width,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      )
+                      : controller.mlbGames.isEmpty
+                      ? const Center(
+                        child: Text(
+                          'No MLB games available',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       )
                       : MatchCard(
-                        team1Name: 'New York\nYankees',
-                        team1LogoPath: 'assets/icons/newyork.png',
-                        team2Name: 'Boston Red\nSox',
-                        team2LogoPath: 'assets/icons/boston.png',
-                        matchDateTime: DateTime(2025, 2, 14, 15, 0),
+                        team1Name: controller.mlbGames[0]['team1Name'],
+                        team1LogoPath: controller.mlbGames[0]['team1Image'],
+                        team2Name: controller.mlbGames[0]['team2Name'],
+                        team2LogoPath: controller.mlbGames[0]['team2Image'],
+                        matchDateTime: _parseMatchTime(
+                          controller.mlbGames[0]['matchTime'],
+                        ),
                       ),
             ),
             const SizedBox(height: 10),
-            Obx(
-              () => Container(
+            Obx(() {
+              final isNfl = controller.selectedLeague.value == 'NFL';
+              final games = isNfl ? controller.nflGames : controller.mlbGames;
+              final isLoading =
+                  isNfl
+                      ? controller.isLoadingNflGames.value
+                      : controller.isLoadingMlbGames.value;
+              return Container(
                 height: 70,
                 decoration: BoxDecoration(
                   image: const DecorationImage(
@@ -180,7 +232,9 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${controller.winningPrediction.value}%',
+                      isLoading || games.isEmpty
+                          ? '--'
+                          : '${games[0]['team1Percentage'].toStringAsFixed(0)}%',
                       style: const TextStyle(
                         color: Colors.green,
                         fontSize: 30,
@@ -196,7 +250,9 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${100 - controller.winningPrediction.value}%',
+                      isLoading || games.isEmpty
+                          ? '--'
+                          : '${games[0]['team2Percentage'].toStringAsFixed(0)}%',
                       style: const TextStyle(
                         color: Colors.red,
                         fontSize: 30,
@@ -205,8 +261,8 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-            ),
+              );
+            }),
             const SizedBox(height: 20),
             const Text(
               'Top Predictions',
@@ -336,7 +392,10 @@ class HomeScreen extends StatelessWidget {
                         color: const Color(0xFF2F2F2F),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 12,
+                      ),
                       child: Column(
                         children: List.generate(
                           6,
@@ -507,4 +566,13 @@ class HomeScreen extends StatelessWidget {
       ),
     ),
   );
+  DateTime _parseMatchTime(String matchTime) {
+    try {
+      final format = DateFormat('dd MMM\nh:mm a');
+      return format.parse(matchTime);
+    } catch (e) {
+      // Fallback to a default date if parsing fails
+      return DateTime(2025, 2, 14, 15, 0);
+    }
+  }
 }

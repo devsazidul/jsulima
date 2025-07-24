@@ -10,6 +10,7 @@ class PredictionContainer extends StatelessWidget {
   final String predictionText;
   final double team1Percentage;
   final double team2Percentage;
+  final String venue;
 
   const PredictionContainer({
     super.key,
@@ -21,6 +22,7 @@ class PredictionContainer extends StatelessWidget {
     required this.predictionText,
     required this.team1Percentage,
     required this.team2Percentage,
+    required this.venue,
   });
 
   @override
@@ -205,6 +207,7 @@ class PredictionContainer extends StatelessWidget {
             matchTime: matchTime,
             team1Percentage: team1Percentage,
             team2Percentage: team2Percentage,
+            venue: venue,
           ),
         ],
       ),

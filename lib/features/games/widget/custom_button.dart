@@ -10,6 +10,7 @@ class CustomButton extends StatelessWidget {
   final String matchTime;
   final double team1Percentage;
   final double team2Percentage;
+  final String venue;
   const CustomButton({
     super.key,
     required this.team1Name,
@@ -18,14 +19,14 @@ class CustomButton extends StatelessWidget {
     required this.team2Image,
     required this.matchTime,
     required this.team1Percentage,
-    required this.team2Percentage,
+    required this.team2Percentage, required this.venue,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => GameDetailsScreen(team1Name: team1Name, team2Name: team2Name, team1Image: team1Image, team2Image: team2Image, matchTime: matchTime, team1Percentage: team1Percentage, team2Percentage: team2Percentage,));
+        Get.to(() => GameDetailsScreen(team1Name: team1Name, team2Name: team2Name, team1Image: team1Image, team2Image: team2Image, matchTime: matchTime, team1Percentage: team1Percentage, team2Percentage: team2Percentage, venue: venue,));
       },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 14.5),

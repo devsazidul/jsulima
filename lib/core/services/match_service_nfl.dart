@@ -79,10 +79,8 @@ class MatchServiceNfl {
           return {
             'team1Name': match.info.hometeam,
             'team2Name': match.info.awayteam,
-            'team1Image':
-                logoMap[match.info.hometeam] ?? ImagePath.nflTeam1,
-            'team2Image':
-                logoMap[match.info.awayteam] ?? ImagePath.nflTeam2,
+            'team1Image': logoMap[match.info.hometeam] ?? ImagePath.nflTeam1,
+            'team2Image': logoMap[match.info.awayteam] ?? ImagePath.nflTeam2,
             'matchTime': formatMatchTime(match.info.datetimeUtc),
             'predictionText': generatePredictionText(match),
             'team1Percentage': double.parse(
@@ -91,6 +89,7 @@ class MatchServiceNfl {
             'team2Percentage': double.parse(
               match.prediction!.awayWinProbability!,
             ),
+            'venue': match.info.venue,
           };
         }).toList();
       } else {
@@ -154,6 +153,7 @@ class MatchServiceNfl {
           'team2Percentage': double.parse(
             match.prediction!.awayWinProbability!,
           ),
+          'venue': match.info.venue,
         };
       }).toList();
     }

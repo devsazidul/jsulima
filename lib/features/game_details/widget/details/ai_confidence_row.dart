@@ -43,7 +43,7 @@ class AIConfidenceRow extends StatelessWidget {
           ),
           Spacer(),
           RichText(
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.end,
             text: TextSpan(
               style: TextStyle(
                 fontWeight: FontWeight.w400,
@@ -54,7 +54,7 @@ class AIConfidenceRow extends StatelessWidget {
               children: <TextSpan>[
                 TextSpan(text: 'Venue: '),
                 TextSpan(
-                  text: venue,
+                  text: formatVenue(venue),
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 12,
@@ -68,5 +68,14 @@ class AIConfidenceRow extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String formatVenue(String venue) {
+    List<String> words = venue.split(' ');
+    List<String> groupedWords = [];
+    for (int i = 0; i < words.length; i += 3) {
+      groupedWords.add(words.skip(i).take(3).join(' '));
+    }
+    return groupedWords.join('\n');
   }
 }

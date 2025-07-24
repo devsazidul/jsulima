@@ -42,7 +42,7 @@ class TeamsWidget extends StatelessWidget {
               ),
               SizedBox(height: 4),
               Text(
-                team1Name,
+                formatVenue(team1Name),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
@@ -114,7 +114,7 @@ class TeamsWidget extends StatelessWidget {
               ),
               SizedBox(height: 4),
               Text(
-                team2Name,
+                formatVenue(team2Name),
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 14,
@@ -128,5 +128,14 @@ class TeamsWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String formatVenue(String venue) {
+    List<String> words = venue.split(' ');
+    List<String> groupedWords = [];
+    for (int i = 0; i < words.length; i += 2) {
+      groupedWords.add(words.skip(i).take(2).join(' '));
+    }
+    return groupedWords.join('\n');
   }
 }

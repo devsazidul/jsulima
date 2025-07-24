@@ -45,7 +45,6 @@ class MatchServiceMlb {
   }
 
   String _normalizeTeamName(String teamName) {
-    // Convert team names to title case to match getTeamLogoMap keys
     return teamName
         .toLowerCase()
         .split(' ')
@@ -117,6 +116,7 @@ class MatchServiceMlb {
             'predictionText': generatePredictionText(match),
             'team1Percentage': team1Percentage,
             'team2Percentage': team2Percentage,
+            'venue': match.info.venue, 
           };
         }).toList();
       } else {
@@ -171,6 +171,7 @@ class MatchServiceMlb {
           'predictionText': generatePredictionText(match),
           'team1Percentage': team1Percentage,
           'team2Percentage': team2Percentage,
+          'venue': match.info.venue, 
         };
       }).toList();
     }

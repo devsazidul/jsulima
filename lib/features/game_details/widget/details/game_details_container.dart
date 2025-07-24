@@ -15,6 +15,7 @@ class GameDetailsContainer extends StatelessWidget {
   final String matchTime;
   final double team1Percentage;
   final double team2Percentage;
+  final String venue;
 
   const GameDetailsContainer({
     super.key,
@@ -24,7 +25,7 @@ class GameDetailsContainer extends StatelessWidget {
     required this.team2Name,
     required this.team1Image,
     required this.team2Image,
-    required this.matchTime,
+    required this.matchTime, required this.venue,
   });
 
   @override
@@ -49,7 +50,7 @@ class GameDetailsContainer extends StatelessWidget {
             team1Percentage: team1Percentage,
             team2Percentage: team2Percentage,
           ),
-          AIConfidenceRow(),
+          AIConfidenceRow(venue: venue,),
           SizedBox(height: 20),
           TabNavigation(team1Name: team1Name, team2Name: team2Name),
           SizedBox(height: 50),

@@ -10,6 +10,7 @@ class GameDetailsScreen extends StatelessWidget {
   final String matchTime;
   final double team1Percentage;
   final double team2Percentage;
+  final String venue;
   const GameDetailsScreen({
     super.key,
     required this.team1Name,
@@ -19,6 +20,7 @@ class GameDetailsScreen extends StatelessWidget {
     required this.matchTime,
     required this.team1Percentage,
     required this.team2Percentage,
+    required this.venue,
   });
 
   @override
@@ -39,6 +41,7 @@ class GameDetailsScreen extends StatelessWidget {
           matchTime: matchTime,
           team1Percentage: team1Percentage,
           team2Percentage: team2Percentage,
+          venue: venue,
         ),
       ),
     );

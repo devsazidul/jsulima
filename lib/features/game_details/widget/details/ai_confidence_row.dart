@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AIConfidenceRow extends StatelessWidget {
-  const AIConfidenceRow({super.key});
+  final String venue;
+  const AIConfidenceRow({super.key, required this.venue});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class AIConfidenceRow extends StatelessWidget {
               children: <TextSpan>[
                 TextSpan(text: 'Venue: '),
                 TextSpan(
-                  text: ' Allegiant Stadium',
+                  text: venue,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 12,

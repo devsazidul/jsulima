@@ -5,12 +5,31 @@ import 'package:jsulima/core/services/end_points.dart';
 import 'package:jsulima/features/game_details/model/field_lineup_model.dart';
 
 class FieldLineupService {
+  static final Map<String, FieldLineupResponse> _cachedFieldLineups = {}; // In-memory cache for field lineups
+
   Future<FieldLineupResponse> getFieldLineup(
     String homeTeam,
     String awayTeam,
   ) async {
+    final cacheKey = "$homeTeam:$awayTeam";
     if (kDebugMode) {
-      print('FieldLineupService: Starting API call');
+      print('FieldLineupService: Checking cache for key: $cacheKey');
+    }
+
+    // Check cache first
+    if (_cachedFieldLineups.containsKey(cacheKey)) {
+      if (kDebugMode) {
+        print('FieldLineupService: Loaded field lineup from cache for $cacheKey');
+        print('FieldLineupService: Cached homePlayers count: ${_cachedFieldLineups[cacheKey]!.homePlayers.length}');
+        print('FieldLineupService: Cached awayPlayers count: ${_cachedFieldLineups[cacheKey]!.awayPlayers.length}');
+        print('FieldLineupService: Cached lineupImage length: ${_cachedFieldLineups[cacheKey]!.lineupImage.length}');
+      }
+      return _cachedFieldLineups[cacheKey]!;
+    }
+
+    // Cache miss, fetch from API
+    if (kDebugMode) {
+      print('FieldLineupService: Cache miss, starting API call');
       print('FieldLineupService: URL: ${Urls.getLineupNfl}');
       print('FieldLineupService: homeTeam: $homeTeam, awayTeam: $awayTeam');
     }
@@ -67,6 +86,12 @@ class FieldLineupService {
           print(
             'FieldLineupService: Response lineupImage length: ${fieldLineupResponse.lineupImage.length}',
           );
+        }
+
+        // Cache the data
+        _cachedFieldLineups[cacheKey] = fieldLineupResponse;
+        if (kDebugMode) {
+          print('FieldLineupService: Cached field lineup for $cacheKey');
         }
 
         return fieldLineupResponse;

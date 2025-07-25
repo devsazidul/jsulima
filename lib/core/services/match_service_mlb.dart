@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:jsulima/core/models/match_model_mlb.dart';
@@ -8,6 +9,7 @@ import 'dart:developer' as developer;
 
 class MatchServiceMlb {
   final String mlbApiUrl = Urls.getHeadToHeadPredictionMlb;
+  static List<Map<String, dynamic>> _cachedMlbGames = []; // In-memory cache for MLB games
 
   Map<String, String> getTeamLogoMap() {
     return {
@@ -78,7 +80,19 @@ class MatchServiceMlb {
   }
 
   Future<List<Map<String, dynamic>>> fetchMLBGames() async {
+    // Check cache first
+    if (_cachedMlbGames.isNotEmpty) {
+      if (kDebugMode) {
+        print("Loaded ${_cachedMlbGames.length} MLB games from cache");
+      }
+      return _cachedMlbGames;
+    }
+
+    // Cache miss, fetch from API
     try {
+      if (kDebugMode) {
+        print("Fetching MLB games from API");
+      }
       final response = await http.get(Uri.parse(mlbApiUrl));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
@@ -93,7 +107,7 @@ class MatchServiceMlb {
           developer.log('No valid matches after filtering', name: 'MatchServiceMlb');
         }
 
-        return filteredMatches.map((match) {
+        final games = filteredMatches.map((match) {
           final logoMap = getTeamLogoMap();
           final normalizedHomeTeam = _normalizeTeamName(match.info.hometeam);
           final normalizedAwayTeam = _normalizeTeamName(match.info.awayteam);
@@ -116,9 +130,16 @@ class MatchServiceMlb {
             'predictionText': generatePredictionText(match),
             'team1Percentage': team1Percentage,
             'team2Percentage': team2Percentage,
-            'venue': match.info.venue, 
+            'venue': match.info.venue,
           };
         }).toList();
+
+        // Cache the data
+        _cachedMlbGames = List.from(games);
+        if (kDebugMode) {
+          print("Cached ${games.length} MLB games");
+        }
+        return games;
       } else {
         developer.log('API request failed with status: ${response.statusCode}', name: 'MatchServiceMlb');
         throw Exception('Failed to load MLB games: ${response.statusCode}');
@@ -148,7 +169,7 @@ class MatchServiceMlb {
       final matches = mockData.map((json) => MatchModelMlb.fromJson(json)).toList();
       final filteredMatches = matches.where((match) => match.prediction != null).toList();
 
-      return filteredMatches.map((match) {
+      final games = filteredMatches.map((match) {
         final logoMap = getTeamLogoMap();
         final normalizedHomeTeam = _normalizeTeamName(match.info.hometeam);
         final normalizedAwayTeam = _normalizeTeamName(match.info.awayteam);
@@ -171,9 +192,16 @@ class MatchServiceMlb {
           'predictionText': generatePredictionText(match),
           'team1Percentage': team1Percentage,
           'team2Percentage': team2Percentage,
-          'venue': match.info.venue, 
+          'venue': match.info.venue,
         };
       }).toList();
+
+      // Cache the mock data
+      _cachedMlbGames = List.from(games);
+      if (kDebugMode) {
+        print("Cached ${games.length} MLB mock games");
+      }
+      return games;
     }
   }
 }

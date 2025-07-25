@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:jsulima/core/models/match_model_nfl.dart';
@@ -7,6 +8,7 @@ import 'package:jsulima/core/utils/constants/image_path.dart';
 
 class MatchServiceNfl {
   final String nflApiUrl = Urls.getHeadToHeadPredictionNfl;
+  static List<Map<String, dynamic>> _cachedNflGames = []; // In-memory cache for NFL games
 
   Map<String, String> getTeamLogoMap() {
     return {
@@ -67,14 +69,26 @@ class MatchServiceNfl {
   }
 
   Future<List<Map<String, dynamic>>> fetchNFLGames() async {
+    // Check cache first
+    if (_cachedNflGames.isNotEmpty) {
+      if (kDebugMode) {
+        print("Loaded ${_cachedNflGames.length} NFL games from cache");
+      }
+      return _cachedNflGames;
+    }
+
+    // Cache miss, fetch from API
     try {
+      if (kDebugMode) {
+        print("Fetching NFL games from API");
+      }
       final response = await http.get(Uri.parse(nflApiUrl));
       if (response.statusCode == 200) {
         final List<dynamic> jsonList = json.decode(response.body);
         final matches =
             jsonList.map((json) => MatchModelNfl.fromJson(json)).toList();
 
-        return matches.where((match) => match.prediction != null).map((match) {
+        final games = matches.where((match) => match.prediction != null).map((match) {
           final logoMap = getTeamLogoMap();
           return {
             'team1Name': match.info.hometeam,
@@ -92,10 +106,20 @@ class MatchServiceNfl {
             'venue': match.info.venue,
           };
         }).toList();
+
+        // Cache the data
+        _cachedNflGames = List.from(games);
+        if (kDebugMode) {
+          print("Cached ${games.length} NFL games");
+        }
+        return games;
       } else {
         throw Exception('Failed to load NFL games: ${response.statusCode}');
       }
     } catch (e) {
+      if (kDebugMode) {
+        print("Error fetching NFL games: $e");
+      }
       final mockData = [
         {
           "home_team": "Detroit Lions",
@@ -138,7 +162,7 @@ class MatchServiceNfl {
       ];
       final matches =
           mockData.map((json) => MatchModelNfl.fromJson(json)).toList();
-      return matches.where((match) => match.prediction != null).map((match) {
+      final games = matches.where((match) => match.prediction != null).map((match) {
         final logoMap = getTeamLogoMap();
         return {
           'team1Name': match.info.hometeam,
@@ -156,6 +180,13 @@ class MatchServiceNfl {
           'venue': match.info.venue,
         };
       }).toList();
+
+      // Cache the mock data
+      _cachedNflGames = List.from(games);
+      if (kDebugMode) {
+        print("Cached ${games.length} NFL mock games");
+      }
+      return games;
     }
   }
 }

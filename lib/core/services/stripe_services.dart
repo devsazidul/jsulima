@@ -54,4 +54,5 @@ class StripeService {
       throw Exception('Failed to create payment intent: $err');
     }
   }
+  
 }

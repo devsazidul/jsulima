@@ -6,6 +6,7 @@ import 'package:http_parser/http_parser.dart'
     as http_parser; // Import for MediaType
 import 'package:image_picker/image_picker.dart'
     show ImagePicker, ImageSource, XFile;
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as path;
 import 'package:jsulima/core/services/end_points.dart' show Urls;
 import 'package:jsulima/core/services/shared_preferences_helper.dart'

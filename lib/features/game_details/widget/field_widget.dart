@@ -139,7 +139,7 @@ class FieldWidget extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                "#" + player.playerNumber.toString(),
+                "#${player.playerNumber}",
                 style: const TextStyle(
                   color: Colors.red,
                   fontWeight: FontWeight.w800,

@@ -221,7 +221,7 @@ class TeamButton extends StatelessWidget {
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
-  const TeamButton({
+  const TeamButton({super.key, 
     required this.label,
     required this.isSelected,
     required this.onTap,

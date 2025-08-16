@@ -13,10 +13,10 @@ class GameController extends GetxController {
   }
 
   void fetchLineup(String teamName) async {
-    final LineupService _lineupService = LineupService();
+    final LineupService lineupService = LineupService();
 
     try {
-      final lineup = await _lineupService.getTeamLineup(teamName);
+      final lineup = await lineupService.getTeamLineup(teamName);
       lineupResponse = lineup;
     } catch (e) {
       if (kDebugMode) {

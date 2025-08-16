@@ -44,5 +44,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 # Added to ignore environment variable files containing sensitive data like Stripe keys
-
 .env

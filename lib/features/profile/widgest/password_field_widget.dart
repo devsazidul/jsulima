@@ -21,6 +21,7 @@ class PasswordFieldWidget extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 6),
       padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
+        // ignore: deprecated_member_use
         color: Colors.grey[900]?.withOpacity(0.9),
         borderRadius: BorderRadius.circular(12),
       ),

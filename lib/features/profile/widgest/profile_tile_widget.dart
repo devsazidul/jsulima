@@ -8,7 +8,7 @@ class ProfileTileWidget extends StatelessWidget {
   final bool? toggleValue;
   final VoidCallback? onToggle;
 
-  const ProfileTileWidget({
+  const ProfileTileWidget({super.key, 
     required this.title,
     required this.icon,
     this.isLogout = false,

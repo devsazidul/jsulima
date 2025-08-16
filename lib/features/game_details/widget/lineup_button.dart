@@ -27,7 +27,7 @@ class LineupButton extends StatelessWidget {
             ),
             SizedBox(width: 8),
             Text(
-              '$playerName',
+              playerName,
               style: TextStyle(
                 color: Colors.redAccent,
                 fontWeight: FontWeight.bold,

@@ -8,12 +8,6 @@ class MlbPlayerController extends GetxController {
   final RxBool isLoading = false.obs;
   final RxList<MlbPlayer> players = <MlbPlayer>[].obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    // Optionally fetch default team on init
-    // fetchLineupAndImage('Boston Red Sox');
-  }
 
   Future<void> fetchLineupAndImage(String teamName) async {
     isLoading.value = true;

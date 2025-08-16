@@ -13,6 +13,7 @@ class PaymentWebViewScreen extends StatefulWidget {
   const PaymentWebViewScreen({super.key, required this.paymentUrl});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PaymentWebViewScreenState createState() => _PaymentWebViewScreenState();
 }
 
@@ -63,7 +64,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
                 if (kDebugMode) {
                   print("WebView error: [31m${error.description}");
                 }
-                EasyLoading.showError("${error.description}");
+                EasyLoading.showError(error.description);
               },
             ),
           )

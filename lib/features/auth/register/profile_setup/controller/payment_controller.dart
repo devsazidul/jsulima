@@ -97,18 +97,24 @@ class PaymentController extends GetxController {
       isLoading.value = true;
       final response = await http.get(Uri.parse('${Urls.baseUrl}/plans'));
 
-      print("The plan datas are ${response.body}");
+      if (kDebugMode) {
+        print("The plan datas are ${response.body}");
+      }
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         plans.value = data.map((e) => PlanModel.fromJson(e)).toList();
       } else {
         EasyLoading.showError("Something went wrong");
-        print("Failed to fetch plans. Status code: ${response.statusCode}");
+        if (kDebugMode) {
+          print("Failed to fetch plans. Status code: ${response.statusCode}");
+        }
       }
     } catch (e) {
       EasyLoading.showError("Something went wrong");
-      print("The error is $e");
+      if (kDebugMode) {
+        print("The error is $e");
+      }
     } finally {
       isLoading.value = false;
       EasyLoading.dismiss();
@@ -123,7 +129,7 @@ class PaymentController extends GetxController {
   ) async {
     try {
       final response = await http.post(
-        Uri.parse('${Urls.paymentCheckout}'),
+        Uri.parse(Urls.paymentCheckout),
         headers: {
           'Content-Type': 'application/json',
           'Authorization':

@@ -449,6 +449,7 @@ class HomeScreen extends StatelessWidget {
                                     '${(data.winPercentage * 100).toStringAsFixed(1)}%',
                               ),
                             )
+                            // ignore: unnecessary_to_list_in_spreads
                             .toList(),
                       ],
                     ),

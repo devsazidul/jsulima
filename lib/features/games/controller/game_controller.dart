@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../game_details/api_service/lineup_service.dart';
@@ -18,7 +19,9 @@ class GameController extends GetxController {
       final lineup = await _lineupService.getTeamLineup(teamName);
       lineupResponse = lineup;
     } catch (e) {
-      print('Error fetching lineup: $e');
+      if (kDebugMode) {
+        print('Error fetching lineup: $e');
+      }
     }
   }
 }

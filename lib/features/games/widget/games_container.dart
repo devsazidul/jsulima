@@ -247,7 +247,7 @@ class GamesContainer extends StatelessWidget {
                             predictionText: game['predictionText'] as String,
                             team1Percentage: game['team1Percentage'] as double,
                             team2Percentage: game['team2Percentage'] as double,
-                            venue: game['venue'] as String,
+                            venue: game['venue'] as String, aiConfidence: "${game['confidence'].round()}%",
                           );
                         },
                       );
@@ -325,7 +325,7 @@ class GamesContainer extends StatelessWidget {
                             predictionText: game['predictionText'] as String,
                             team1Percentage: game['team1Percentage'] as double,
                             team2Percentage: game['team2Percentage'] as double,
-                            venue: game['venue'] as String,
+                            venue: game['venue'] as String, aiConfidence: "${game['confidence'].round()}%",
                           );
                         },
                       );

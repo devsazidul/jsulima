@@ -1,3 +1,5 @@
+import 'dart:math' as developer;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -262,110 +264,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               );
             }),
-            // const SizedBox(height: 20),
-            // const Text(
-            //   'Top Predictions',
-            //   style: TextStyle(
-            //     color: Colors.white,
-            //     fontSize: 18,
-            //     fontWeight: FontWeight.bold,
-            //   ),
-            // ),
-            // const SizedBox(height: 10),
-            // Container(
-            //   padding: const EdgeInsets.all(10),
-            //   decoration: BoxDecoration(
-            //     color: const Color(0xFF2F2F2F),
-            //     borderRadius: BorderRadius.circular(12),
-            //   ),
-            //   child: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: [
-            //       Row(
-            //         children: [
-            //           Image.asset(
-            //             'assets/images/matt-ryan-1.png',
-            //             width: 60,
-            //             height: 60,
-            //             fit: BoxFit.cover,
-            //           ),
-            //           const SizedBox(width: 12),
-            //           Column(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             children: [
-            //               const Text(
-            //                 'Matt Ryan',
-            //                 style: TextStyle(
-            //                   color: Colors.white,
-            //                   fontSize: 18,
-            //                   fontWeight: FontWeight.bold,
-            //                 ),
-            //               ),
-            //               Text(
-            //                 'Quarterback',
-            //                 style: TextStyle(
-            //                   color: Colors.grey[400],
-            //                   fontSize: 15,
-            //                 ),
-            //               ),
-            //             ],
-            //           ),
-            //         ],
-            //       ),
-            //       const SizedBox(height: 16),
-            //       const Text(
-            //         'Predicted Stats',
-            //         style: TextStyle(
-            //           color: Colors.white,
-            //           fontSize: 16,
-            //           fontWeight: FontWeight.bold,
-            //         ),
-            //       ),
-            //       const SizedBox(height: 10),
-            //       SingleChildScrollView(
-            //         scrollDirection: Axis.horizontal,
-            //         child: Row(
-            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //           children: [
-            //             StatBoxWidget(value: '310', label: 'Passing Yards'),
-            //             StatBoxWidget(value: '2', label: 'Touchdowns'),
-            //             StatBoxWidget(value: '1', label: 'Interceptions'),
-            //           ],
-            //         ),
-            //       ),
-            //       const SizedBox(height: 16),
-            //       Row(
-            //         children: [
-            //           const Text(
-            //             'AI Confidence',
-            //             style: TextStyle(color: Colors.white, fontSize: 16),
-            //           ),
-            //           const SizedBox(width: 10),
-            //           Obx(
-            //             () => Container(
-            //               padding: const EdgeInsets.symmetric(
-            //                 horizontal: 12,
-            //                 vertical: 12,
-            //               ),
-            //               decoration: const BoxDecoration(
-            //                 color: Colors.red,
-            //                 shape: BoxShape.circle,
-            //               ),
-            //               child: Text(
-            //                 '${controller.aiConfidence.value}%',
-            //                 style: const TextStyle(
-            //                   color: Colors.white,
-            //                   fontSize: 16,
-            //                   fontWeight: FontWeight.bold,
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ],
-            //   ),
-            // ),
             const SizedBox(height: 25),
             const Center(
               child: Text(
@@ -564,13 +462,19 @@ class HomeScreen extends StatelessWidget {
       ),
     ),
   );
-  DateTime _parseMatchTime(String matchTime) {
+
+  String _parseMatchTime(String matchTime) {
     try {
-      final format = DateFormat('dd MMM\nh:mm a');
-      return format.parse(matchTime);
+      if (matchTime.isEmpty || matchTime == 'Unknown') {
+        return '01/08/2025 12:30 AM';
+      }
+      final inputFormat = DateFormat('dd/MM\nh:mm a');
+      final dateTime = inputFormat.parse(matchTime);
+      final outputFormat = DateFormat('dd/MM\nh:mm a');
+      return outputFormat.format(dateTime);
     } catch (e) {
-      // Fallback to a default date if parsing fails
-      return DateTime(2025, 2, 14, 15, 0);
+      developer.log('Error parsing match time: $matchTime, error: $e' as num);
+      return '01/08/2025 12:30 AM';
     }
   }
 }

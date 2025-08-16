@@ -7,14 +7,15 @@ class HomeController extends GetxController {
   var winningPrediction = 60.obs;
   var aiConfidence = 90.obs;
   RxString selectedLeague = 'NFL'.obs;
-  final mlbGames = <Map<String, dynamic>>[].obs; // Observable list for MLB games
-  final isLoadingMlbGames = false.obs; // Track MLB loading state
-  final MatchServiceMlb matchServiceMlb = MatchServiceMlb(); // MLB service instance
-  final nflGames = <Map<String, dynamic>>[].obs; // Observable list for NFL games
-  final isLoadingNflGames = false.obs; // Track NFL loading state
-  final MatchServiceNfl matchServiceNfl = MatchServiceNfl(); // NFL service instance
-  static List<Map<String, dynamic>> _cachedNflGames = []; // In-memory cache for NFL
-  static List<Map<String, dynamic>> _cachedMlbGames = []; // In-memory cache for MLB
+  final mlbGames = <Map<String, dynamic>>[].obs;
+  final isLoadingMlbGames = false.obs;
+  final MatchServiceMlb matchServiceMlb = MatchServiceMlb();
+  final nflGames = <Map<String, dynamic>>[].obs; 
+  final isLoadingNflGames = false.obs; 
+  final MatchServiceNfl matchServiceNfl = MatchServiceNfl();
+  static List<Map<String, dynamic>> _cachedNflGames = [];
+  static List<Map<String, dynamic>> _cachedMlbGames = []; 
+
 
   @override
   void onInit() {

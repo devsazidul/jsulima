@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 
 class StripeService {
   static Future<void> init() async {
-    Stripe.publishableKey =
-        'pk_test_51QxRa94Jkoj1g0MMEOAvSXFKAu0fO1xzlm8MkS3TMxgnusylmb2PZ1eKO9TYJ6IrrrC3h2KAJ3nXkF9USyrnIQ3c00wOsgmdi3';
+    Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY'] ?? '';
     await Stripe.instance.applySettings();
   }
 

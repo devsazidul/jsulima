@@ -5,54 +5,64 @@ import 'package:intl/intl.dart';
 import 'package:jsulima/core/models/match_model_nfl.dart';
 import 'package:jsulima/core/services/end_points.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
+import 'dart:developer' as developer;
 
 class MatchServiceNfl {
   final String nflApiUrl = Urls.getHeadToHeadPredictionNfl;
-  static List<Map<String, dynamic>> _cachedNflGames = []; // In-memory cache for NFL games
+  static List<Map<String, dynamic>> _cachedNflGames =
+      []; // In-memory cache for NFL games
 
   Map<String, String> getTeamLogoMap() {
     return {
-      // NFL Teams
-      'Detroit Lions': ImagePath.nflTeam1,
-      'Los Angeles Chargers': ImagePath.nflTeam2,
-      'Baltimore Ravens': ImagePath.nflTeam1,
-      'Indianapolis Colts': ImagePath.nflTeam2,
-      'Philadelphia Eagles': ImagePath.nflTeam1,
-      'Cincinnati Bengals': ImagePath.nflTeam2,
-      'Atlanta Falcons': ImagePath.nflTeam1,
-      'Carolina Panthers': ImagePath.nflTeam2,
-      'Cleveland Browns': ImagePath.nflTeam1,
-      'New England Patriots': ImagePath.nflTeam2,
-      'Washington Commanders': ImagePath.nflTeam1,
-      'Minnesota Vikings': ImagePath.nflTeam2,
-      'Houston Texans': ImagePath.nflTeam1,
-      'Dallas Cowboys': ImagePath.nflTeam2,
-      'Jacksonville Jaguars': ImagePath.nflTeam1,
-      'Pittsburgh Steelers': ImagePath.nflTeam2,
-      'Tampa Bay Buccaneers': ImagePath.nflTeam1,
-      'Tennessee Titans': ImagePath.nflTeam2,
-      'New York Jets': ImagePath.nflTeam1,
-      'New Orleans Saints': ImagePath.nflTeam2,
-      'Green Bay Packers': ImagePath.nflTeam1,
-      'Buffalo Bills': ImagePath.nflTeam2,
-      'Kansas City Chiefs': ImagePath.nflTeam1,
-      'Denver Broncos': ImagePath.nflTeam2,
-      'Seattle Seahawks': ImagePath.nflTeam1,
-      'San Francisco 49ers': ImagePath.nflTeam2,
-      'New York Giants': ImagePath.nflTeam1,
-      'Las Vegas Raiders': ImagePath.nflTeam2,
-      'Arizona Cardinals': ImagePath.nflTeam1,
+      'Detroit Lions': ImagePath.detroitLions,
+      'Los Angeles Chargers': ImagePath.losAngelesChargers,
+      'Baltimore Ravens': ImagePath.baltimoreRavens,
+      'Indianapolis Colts': ImagePath.indianapolisColts,
+      'Philadelphia Eagles': ImagePath.philadelphiaEagles,
+      'Cincinnati Bengals': ImagePath.cincinnatiBengals,
+      'Atlanta Falcons': ImagePath.atlantaFalcons,
+      'Carolina Panthers': ImagePath.carolinaPanthers,
+      'Cleveland Browns': ImagePath.clevelandBrowns,
+      'New England Patriots': ImagePath.newEnglandPatriots,
+      'Washington Commanders': ImagePath.washingtonCommanders,
+      'Minnesota Vikings': ImagePath.minnesotaVikings,
+      'Houston Texans': ImagePath.houstonTexans,
+      'Dallas Cowboys': ImagePath.dallasCowboys,
+      'Jacksonville Jaguars': ImagePath.jacksonvilleJaguars,
+      'Pittsburgh Steelers': ImagePath.pittsburghPirates,
+      'Tampa Bay Buccaneers': ImagePath.tampaBayBuccaneers,
+      'Tennessee Titans': ImagePath.tennesseeTitans,
+      'New York Jets': ImagePath.newYorkJets,
+      'New Orleans Saints': ImagePath.newOrleansSaints,
+      'Green Bay Packers': ImagePath.greenBayPackers,
+      'Buffalo Bills': ImagePath.buffaloBills,
+      'Kansas City Chiefs': ImagePath.kansasCityChiefs,
+      'Denver Broncos': ImagePath.denverBroncos,
+      'Seattle Seahawks': ImagePath.seattleSeahawks,
+      'San Francisco 49ers': ImagePath.sanFrancisco49ers,
+      'New York Giants': ImagePath.newYorkGiants,
+      'Las Vegas Raiders': ImagePath.lasVegasRaiders,
+      'Arizona Cardinals': ImagePath.arizonaCardinals,
     };
   }
 
   String formatMatchTime(String datetimeUtc) {
     try {
+      if (datetimeUtc.isEmpty) return 'Unknown';
       final inputFormat = DateFormat('dd.MM.yyyy HH:mm');
-      final dateTime = inputFormat.parse(datetimeUtc);
-      final outputFormat = DateFormat(' dd MMM\nh:mm a');
-      return outputFormat.format(dateTime);
+      // Parse as UTC
+      final dateTime = inputFormat.parse(datetimeUtc, true);
+      // Adjust to EDT (UTC-04:00)
+      final edtDateTime = dateTime.subtract(Duration(hours: 4));
+      // Output format with month as number and '/' separator (e.g., "31/07\n8:00 PM")
+      final outputFormat = DateFormat('dd/MM\nh:mm a');
+      return outputFormat.format(edtDateTime);
     } catch (e) {
-      return ' Unknown';
+      developer.log(
+        'Error parsing date: $datetimeUtc, error: $e',
+        name: 'MatchServiceNfl',
+      );
+      return 'Unknown';
     }
   }
 
@@ -69,7 +79,6 @@ class MatchServiceNfl {
   }
 
   Future<List<Map<String, dynamic>>> fetchNFLGames() async {
-    // Check cache first
     if (_cachedNflGames.isNotEmpty) {
       if (kDebugMode) {
         print("Loaded ${_cachedNflGames.length} NFL games from cache");
@@ -77,37 +86,53 @@ class MatchServiceNfl {
       return _cachedNflGames;
     }
 
-    // Cache miss, fetch from API
     try {
       if (kDebugMode) {
         print("Fetching NFL games from API");
       }
-      final response = await http.get(Uri.parse(nflApiUrl));
+      final response = await http.post(Uri.parse(nflApiUrl));
       if (response.statusCode == 200) {
         final List<dynamic> jsonList = json.decode(response.body);
         final matches =
             jsonList.map((json) => MatchModelNfl.fromJson(json)).toList();
+        final games =
+            matches.where((match) => match.prediction != null).map((match) {
+              final logoMap = getTeamLogoMap();
+              double team1Percentage = 0.0;
+              double team2Percentage = 0.0;
+              double confidence = 0.0;
 
-        final games = matches.where((match) => match.prediction != null).map((match) {
-          final logoMap = getTeamLogoMap();
-          return {
-            'team1Name': match.info.hometeam,
-            'team2Name': match.info.awayteam,
-            'team1Image': logoMap[match.info.hometeam] ?? ImagePath.nflTeam1,
-            'team2Image': logoMap[match.info.awayteam] ?? ImagePath.nflTeam2,
-            'matchTime': formatMatchTime(match.info.datetimeUtc),
-            'predictionText': generatePredictionText(match),
-            'team1Percentage': double.parse(
-              match.prediction!.homeWinProbability!,
-            ),
-            'team2Percentage': double.parse(
-              match.prediction!.awayWinProbability!,
-            ),
-            'venue': match.info.venue,
-          };
-        }).toList();
+              try {
+                team1Percentage = double.parse(
+                  match.prediction!.homeWinProbability!,
+                );
+                team2Percentage = double.parse(
+                  match.prediction!.awayWinProbability!,
+                );
+                confidence = double.parse(match.prediction!.confidence!);
+              } catch (e) {
+                developer.log(
+                  'Error parsing percentages: ${match.prediction!.homeWinProbability}, ${match.prediction!.awayWinProbability}, ${match.prediction!.confidence}, error: $e',
+                  name: 'MatchServiceNfl',
+                );
+              }
 
-        // Cache the data
+              return {
+                'team1Name': match.info.hometeam,
+                'team2Name': match.info.awayteam,
+                'team1Image':
+                    logoMap[match.info.hometeam] ?? ImagePath.nflTeam1,
+                'team2Image':
+                    logoMap[match.info.awayteam] ?? ImagePath.nflTeam2,
+                'matchTime': formatMatchTime(match.info.datetimeUtc),
+                'predictionText': generatePredictionText(match),
+                'team1Percentage': team1Percentage,
+                'team2Percentage': team2Percentage,
+                'confidence': confidence,
+                'venue': match.info.venue,
+              };
+            }).toList();
+
         _cachedNflGames = List.from(games);
         if (kDebugMode) {
           print("Cached ${games.length} NFL games");
@@ -117,9 +142,7 @@ class MatchServiceNfl {
         throw Exception('Failed to load NFL games: ${response.statusCode}');
       }
     } catch (e) {
-      if (kDebugMode) {
-        print("Error fetching NFL games: $e");
-      }
+      developer.log('Error fetching NFL games: $e', name: 'MatchServiceNfl');
       final mockData = [
         {
           "home_team": "Detroit Lions",
@@ -162,26 +185,42 @@ class MatchServiceNfl {
       ];
       final matches =
           mockData.map((json) => MatchModelNfl.fromJson(json)).toList();
-      final games = matches.where((match) => match.prediction != null).map((match) {
-        final logoMap = getTeamLogoMap();
-        return {
-          'team1Name': match.info.hometeam,
-          'team2Name': match.info.awayteam,
-          'team1Image': logoMap[match.info.hometeam] ?? ImagePath.nflTeam1,
-          'team2Image': logoMap[match.info.awayteam] ?? ImagePath.nflTeam2,
-          'matchTime': formatMatchTime(match.info.datetimeUtc),
-          'predictionText': generatePredictionText(match),
-          'team1Percentage': double.parse(
-            match.prediction!.homeWinProbability!,
-          ),
-          'team2Percentage': double.parse(
-            match.prediction!.awayWinProbability!,
-          ),
-          'venue': match.info.venue,
-        };
-      }).toList();
+      final games =
+          matches.where((match) => match.prediction != null).map((match) {
+            final logoMap = getTeamLogoMap();
+            double team1Percentage = 0.0;
+            double team2Percentage = 0.0;
+            double confidence = 0.0;
 
-      // Cache the mock data
+            try {
+              team1Percentage = double.parse(
+                match.prediction!.homeWinProbability!,
+              );
+              team2Percentage = double.parse(
+                match.prediction!.awayWinProbability!,
+              );
+              confidence = double.parse(match.prediction!.confidence!);
+            } catch (e) {
+              developer.log(
+                'Error parsing mock data percentages: ${match.prediction!.homeWinProbability}, ${match.prediction!.awayWinProbability}, ${match.prediction!.confidence}, error: $e',
+                name: 'MatchServiceNfl',
+              );
+            }
+
+            return {
+              'team1Name': match.info.hometeam,
+              'team2Name': match.info.awayteam,
+              'team1Image': logoMap[match.info.hometeam] ?? ImagePath.nflTeam1,
+              'team2Image': logoMap[match.info.awayteam] ?? ImagePath.nflTeam2,
+              'matchTime': formatMatchTime(match.info.datetimeUtc),
+              'predictionText': generatePredictionText(match),
+              'team1Percentage': team1Percentage,
+              'team2Percentage': team2Percentage,
+              'confidence': confidence,
+              'venue': match.info.venue,
+            };
+          }).toList();
+
       _cachedNflGames = List.from(games);
       if (kDebugMode) {
         print("Cached ${games.length} NFL mock games");

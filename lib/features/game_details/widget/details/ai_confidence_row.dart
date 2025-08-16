@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class AIConfidenceRow extends StatelessWidget {
   final String venue;
-  const AIConfidenceRow({super.key, required this.venue});
+  final String aiConfidence;
+  const AIConfidenceRow({super.key, required this.venue, required this.aiConfidence});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class AIConfidenceRow extends StatelessWidget {
               borderRadius: BorderRadius.circular(72),
             ),
             child: Text(
-              '85%',
+              aiConfidence,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 14,

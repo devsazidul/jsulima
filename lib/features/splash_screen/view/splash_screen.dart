@@ -5,9 +5,9 @@ import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/splash_screen/controller/splash_screen_controller.dart';
 
 class SplashScreen extends StatelessWidget {
-   SplashScreen({super.key});
+  SplashScreen({super.key});
 
-  final SplashScreenController controller = Get.put(SplashScreenController()); 
+  final SplashScreenController controller = Get.put(SplashScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -21,28 +21,19 @@ class SplashScreen extends StatelessWidget {
           image: DecorationImage(
             image: AssetImage(ImagePath.splashBg),
             fit: BoxFit.cover,
-          )
+          ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 50
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 50),
           child: Column(
-           
             children: [
-              Spacer(), 
-              Image.asset(IconPath.appIcon, 
-              height: height * 0.6,
-              width: width * 0.6,
-              ), 
-              Spacer(),  
-              SizedBox(
-                width: width * 0.3,
-                child: Divider(
-                  color: Colors.white,
-                  thickness: 3,
-                ),
+              Spacer(),
+              Image.asset(
+                IconPath.appIcon,
+                height: height * 0.6,
+                width: width * 0.6,
               ),
+              Spacer(),
             ],
           ),
         ),

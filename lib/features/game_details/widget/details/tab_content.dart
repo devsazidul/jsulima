@@ -93,7 +93,7 @@ class TabNavigationContent extends GetView<GameDetailsController> {
                   Tab(text: 'Prediction'),
                   Tab(text: 'Players'),
                   Tab(text: 'Line Up'),
-                  Tab(text: 'State'),
+                  Tab(text: 'Stats'),
                 ],
               ),
               SizedBox(height: 24),

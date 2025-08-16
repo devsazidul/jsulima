@@ -1,6 +1,6 @@
 class Urls {
   static const String baseUrl = 'https://jsulima-backend.onrender.com';
-  static const String baseUrlAi = 'http://184.105.208.66:8001';
+  static const String baseUrlAi = 'http://172.83.15.114:8000';
 
   static const String login = '$baseUrl/auth/login';
   static const String authentication = '$baseUrl/auth/verify-auth';

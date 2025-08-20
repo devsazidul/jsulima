@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:jsulima/core/common/styles/global_text_style.dart'
     show getTextStyle;
 import 'package:jsulima/core/common/widgets/custom_button.dart';
-import 'package:jsulima/core/utils/constants/colors.dart';
 import 'package:jsulima/core/utils/constants/icon_path.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart' show ImagePath;
 import 'package:jsulima/features/auth/register/profile_setup/controller/profile_setup_controller.dart';
@@ -74,13 +73,6 @@ class SelectPreferredGame extends StatelessWidget {
                 onPressed: () {
                   Get.to(() => ChooseYourPlanScreen());
                 },
-              ),
-              SizedBox(height: 16),
-              CustomButton(
-                color: Colors.transparent,
-                textColor: AppColors.primaryColor,
-                text: "Skip",
-                onPressed: () {},
               ),
             ],
           ),

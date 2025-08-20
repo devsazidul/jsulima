@@ -8,7 +8,8 @@ class ProfileTileWidget extends StatelessWidget {
   final bool? toggleValue;
   final VoidCallback? onToggle;
 
-  const ProfileTileWidget({super.key, 
+  const ProfileTileWidget({
+    super.key,
     required this.title,
     required this.icon,
     this.isLogout = false,
@@ -33,7 +34,7 @@ class ProfileTileWidget extends StatelessWidget {
               ? Switch(
                 value: toggleValue!,
                 onChanged: (_) => onToggle!(),
-                activeColor: AppColors.primaryColor,
+                activeThumbColor: AppColors.primaryColor,
               )
               : Container(
                 padding: const EdgeInsets.all(8),

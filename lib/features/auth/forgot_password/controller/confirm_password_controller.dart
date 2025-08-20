@@ -1,9 +1,19 @@
 import 'package:get/get.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:jsulima/features/auth/forgot_password/service/confirm_password_service.dart';
 
 class ConfirmPasswordController extends GetxController {
   var newPassword = ''.obs;
   var confirmPassword = ''.obs;
+
+  final ConfirmPasswordService _service = ConfirmPasswordService();
+
+  late String email; // Email will be set dynamically
+
+  // Call this to set email from previous screen
+  void setEmail(String userEmail) {
+    email = userEmail;
+  }
 
   void setNewPassword(String value) {
     newPassword.value = value;
@@ -13,15 +23,34 @@ class ConfirmPasswordController extends GetxController {
     confirmPassword.value = value;
   }
 
-  void confirm() {
+  void confirm() async {
     if (newPassword.value.isEmpty || confirmPassword.value.isEmpty) {
       EasyLoading.showError("Please fill all fields");
-    } else if (newPassword.value != confirmPassword.value) {
+      return;
+    }
+
+    if (newPassword.value != confirmPassword.value) {
       EasyLoading.showError("Passwords do not match");
-    } else if (newPassword.value.length < 6) {
+      return;
+    }
+
+    if (newPassword.value.length < 6) {
       EasyLoading.showError("Password must be at least 6 characters");
+      return;
+    }
+
+    EasyLoading.show(status: "Updating password...");
+
+    bool success = await _service.confirmPassword(
+      email: email,
+      newPassword: newPassword.value,
+    );
+
+    if (success) {
+      EasyLoading.showSuccess("Password updated successfully");
+      // Navigate to login or any other screen
     } else {
-      EasyLoading.showSuccess("Password confirmed successfully");
+      EasyLoading.showError("Failed to update password");
     }
   }
 }

@@ -5,9 +5,9 @@ class Urls {
   static const String login = '$baseUrl/auth/login';
   static const String register = '$baseUrl/auth/register/send-otp';
   static const String otpVerify = '$baseUrl/auth/register/verify-otp';
+  static const String forgotPassword = '$baseUrl/auth/reset-password/confirm';
   static const String authentication = '$baseUrl/auth/verify-auth';
   static const String logout = '$baseUrl/auth/logout';
-  static const String forgotPass = '$baseUrl/auth/forgot-password';
   static const String pickUpLocation = '$baseUrl/user/pickup-locations';
   static String getCalendar(String date, String locationUuid) =>
       '$baseUrl/calendar?date=$date&pickup_location_uuid=$locationUuid';

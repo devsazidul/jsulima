@@ -11,6 +11,7 @@ import 'package:jsulima/core/common/widgets/custom_textfield.dart';
 import 'package:jsulima/core/services/auth_service.dart';
 import 'package:jsulima/core/utils/constants/colors.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
+import 'package:jsulima/features/auth/forgot_password/screen/forgot_pass_screen.dart';
 import 'package:jsulima/features/auth/login/controller/login_screen_controller.dart';
 import 'package:jsulima/features/auth/register/signup/screen/register_screen.dart';
 import 'package:jsulima/features/welcome_screen/widget/signinmethod.dart';
@@ -140,12 +141,17 @@ class ContentContainer extends StatelessWidget {
                     ),
                   ],
                 ),
-                Text(
-                  "Forgot Password?",
-                  style: getTextStyle(
-                    color: Color(0xFF4D81E7),
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => ForgotPassScreen());
+                  },
+                  child: Text(
+                    "Forgot Password?",
+                    style: getTextStyle(
+                      color: Color(0xFF4D81E7),
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ],

@@ -7,8 +7,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http show post;
 import 'package:jsulima/core/services/end_points.dart';
 import 'package:jsulima/core/services/shared_preferences_helper.dart';
-import 'package:jsulima/features/auth/register/profile_setup/screens/upload_image_screen.dart'
-    show UploadImageScreen;
+import 'package:jsulima/features/auth/register/signup/screen/verify_otp_screen.dart';
 
 class RegisterController extends GetxController {
   var nameController = TextEditingController();
@@ -61,7 +60,7 @@ class RegisterController extends GetxController {
           userId,
         );
 
-        Get.offAll(() => UploadImageScreen());
+        Get.offAll(() => VerifyOtpScreen(email: emailController.text.trim()));
       } else {
         EasyLoading.showError(body['message']);
         if (kDebugMode) {

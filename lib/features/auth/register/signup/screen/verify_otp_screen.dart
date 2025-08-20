@@ -1,11 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:get/get.dart';
 import 'package:jsulima/core/common/widgets/custom_button.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
+import 'package:jsulima/features/auth/register/profile_setup/screens/upload_image_screen.dart';
 
 class VerifyOtpScreen extends StatelessWidget {
-  const VerifyOtpScreen({super.key});
+  final String email;
+  const VerifyOtpScreen({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +90,12 @@ class VerifyOtpScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 40),
-              CustomButton(text: "Register", onPressed: () {}),
+              CustomButton(
+                text: "Register",
+                onPressed: () {
+                  Get.to(UploadImageScreen());
+                },
+              ),
             ],
           ),
         ),

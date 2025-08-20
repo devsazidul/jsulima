@@ -1,8 +1,10 @@
 class Urls {
-  static const String baseUrl = 'https://jsulima-backend.onrender.com';
+  static const String baseUrl = 'http://184.105.208.66:8000';
   static const String baseUrlAi = 'http://172.83.15.114:8000';
 
   static const String login = '$baseUrl/auth/login';
+  static const String register = '$baseUrl/auth/register/send-otp';
+  static const String otpVerify = '$baseUrl/auth/register/verify-otp';
   static const String authentication = '$baseUrl/auth/verify-auth';
   static const String logout = '$baseUrl/auth/logout';
   static const String forgotPass = '$baseUrl/auth/forgot-password';

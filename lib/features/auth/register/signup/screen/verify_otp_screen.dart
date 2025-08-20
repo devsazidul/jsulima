@@ -1,17 +1,84 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:jsulima/core/common/widgets/custom_button.dart';
+import 'package:jsulima/core/services/end_points.dart';
+import 'package:jsulima/core/services/shared_preferences_helper.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/auth/register/profile_setup/screens/upload_image_screen.dart';
 
 class VerifyOtpScreen extends StatelessWidget {
+  final String name;
   final String email;
-  const VerifyOtpScreen({super.key, required this.email});
+  final String password;
+  final String phoneNumber;
+  const VerifyOtpScreen({
+    super.key,
+    required this.email,
+    required this.name,
+    required this.password,
+    required this.phoneNumber,
+  });
+
+  Future<void> verifyOtp(String otp) async {
+    try {
+      EasyLoading.show(status: "Verifying...");
+
+      final data = {
+        "fullName": name,
+        "email": email,
+        "otp": otp,
+        "password": password,
+        "phoneNumber": phoneNumber,
+      };
+
+      final response = await http.post(
+        Uri.parse(Urls.otpVerify),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(data),
+      );
+
+      final body = jsonDecode(response.body);
+
+      if (response.statusCode == 201) {
+        EasyLoading.showSuccess("OTP Verified Successfully");
+
+        final accessToken = body['accessToken'];
+        final role = body['user']['role'];
+        final userId = body['user']['id'];
+
+        await SharedPreferencesHelper.saveTokenAndRole(
+          accessToken,
+          role,
+          userId,
+        );
+
+        Get.offAll(() => UploadImageScreen());
+      } else {
+        EasyLoading.showError(body['message'] ?? "OTP Verification Failed");
+        if (kDebugMode) {
+          print("Error occurred: ${body['message']}");
+        }
+      }
+    } catch (e) {
+      EasyLoading.showError("Error: $e");
+      if (kDebugMode) {
+        print("Exception occurred: $e");
+      }
+    } finally {
+      EasyLoading.dismiss();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    String otpCode = "";
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black,
@@ -40,7 +107,7 @@ class VerifyOtpScreen extends StatelessWidget {
               ),
               SizedBox(height: 8),
               Text(
-                "Please enter 4 digit OTP sent to your email",
+                "Please enter 4 digit OTP sent to your email $email",
                 style: TextStyle(
                   fontSize: 16,
                   color: Color(0xFFCCCCCC).withValues(alpha: 0.8),
@@ -58,6 +125,7 @@ class VerifyOtpScreen extends StatelessWidget {
                 filled: true,
                 fillColor: Colors.white.withValues(alpha: 0.10),
                 onSubmit: (otp) {
+                  otpCode = otp;
                   if (kDebugMode) {
                     print("Entered OTP: $otp");
                   }
@@ -91,9 +159,13 @@ class VerifyOtpScreen extends StatelessWidget {
               ),
               SizedBox(height: 40),
               CustomButton(
-                text: "Register",
+                text: "Verify OTP",
                 onPressed: () {
-                  Get.to(UploadImageScreen());
+                  if (otpCode.isEmpty) {
+                    EasyLoading.showError("Please enter the OTP");
+                  } else {
+                    verifyOtp(otpCode);
+                  }
                 },
               ),
             ],

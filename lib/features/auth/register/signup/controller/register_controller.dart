@@ -6,7 +6,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http show post;
 import 'package:jsulima/core/services/end_points.dart';
-import 'package:jsulima/core/services/shared_preferences_helper.dart';
 import 'package:jsulima/features/auth/register/signup/screen/verify_otp_screen.dart';
 
 class RegisterController extends GetxController {
@@ -33,15 +32,10 @@ class RegisterController extends GetxController {
         EasyLoading.showError("Password missmatch");
         return;
       }
-      final data = {
-        "fullName": nameController.text.trim(),
-        "email": emailController.text.trim(),
-        "password": passwordController.text.trim(),
-        "phoneNumber": phoneController.text.trim(),
-      };
+      final data = {"email": emailController.text.trim()};
 
       final response = await http.post(
-        Uri.parse('${Urls.baseUrl}/auth/register'),
+        Uri.parse(Urls.register),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(data),
       );
@@ -49,18 +43,16 @@ class RegisterController extends GetxController {
       var body = jsonDecode(response.body);
 
       if (response.statusCode == 201) {
-        EasyLoading.showSuccess("The user registered successfully");
-        final accessToken = body['accessToken'];
-        final role = body['user']['role'];
-        final userId = body['user']['id'];
+        EasyLoading.showSuccess("Send OTP successfully");
 
-        await SharedPreferencesHelper.saveTokenAndRole(
-          accessToken,
-          role,
-          userId,
+        Get.offAll(
+          () => VerifyOtpScreen(
+            name: nameController.text.trim(),
+            email: emailController.text.trim(),
+            password: passwordController.text.trim(),
+            phoneNumber: phoneController.text.trim(),
+          ),
         );
-
-        Get.offAll(() => VerifyOtpScreen(email: emailController.text.trim()));
       } else {
         EasyLoading.showError(body['message']);
         if (kDebugMode) {

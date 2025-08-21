@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/auth/forgot_password/screen/otp_verify.dart';
+import 'package:jsulima/features/auth/forgot_password/service/forgot_password_service.dart';
 
 class ForgotPassScreen extends StatelessWidget {
   const ForgotPassScreen({super.key});
@@ -62,7 +63,7 @@ class ForgotPassScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     String email = emailController.text.trim();
                     if (email.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -72,9 +73,21 @@ class ForgotPassScreen extends StatelessWidget {
                         ),
                       );
                     } else {
-                      Get.to(() => OtpVerify(email: email));
+                      final service = ForgotPasswordService();
+                      final result = await service.sendOtp(email);
+
+                      if (result["message"] == "OTP sent to email") {
+                        Get.to(() => OtpVerify(email: email));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(result["message"]),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
                     }
                   },
+
                   child: const Text(
                     "Send OTP",
                     style: TextStyle(fontSize: 16, color: Colors.white),

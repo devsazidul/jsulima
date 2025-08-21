@@ -12,6 +12,7 @@ class OtpVerify extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final OtpController controller = Get.put(OtpController());
+    controller.setEmail(email); // <-- IMPORTANT: pass verified email here
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

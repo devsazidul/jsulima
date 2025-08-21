@@ -51,7 +51,6 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
                 if (kDebugMode) {
                   print("Page finished loading: $url");
                 }
-                // Only navigate if the URL indicates payment completion
                 if (url.contains("$baseUrl/success") ||
                     url.contains("http://localhost:3000/success")) {
                   Get.off(() => BottomNavbarScreen());
@@ -68,7 +67,7 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
               },
             ),
           )
-          ..clearCache() // Clear cache to avoid stale data
+          ..clearCache()
           ..clearLocalStorage()
           ..loadRequest(Uri.parse(widget.paymentUrl)).catchError((e) {
             setState(() {

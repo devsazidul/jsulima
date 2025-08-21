@@ -5,7 +5,10 @@ class Urls {
   static const String login = '$baseUrl/auth/login';
   static const String register = '$baseUrl/auth/register/send-otp';
   static const String otpVerify = '$baseUrl/auth/register/verify-otp';
-  static const String forgotPassword = '$baseUrl/auth/reset-password/confirm';
+  static const String confirmPassword = '$baseUrl/auth/reset-password/confirm';
+  static const String forgotPassword = '$baseUrl/auth/reset-password/send-otp';
+  static const String forgotOtpVerify =
+      '$baseUrl/auth/reset-password/verify-otp';
   static const String authentication = '$baseUrl/auth/verify-auth';
   static const String logout = '$baseUrl/auth/logout';
   static const String pickUpLocation = '$baseUrl/user/pickup-locations';

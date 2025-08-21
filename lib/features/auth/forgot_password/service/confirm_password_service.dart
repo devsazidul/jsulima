@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:jsulima/core/services/end_points.dart';
 
@@ -7,7 +8,7 @@ class ConfirmPasswordService {
     required String email,
     required String newPassword,
   }) async {
-    final Uri url = Uri.parse(Urls.forgotPassword);
+    final Uri url = Uri.parse(Urls.confirmPassword);
 
     try {
       final response = await http.post(
@@ -16,14 +17,18 @@ class ConfirmPasswordService {
         body: jsonEncode({"email": email, "newPassword": newPassword}),
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         return true;
       } else {
-        print("Error: ${response.statusCode}, ${response.body}");
+        if (kDebugMode) {
+          print("Error: ${response.statusCode}, ${response.body}");
+        }
         return false;
       }
     } catch (e) {
-      print("Exception: $e");
+      if (kDebugMode) {
+        print("Exception: $e");
+      }
       return false;
     }
   }

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:jsulima/features/auth/forgot_password/service/confirm_password_service.dart';
+import 'package:jsulima/features/auth/login/screen/login_screen.dart';
 
 class ConfirmPasswordController extends GetxController {
   var newPassword = ''.obs;
@@ -8,9 +9,7 @@ class ConfirmPasswordController extends GetxController {
 
   final ConfirmPasswordService _service = ConfirmPasswordService();
 
-  late String email; // Email will be set dynamically
-
-  // Call this to set email from previous screen
+  late String email;
   void setEmail(String userEmail) {
     email = userEmail;
   }
@@ -48,7 +47,7 @@ class ConfirmPasswordController extends GetxController {
 
     if (success) {
       EasyLoading.showSuccess("Password updated successfully");
-      // Navigate to login or any other screen
+      Get.offAll(LoginScreen());
     } else {
       EasyLoading.showError("Failed to update password");
     }

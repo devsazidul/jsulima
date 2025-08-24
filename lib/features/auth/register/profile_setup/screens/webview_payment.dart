@@ -13,7 +13,6 @@ class PaymentWebViewScreen extends StatefulWidget {
   const PaymentWebViewScreen({super.key, required this.paymentUrl});
 
   @override
-  // ignore: library_private_types_in_public_api
   _PaymentWebViewScreenState createState() => _PaymentWebViewScreenState();
 }
 
@@ -26,58 +25,59 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
   void initState() {
     super.initState();
 
-    // Print the URL for debugging
     if (kDebugMode) {
       print("Loading URL: ${widget.paymentUrl}");
     }
 
-    _controller =
-        WebViewController()
-          ..setJavaScriptMode(JavaScriptMode.unrestricted)
-          ..setNavigationDelegate(
-            NavigationDelegate(
-              onPageStarted: (String url) {
-                setState(() {
-                  _isLoading = true;
-                });
-                if (kDebugMode) {
-                  print("Page started loading: $url");
-                }
-              },
-              onPageFinished: (String url) {
-                setState(() {
-                  _isLoading = false;
-                });
-                if (kDebugMode) {
-                  print("Page finished loading: $url");
-                }
-                if (url.contains("$baseUrl/success") ||
-                    url.contains("http://localhost:3000/success")) {
-                  Get.off(() => BottomNavbarScreen());
-                }
-              },
-              onWebResourceError: (WebResourceError error) {
-                setState(() {
-                  _isLoading = false;
-                });
-                if (kDebugMode) {
-                  print("WebView error: [31m${error.description}");
-                }
-                EasyLoading.showError(error.description);
-              },
-            ),
-          )
-          ..clearCache()
-          ..clearLocalStorage()
-          ..loadRequest(Uri.parse(widget.paymentUrl)).catchError((e) {
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onNavigationRequest: (NavigationRequest request) {
+            if (kDebugMode) {
+              print("Navigating to: ${request.url}");
+            }
+
+            if (request.url.contains("$baseUrl/success") ||
+                request.url.contains("http://localhost:3000/success")) {
+              // ✅ Intercept and navigate inside app instead of WebView
+              Get.offAll(() => BottomNavbarScreen());
+              return NavigationDecision.prevent; // stop WebView loading
+            }
+            return NavigationDecision.navigate;
+          },
+          onPageStarted: (String url) {
+            setState(() {
+              _isLoading = true;
+            });
+          },
+          onPageFinished: (String url) {
             setState(() {
               _isLoading = false;
             });
+          },
+          onWebResourceError: (WebResourceError error) {
+            setState(() {
+              _isLoading = false;
+            });
+            EasyLoading.showError(error.description);
             if (kDebugMode) {
-              print("Error loading URL: $e");
+              print("WebView error: ${error.description}");
             }
-            EasyLoading.showError("Failed to load URL: $e");
-          });
+          },
+        ),
+      )
+      ..clearCache()
+      ..clearLocalStorage()
+      ..loadRequest(Uri.parse(widget.paymentUrl)).catchError((e) {
+        setState(() {
+          _isLoading = false;
+        });
+        if (kDebugMode) {
+          print("Error loading URL: $e");
+        }
+        EasyLoading.showError("Failed to load URL: $e");
+      });
   }
 
   @override
@@ -105,7 +105,10 @@ class _ShimmerLoadingWidget extends StatelessWidget {
       child: Container(
         width: 60,
         height: 60,
-        decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+        ),
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:jsulima/features/bottom_navbar/screen/bottom_navbar_screen.dart' show BottomNavbarScreen;
 
 class StripeService {
   static Future<void> init() async {
@@ -11,28 +13,40 @@ class StripeService {
   }
 
   static Future<void> makePayment(double amount, String currency) async {
-    try {
-      final int amountInCents = (amount * 100).toInt();
-      final paymentIntent = await _createPaymentIntent(amountInCents, currency);
+  try {
+    final int amountInCents = (amount * 100).toInt();
+    final paymentIntent = await _createPaymentIntent(amountInCents, currency);
 
-      await Stripe.instance.initPaymentSheet(
-        paymentSheetParameters: SetupPaymentSheetParameters(
-          paymentIntentClientSecret: paymentIntent['client_secret'],
-          merchantDisplayName: 'Your App Name',
-        ),
-      );
+    // Initialize payment sheet
+    await Stripe.instance.initPaymentSheet(
+      paymentSheetParameters: SetupPaymentSheetParameters(
+        paymentIntentClientSecret: paymentIntent['client_secret'],
+        merchantDisplayName: 'Your App Name',
+      ),
+    );
 
-      await Stripe.instance.presentPaymentSheet();
+    // Present payment sheet
+    await Stripe.instance.presentPaymentSheet();
 
-      if (kDebugMode) {
-        print('\$$amount payment successful');
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print('Payment error: $e');
-      }
+    // If no exception => payment successful
+    if (kDebugMode) {
+      print('\$$amount payment successful');
+    }
+
+    // ✅ Navigate after successful payment
+    Get.offAll(() => BottomNavbarScreen());
+
+  } on StripeException catch (e) {
+    if (kDebugMode) {
+      print('Payment cancelled or failed: $e');
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('Unexpected payment error: $e');
     }
   }
+}
+
 
   static Future<Map<String, dynamic>> _createPaymentIntent(
     int amount,

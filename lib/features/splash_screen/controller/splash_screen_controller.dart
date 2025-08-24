@@ -1,13 +1,58 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:jsulima/core/services/end_points.dart';
 import 'package:jsulima/core/services/shared_preferences_helper.dart' show SharedPreferencesHelper;
 import 'package:jsulima/features/auth/register/profile_setup/screens/choose_your_plan_screen.dart' show ChooseYourPlanScreen;
 import 'package:jsulima/features/bottom_navbar/screen/bottom_navbar_screen.dart';
+import 'package:jsulima/features/splash_screen/model/splash_profile_model.dart';
 import 'package:jsulima/features/welcome_screen/screen/welcome_screen.dart';
 
 
 class SplashScreenController extends GetxController {
+
+ 
+
+var isLoading = false.obs;
+var profile = Rxn<SplashProfileModel>();
+
+var isSubscribed = false.obs; 
+
+  // Fetch profile from API
+  Future<void> fetchProfile() async {
+    try {
+      isLoading.value = true;
+      String? token = await SharedPreferencesHelper.getAccessToken();
+
+      final response = await http.get(
+        Uri.parse(Urls.getProfileInfo),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        profile.value = SplashProfileModel.fromJson(data);
+        isSubscribed.value = profile.value!.isSubscribed;
+
+        print("The is subscribed value is ${isSubscribed.value}"); 
+        print("The value of is subscribed in profile is ${profile.value!.isSubscribed}"); 
+      } else {
+        Get.snackbar("Error", "Failed to load profile");
+      }
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+
   void checkIsLogin() async {
     Timer(const Duration(seconds: 3), () async {
       
@@ -50,6 +95,7 @@ class SplashScreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    fetchProfile(); 
     checkIsLogin();
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jsulima/core/models/player_model.dart';
 import 'package:jsulima/core/services/player_service.dart';
+import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/game_details/widget/prediction_player_container.dart';
 import 'package:jsulima/features/game_details/widget/shimmer_player_card.dart';
 
@@ -74,9 +75,11 @@ class PredictionTabWidgetNfl extends StatelessWidget {
 
         final teams1 = PlayerModel.mapPlayersToTeam(
           topPerformers['hometeam']['players'] ?? [],
+          defaultImage: ImagePath.atlantaFalcon,
         );
         final teams2 = PlayerModel.mapPlayersToTeam(
           topPerformers['awayteam']['players'] ?? [],
+          defaultImage: ImagePath.carolinaPanther,
         );
 
         return Column(

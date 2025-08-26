@@ -19,6 +19,11 @@ class PlayerContainer extends StatelessWidget {
     required this.stats,
   });
 
+  // Added helper method to check if image path is a URL
+  bool _isNetworkImage(String path) {
+    return path.startsWith('http://') || path.startsWith('https://');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,12 +44,47 @@ class PlayerContainer extends StatelessWidget {
           SizedBox(height: 16),
           Row(
             children: [
-              Image.asset(
-                playerImagePath,
-                width: 52,
-                height: 52,
-                fit: BoxFit.cover,
-              ),
+              // Updated to handle both network and asset images
+              _isNetworkImage(playerImagePath)
+                  ? Image.network(
+                    playerImagePath,
+                    width: 52,
+                    height: 52,
+                    fit: BoxFit.cover,
+                    // Fallback to default asset if network image fails
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        'assets/images/player.png',
+                        width: 52,
+                        height: 52,
+                        fit: BoxFit.cover,
+                      );
+                    },
+                    // Show loading indicator for network images
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return SizedBox(
+                        width: 52,
+                        height: 52,
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    },
+                  )
+                  : Image.asset(
+                    playerImagePath,
+                    width: 52,
+                    height: 52,
+                    fit: BoxFit.cover,
+                    // Fallback to default asset if asset image fails
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        'assets/images/player.png',
+                        width: 52,
+                        height: 52,
+                        fit: BoxFit.cover,
+                      );
+                    },
+                  ),
               SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

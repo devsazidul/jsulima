@@ -25,7 +25,7 @@ class PlayerTabContainer extends StatelessWidget {
           return Column(
             children: [
               ShimmerPlayerCard(),
-              SizedBox(height: 15,),
+              SizedBox(height: 15),
               ShimmerPlayerCard(),
             ],
           );
@@ -58,11 +58,15 @@ class PlayerTabContainer extends StatelessWidget {
           );
         }
 
+        // Updated to pass defaultImage to PlayerModel.mapPlayersToTeam
         final teams1 = PlayerModel.mapPlayersToTeam(
           topPerformers['hometeam']['players'] ?? [],
+          defaultImage: ImagePath.atlantaFalcon, // Default image for home team
         );
         final teams2 = PlayerModel.mapPlayersToTeam(
           topPerformers['awayteam']['players'] ?? [],
+          defaultImage:
+              ImagePath.carolinaPanther, // Default image for away team
         );
 
         return Column(

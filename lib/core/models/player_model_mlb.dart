@@ -53,13 +53,17 @@ class PlayerModelMlb {
         });
       }
 
-return {
-        'playerImagePath': 'assets/images/player.png',
+      return {
+        'playerImagePath':
+            player['player_photo'] != null && player['player_photo'].isNotEmpty
+                ? player['player_photo']
+                : 'assets/images/player.png',
         'playerName': player['player_name'] ?? 'Unknown Player',
         'playerPosition': player['player_position'] ?? 'Unknown Position',
-        'aiConfidence': player['confidence_score'] != null
-            ? '${((player['confidence_score'] as num) * 100).toStringAsFixed(0)}%'
-            : 'N/A',
+        'aiConfidence':
+            player['confidence_score'] != null
+                ? '${((player['confidence_score'] as num) * 100).toStringAsFixed(0)}%'
+                : 'N/A',
         'stats': stats,
       };
     }).toList();

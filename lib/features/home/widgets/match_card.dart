@@ -33,7 +33,7 @@ class MatchCard extends StatelessWidget {
         children: [
           Column(
             children: [
-              Image.asset(team1LogoPath, height: 70),
+              Image.asset(team1LogoPath, height: 60),
               const SizedBox(height: 8),
               Text(
                 formatVenue(team1Name),
@@ -66,7 +66,7 @@ class MatchCard extends StatelessWidget {
           ),
           Column(
             children: [
-              Image.asset(team2LogoPath, height: 70),
+              Image.asset(team2LogoPath, height: 60),
               const SizedBox(height: 8),
               Text(
                 formatVenue(team2Name),

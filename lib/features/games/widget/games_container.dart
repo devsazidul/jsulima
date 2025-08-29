@@ -134,7 +134,7 @@ class GamesContainer extends StatelessWidget {
                   child: Obx(() {
                     return Container(
                       padding: EdgeInsets.symmetric(
-                        horizontal: 12,
+                        horizontal: 10,
                         vertical: 7,
                       ),
                       height: 40,
@@ -247,7 +247,8 @@ class GamesContainer extends StatelessWidget {
                             predictionText: game['predictionText'] as String,
                             team1Percentage: game['team1Percentage'] as double,
                             team2Percentage: game['team2Percentage'] as double,
-                            venue: game['venue'] as String, aiConfidence: "${game['confidence'].round()}%",
+                            venue: game['venue'] as String,
+                            aiConfidence: "${game['confidence'].round()}%",
                           );
                         },
                       );
@@ -325,7 +326,8 @@ class GamesContainer extends StatelessWidget {
                             predictionText: game['predictionText'] as String,
                             team1Percentage: game['team1Percentage'] as double,
                             team2Percentage: game['team2Percentage'] as double,
-                            venue: game['venue'] as String, aiConfidence: "${game['confidence'].round()}%",
+                            venue: game['venue'] as String,
+                            aiConfidence: "${game['confidence'].round()}%",
                           );
                         },
                       );

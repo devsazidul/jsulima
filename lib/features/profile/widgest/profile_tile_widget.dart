@@ -34,7 +34,7 @@ class ProfileTileWidget extends StatelessWidget {
               ? Switch(
                 value: toggleValue!,
                 onChanged: (_) => onToggle!(),
-                activeThumbColor: AppColors.primaryColor,
+                activeTrackColor: AppColors.primaryColor,
               )
               : Container(
                 padding: const EdgeInsets.all(8),

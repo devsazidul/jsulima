@@ -13,6 +13,7 @@ class PaymentWebViewScreen extends StatefulWidget {
   const PaymentWebViewScreen({super.key, required this.paymentUrl});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PaymentWebViewScreenState createState() => _PaymentWebViewScreenState();
 }
 
@@ -29,55 +30,56 @@ class _PaymentWebViewScreenState extends State<PaymentWebViewScreen> {
       print("Loading URL: ${widget.paymentUrl}");
     }
 
-    _controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onNavigationRequest: (NavigationRequest request) {
-            if (kDebugMode) {
-              print("Navigating to: ${request.url}");
-            }
+    _controller =
+        WebViewController()
+          ..setJavaScriptMode(JavaScriptMode.unrestricted)
+          ..setNavigationDelegate(
+            NavigationDelegate(
+              onNavigationRequest: (NavigationRequest request) {
+                if (kDebugMode) {
+                  print("Navigating to: ${request.url}");
+                }
 
-            if (request.url.contains("$baseUrl/success") ||
-                request.url.contains("http://localhost:3000/success")) {
-              // ✅ Intercept and navigate inside app instead of WebView
-              Get.offAll(() => BottomNavbarScreen());
-              return NavigationDecision.prevent; // stop WebView loading
-            }
-            return NavigationDecision.navigate;
-          },
-          onPageStarted: (String url) {
-            setState(() {
-              _isLoading = true;
-            });
-          },
-          onPageFinished: (String url) {
+                if (request.url.contains("$baseUrl/success") ||
+                    request.url.contains("http://localhost:3000/success")) {
+                  // ✅ Intercept and navigate inside app instead of WebView
+                  Get.offAll(() => BottomNavbarScreen());
+                  return NavigationDecision.prevent; // stop WebView loading
+                }
+                return NavigationDecision.navigate;
+              },
+              onPageStarted: (String url) {
+                setState(() {
+                  _isLoading = true;
+                });
+              },
+              onPageFinished: (String url) {
+                setState(() {
+                  _isLoading = false;
+                });
+              },
+              onWebResourceError: (WebResourceError error) {
+                setState(() {
+                  _isLoading = false;
+                });
+                EasyLoading.showError(error.description);
+                if (kDebugMode) {
+                  print("WebView error: ${error.description}");
+                }
+              },
+            ),
+          )
+          ..clearCache()
+          ..clearLocalStorage()
+          ..loadRequest(Uri.parse(widget.paymentUrl)).catchError((e) {
             setState(() {
               _isLoading = false;
             });
-          },
-          onWebResourceError: (WebResourceError error) {
-            setState(() {
-              _isLoading = false;
-            });
-            EasyLoading.showError(error.description);
             if (kDebugMode) {
-              print("WebView error: ${error.description}");
+              print("Error loading URL: $e");
             }
-          },
-        ),
-      )
-      ..clearCache()
-      ..clearLocalStorage()
-      ..loadRequest(Uri.parse(widget.paymentUrl)).catchError((e) {
-        setState(() {
-          _isLoading = false;
-        });
-        if (kDebugMode) {
-          print("Error loading URL: $e");
-        }
-        EasyLoading.showError("Failed to load URL: $e");
-      });
+            EasyLoading.showError("Failed to load URL: $e");
+          });
   }
 
   @override

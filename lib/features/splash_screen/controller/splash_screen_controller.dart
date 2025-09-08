@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:jsulima/core/services/end_points.dart';
@@ -36,12 +37,18 @@ class SplashScreenController extends GetxController {
         profile.value = SplashProfileModel.fromJson(data);
         isSubscribed.value = profile.value!.isSubscribed;
 
-        print("The is subscribed value is ${isSubscribed.value}");
-        print(
-          "The value of is subscribed in profile is ${profile.value!.isSubscribed}",
-        );
+        if (kDebugMode) {
+          print("The is subscribed value is ${isSubscribed.value}");
+        }
+        if (kDebugMode) {
+          print(
+            "The value of is subscribed in profile is ${profile.value!.isSubscribed}",
+          );
+        }
       } else {
-        print("No data found");
+        if (kDebugMode) {
+          print("No data found");
+        }
       }
     } catch (e) {
       Get.snackbar("Error", e.toString());

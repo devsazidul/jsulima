@@ -63,6 +63,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '625068421926',
     projectId: 'jsulima-de009',
     storageBucket: 'jsulima-de009.firebasestorage.app',
-    iosBundleId: 'com.sports.jsulima',
+    iosBundleId: 'com.jsulima.sports',
   );
 }

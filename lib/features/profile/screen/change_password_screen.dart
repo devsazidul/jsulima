@@ -76,28 +76,13 @@ class ChangePasswordScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  // SizedBox(
-                  //   width: double.infinity,
-                  //   child: ElevatedButton(
-                  //     style: ElevatedButton.styleFrom(
-                  //       backgroundColor: AppColors.primaryColor,
-                  //       padding: const EdgeInsets.symmetric(vertical: 14),
-                  //       shape: const RoundedRectangleBorder(),
-                  //     ),
-                  //     onPressed: controller.saveChanges,
-                  //     child: const Padding(
-                  //       padding: EdgeInsets.all(5.0),
-                  //       child: Text(
-                  //         "Save Changes",
-                  //         style: TextStyle(color: Colors.white),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-
                   CustomButton(
                     vertical: 20,
-                    text: "Save Changes", onPressed: (){})
+                    text: "Save Changes",
+                    onPressed: () {
+                      controller.saveChanges();
+                    },
+                  ),
                 ],
               ),
             ),

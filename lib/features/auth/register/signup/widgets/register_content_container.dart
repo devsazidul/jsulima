@@ -29,7 +29,28 @@ class RegisterContentContainer extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 24),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(LoginScreen());
+                },
+                child: Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+
+                  child: Center(
+                    child: Icon(Icons.arrow_back_ios, color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
             Text(
               "Sign Up",
               style: getTextStyle(
@@ -179,9 +200,12 @@ class RegisterContentContainer extends StatelessWidget {
             ),
 
             SizedBox(height: 24),
-            CustomButton(text: "Register", onPressed: () {
-              controller.register(); 
-            }),
+            CustomButton(
+              text: "Register",
+              onPressed: () {
+                controller.register();
+              },
+            ),
           ],
         ),
       ),

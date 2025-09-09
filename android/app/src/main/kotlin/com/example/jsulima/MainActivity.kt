@@ -1,4 +1,4 @@
-package com.sports.jsulima
+package com.jsulima.sports
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

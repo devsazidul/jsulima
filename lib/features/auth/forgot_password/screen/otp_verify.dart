@@ -45,6 +45,7 @@ class OtpVerify extends StatelessWidget {
                 "Please enter 4 digit OTP sent to your email $email",
                 style: TextStyle(
                   fontSize: 16,
+                  // ignore: deprecated_member_use
                   color: Colors.white.withOpacity(0.8),
                 ),
               ),
@@ -60,6 +61,7 @@ class OtpVerify extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 fieldWidth: 50,
                 filled: true,
+                // ignore: deprecated_member_use
                 fillColor: Colors.white.withOpacity(0.1),
                 onCodeChanged: (otp) {
                   controller.setOtp(otp);

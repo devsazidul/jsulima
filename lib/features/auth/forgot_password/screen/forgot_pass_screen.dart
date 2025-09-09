@@ -41,6 +41,7 @@ class ForgotPassScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: "Gmail",
                   hintText: "example@gmail.com",
+                  // ignore: deprecated_member_use
                   hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
                   labelStyle: const TextStyle(color: Colors.white),
                   prefixIcon: const Icon(
@@ -78,6 +79,7 @@ class ForgotPassScreen extends StatelessWidget {
 
                       if (result["message"] == "OTP sent to email") {
                         Get.to(() => OtpVerify(email: email));
+                        // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(result["message"]),

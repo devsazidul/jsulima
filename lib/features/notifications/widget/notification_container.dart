@@ -51,7 +51,7 @@ class NotificationContainer extends StatelessWidget {
       },
     ];
     return Container(
-      margin: EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0),
+      margin: EdgeInsets.only(top: 45.0, left: 16.0, right: 16.0),
       height: double.infinity,
       width: MediaQuery.of(context).size.width,
       child: Column(
@@ -109,7 +109,7 @@ class NotificationContainer extends StatelessWidget {
                   return Container(
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
                     height: 40,
-                    width: 96,
+                    width: 100,
                     decoration: BoxDecoration(
                       color:
                           buttonController.selectedButton.value == 1
@@ -150,7 +150,7 @@ class NotificationContainer extends StatelessWidget {
                   return Container(
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
                     height: 40,
-                    width: 96,
+                    width: 100,
                     decoration: BoxDecoration(
                       color:
                           buttonController.selectedButton.value == 2

@@ -2,18 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>696094095719-mp1rvg9hj9m67v6phrqiuevgs8f8tdt4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.696094095719-mp1rvg9hj9m67v6phrqiuevgs8f8tdt4</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB7S6DjJwd98iA6Tv0h5EKJFWuXa7fZn4A</string>
+	<string>AIzaSyAneuHOyUexQzurml0QO6u6AFKn0TlgtHg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>625068421926</string>
+	<string>696094095719</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.jsulima.sports</string>
 	<key>PROJECT_ID</key>
-	<string>jsulima-de009</string>
+	<string>full-send-sports-ai-ad087</string>
 	<key>STORAGE_BUCKET</key>
-	<string>jsulima-de009.firebasestorage.app</string>
+	<string>full-send-sports-ai-ad087.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:625068421926:ios:4a8cda14927ba2e8a787e7</string>
+	<string>1:696094095719:ios:7cd4c2691af7cbc543d7c2</string>
 </dict>
 </plist>

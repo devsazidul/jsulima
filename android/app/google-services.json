@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "625068421926",
-    "project_id": "jsulima-de009",
-    "storage_bucket": "jsulima-de009.firebasestorage.app"
+    "project_number": "696094095719",
+    "project_id": "full-send-sports-ai-ad087",
+    "storage_bucket": "full-send-sports-ai-ad087.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:625068421926:android:9901b5df0b6e4b33a787e7",
+        "mobilesdk_app_id": "1:696094095719:android:64525883a877f8a743d7c2",
         "android_client_info": {
           "package_name": "com.jsulima.sports"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC7covICMbl106osqOx0-bTvmE-IMNXFqg"
+          "current_key": "AIzaSyBIL81gxa-XBOEMVHTYIRJZSl_07Vx4XKw"
         }
       ],
       "services": {

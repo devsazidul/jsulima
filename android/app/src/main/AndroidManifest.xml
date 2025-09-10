@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     
     <application
-        android:label="jsulima"
+        android:label="Full Send Sports AI"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC7covICMbl106osqOx0-bTvmE-IMNXFqg',
-    appId: '1:625068421926:android:9901b5df0b6e4b33a787e7',
-    messagingSenderId: '625068421926',
-    projectId: 'jsulima-de009',
-    storageBucket: 'jsulima-de009.firebasestorage.app',
+    apiKey: 'AIzaSyBIL81gxa-XBOEMVHTYIRJZSl_07Vx4XKw',
+    appId: '1:696094095719:android:64525883a877f8a743d7c2',
+    messagingSenderId: '696094095719',
+    projectId: 'full-send-sports-ai-ad087',
+    storageBucket: 'full-send-sports-ai-ad087.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB7S6DjJwd98iA6Tv0h5EKJFWuXa7fZn4A',
-    appId: '1:625068421926:ios:4a8cda14927ba2e8a787e7',
-    messagingSenderId: '625068421926',
-    projectId: 'jsulima-de009',
-    storageBucket: 'jsulima-de009.firebasestorage.app',
+    apiKey: 'AIzaSyAneuHOyUexQzurml0QO6u6AFKn0TlgtHg',
+    appId: '1:696094095719:ios:7cd4c2691af7cbc543d7c2',
+    messagingSenderId: '696094095719',
+    projectId: 'full-send-sports-ai-ad087',
+    storageBucket: 'full-send-sports-ai-ad087.firebasestorage.app',
     iosBundleId: 'com.jsulima.sports',
   );
+
 }

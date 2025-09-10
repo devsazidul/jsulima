@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -53,9 +52,8 @@ class PaymentController extends GetxController {
     },
   ];
 
-  List<Map<String, dynamic>> prompList = [
-    {"name": "Flat \$25 off", "code": "Prediction25", "discount": 25},
-  ];
+  /// Promo list (API fetched)
+  var prompList = <Map<String, dynamic>>[].obs;
 
   void makePayment(double amount) {
     StripeService.makePayment(amount, "usd");
@@ -72,7 +70,6 @@ class PaymentController extends GetxController {
     String planId,
   ) {
     var discountedAmount = amount - (amount * (discount / 100));
-    // StripeService.makePayment(discountedAmount, "usd");
     paymentCheckout(context, planId, discountedAmount.toInt());
   }
 
@@ -85,6 +82,7 @@ class PaymentController extends GetxController {
   void onInit() {
     super.onInit();
     fetchPlans();
+    fetchPromoCodes(); // 🔥 fetch promo codes on init
   }
 
   var plans = <PlanModel>[].obs;
@@ -93,8 +91,8 @@ class PaymentController extends GetxController {
   Future<void> fetchPlans() async {
     try {
       EasyLoading.show(status: "Loading...");
-
       isLoading.value = true;
+
       final response = await http.get(Uri.parse('${Urls.baseUrl}/plans'));
 
       if (kDebugMode) {
@@ -121,7 +119,47 @@ class PaymentController extends GetxController {
     }
   }
 
-  // Function to handle payment checkout
+  /// 🔥 Fetch promo codes from API
+  Future<void> fetchPromoCodes() async {
+    try {
+      final response = await http.get(
+        Uri.parse("http://184.105.208.66:8000/promo-codes"),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization':
+              'Bearer ${await SharedPreferencesHelper.getAccessToken()}',
+        },
+      );
+
+      if (kDebugMode) {
+        print("Promo codes response: ${response.body}");
+      }
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+
+        /// Map only the fields you need (name, code, discount)
+        prompList.value =
+            data.map((promo) {
+              return {
+                "name": "Flat ${promo['discount']}% off", // display discount
+                "code": promo['code'], // use promo code
+                "discount": promo['discount'], // % discount
+              };
+            }).toList();
+      } else {
+        if (kDebugMode) {
+          print("Failed to fetch promo codes. Status: ${response.statusCode}");
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error fetching promo codes: $e");
+      }
+    }
+  }
+
+  // Payment checkout
   Future<void> paymentCheckout(
     BuildContext context,
     String planId,

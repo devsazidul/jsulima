@@ -12,44 +12,6 @@ class NotificationContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> notificationList = [
-      //Notification 1
-      {
-        'title': "Prediction Update: Kansas City Chiefs vs. Buffalo Bills",
-        'subTitle':
-            "The game between Kansas City Chiefs and Buffalo Bills has updated predictions. Chiefs now have a 70% chance of winning. Check the new predictions!",
-        'time': "2 mins ago",
-      },
-      //Notification 2
-      {
-        'title': " Injury Update: Patrick Mahomes",
-        'subTitle':
-            "Patrick Mahomes has been listed as questionable for today’s game against the Buffalo Bills due to an ankle injury. Stay tuned for further updates.",
-        'time': "4 mins ago",
-      },
-      //Notification 3
-      {
-        'title':
-            "Upcoming Game Reminder: New England Patriots vs. Miami Dolphins",
-        'subTitle':
-            "The New England Patriots will face off against the Miami Dolphins at 3:00 PM today! View your predictions and check out the key player stats.",
-        'time': "5 mins ago",
-      },
-      //Notification 4
-      {
-        'title': "New Predictions for NFL Week 5",
-        'subTitle':
-            "Predictions for all NFL Week 5 games are now live! Check the updated stats and predictions for your favorite teams.",
-        'time': "8 mins ago",
-      },
-      //Notification 5
-      {
-        'title': "Don’t Miss Out on Live Predictions!",
-        'subTitle':
-            "Live predictions for today’s NFL games are now available. Keep track of your favorite matchups and players with real-time updates.",
-        'time': "10 mins ago",
-      },
-    ];
     return Container(
       margin: EdgeInsets.only(top: 45.0, left: 16.0, right: 16.0),
       height: double.infinity,
@@ -185,21 +147,36 @@ class NotificationContainer extends StatelessWidget {
             ],
           ),
           SizedBox(height: 20.0),
-
           Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.zero,
-              itemCount: notificationList.length,
-
-              itemBuilder: (context, index) {
-                var notification = notificationList[index];
-                return NotificationItem(
-                  title: notification['title']!,
-                  subTitle: notification['subTitle']!,
-                  time: notification['time']!,
+            child: Obx(() {
+              if (buttonController.isLoading.value) {
+                return Center(
+                  child: CircularProgressIndicator(color: Colors.white),
                 );
-              },
-            ),
+              }
+
+              if (buttonController.notifications.isEmpty) {
+                return Center(
+                  child: Text(
+                    "No notifications found",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                );
+              }
+
+              return ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: buttonController.notifications.length,
+                itemBuilder: (context, index) {
+                  var notification = buttonController.notifications[index];
+                  return NotificationItem(
+                    title: notification['title'] ?? "",
+                    subTitle: notification['message'] ?? "",
+                    time: notification['createdAt'] ?? "",
+                  );
+                },
+              );
+            }),
           ),
         ],
       ),

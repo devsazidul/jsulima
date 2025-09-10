@@ -1,18 +1,18 @@
-
 import 'package:flutter/material.dart' show Colors;
 import 'package:flutter/widgets.dart';
 import 'package:jsulima/core/common/styles/global_text_style.dart';
 
 class Signinmethod extends StatelessWidget {
   final VoidCallback onTap;
-  final String text; 
-  final Color? color; 
+  final String text;
+  final Color? color;
   final Color? textColor;
-  final String image; 
-  const Signinmethod({super.key,
+  final String image;
+  const Signinmethod({
+    super.key,
     required this.onTap,
     required this.text,
-     this.textColor = Colors.white,
+    this.textColor = Colors.white,
     this.color = const Color(0xFF5384EE),
     required this.image,
   });
@@ -26,22 +26,16 @@ class Signinmethod extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(12),
-        
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 16, 
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Image.asset(image,
-                height: 24,
-                width: 24,
-              ),
+              Image.asset(image, height: 24, width: 24),
               Text(
                 text,
-                style:  getTextStyle(
+                style: getTextStyle(
                   color: textColor!,
                   fontSize: 16,
                   fontWeight: FontWeight.w500,

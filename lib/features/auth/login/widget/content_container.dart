@@ -188,27 +188,19 @@ class ContentContainer extends StatelessWidget {
             Signinmethod(
               onTap: () async {
                 final credential = await AuthService().signInWithGoogle();
-                if (credential.user != null) {
+                if (credential != null && credential.user != null) {
                   if (kDebugMode) {
-                    print("Gmail: ${credential.user!.email}");
+                    print("Signed in: ${credential.user!.email}");
                   }
                 } else {
                   if (kDebugMode) {
-                    print("Sign-in failed or no user data available");
+                    print("Google sign-in failed or cancelled.");
                   }
                 }
               },
               text: "Continue with Google",
               image: ImagePath.signinWithGoogle,
             ),
-            // SizedBox(height: 16),
-            // Signinmethod(
-            //   color: Colors.white,
-            //   textColor: Colors.black,
-            //   onTap: () {},
-            //   text: "Continue with Apple",
-            //   image: ImagePath.signinWithApple,
-            // ),
           ],
         ),
       ),

@@ -11,7 +11,7 @@ class LineupButton extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(top: 10, left: 5),
         height: 40,
-        width: 220,
+        width: 240,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),

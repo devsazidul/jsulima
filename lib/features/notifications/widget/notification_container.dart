@@ -76,7 +76,7 @@ class NotificationContainer extends StatelessWidget {
                   return Container(
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
                     height: 40,
-                    width: 50,
+                    width: 60,
                     decoration: BoxDecoration(
                       color:
                           buttonController.selectedButton.value == 0

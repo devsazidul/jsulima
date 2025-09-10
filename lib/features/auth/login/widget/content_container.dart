@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 import 'package:flutter/material.dart'
     show Checkbox, Colors, Divider, IconButton, Icons;
@@ -8,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:jsulima/core/common/styles/global_text_style.dart';
 import 'package:jsulima/core/common/widgets/custom_button.dart';
 import 'package:jsulima/core/common/widgets/custom_textfield.dart';
-import 'package:jsulima/core/services/auth_service.dart';
 import 'package:jsulima/core/utils/constants/colors.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/auth/forgot_password/screen/forgot_pass_screen.dart';
@@ -186,17 +184,8 @@ class ContentContainer extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Signinmethod(
-              onTap: () async {
-                final credential = await AuthService().signInWithGoogle();
-                if (credential != null && credential.user != null) {
-                  if (kDebugMode) {
-                    print("Signed in: ${credential.user!.email}");
-                  }
-                } else {
-                  if (kDebugMode) {
-                    print("Google sign-in failed or cancelled.");
-                  }
-                }
+              onTap: () {
+                controller.signInWithGoogle();
               },
               text: "Continue with Google",
               image: ImagePath.signinWithGoogle,

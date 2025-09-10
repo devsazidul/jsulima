@@ -13,6 +13,7 @@ class Urls {
   static const String getProfileInfo = '$baseUrl/users/profile';
   static const String updateProfileInfo = '$baseUrl/users/update-profile';
   static const String changePassword = '$baseUrl/auth/change-password';
+  static const String googleLogin = '$baseUrl/auth/google-login';
 
   static const String getHeadToHeadPredictionMlb =
       '$baseUrlAi/predict/mlb/head-to-head-win-prediction';

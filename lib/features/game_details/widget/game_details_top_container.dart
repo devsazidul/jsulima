@@ -105,7 +105,7 @@ class GameDetailsTopContainer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Atlanta Falcon",
+                          team1Name,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12,
@@ -130,7 +130,7 @@ class GameDetailsTopContainer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          'Carolina Panther',
+                          team2Name,
                           style: TextStyle(color: Colors.white, fontSize: 12),
                         ),
                         SizedBox(height: 4),

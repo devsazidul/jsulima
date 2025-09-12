@@ -503,9 +503,9 @@ class HomeScreen extends StatelessWidget {
       if (matchTime.isEmpty || matchTime == 'Unknown') {
         return '01/08/2025 12:30 AM';
       }
-      final inputFormat = DateFormat('dd/MM\nh:mm a');
+      final inputFormat = DateFormat('MM/dd\nh:mm a');
       final dateTime = inputFormat.parse(matchTime);
-      final outputFormat = DateFormat('dd/MM\nh:mm a');
+      final outputFormat = DateFormat('MM/dd\nh:mm a');
       return outputFormat.format(dateTime);
     } catch (e) {
       developer.log('Error parsing match time: $matchTime, error: $e' as num);

@@ -11,6 +11,7 @@ import 'package:jsulima/core/services/end_points.dart';
 import 'package:jsulima/core/services/shared_preferences_helper.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/auth/register/profile_setup/screens/upload_image_screen.dart';
+import 'package:jsulima/features/auth/register/signup/screen/register_screen.dart';
 
 class VerifyOtpScreen extends StatelessWidget {
   final String name;
@@ -158,6 +159,13 @@ class VerifyOtpScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 40),
+              CustomButton(
+                text: 'Back',
+                onPressed: () {
+                  Get.offAll(RegisterScreen());
+                },
+              ),
+              SizedBox(height: 8),
               CustomButton(
                 text: "Verify OTP",
                 onPressed: () {

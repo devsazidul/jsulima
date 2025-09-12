@@ -23,7 +23,8 @@ class PredictionContainer extends StatelessWidget {
     required this.predictionText,
     required this.team1Percentage,
     required this.team2Percentage,
-    required this.venue, required this.aiConfidence,
+    required this.venue,
+    required this.aiConfidence,
   });
 
   @override
@@ -70,6 +71,7 @@ class PredictionContainer extends StatelessWidget {
                   ),
                   Text(
                     matchTime,
+                    textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
                 ],
@@ -208,7 +210,8 @@ class PredictionContainer extends StatelessWidget {
             matchTime: matchTime,
             team1Percentage: team1Percentage,
             team2Percentage: team2Percentage,
-            venue: venue, aiConfidence: aiConfidence,
+            venue: venue,
+            aiConfidence: aiConfidence,
           ),
         ],
       ),

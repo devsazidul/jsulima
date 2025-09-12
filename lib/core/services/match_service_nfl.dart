@@ -55,7 +55,7 @@ class MatchServiceNfl {
       // Adjust to EDT (UTC-04:00)
       final edtDateTime = dateTime.subtract(Duration(hours: 4));
       // Output format with month as number and '/' separator (e.g., "31/07\n8:00 PM")
-      final outputFormat = DateFormat('dd/MM\nh:mm a');
+      final outputFormat = DateFormat('MM/dd\nh:mm a');
       return outputFormat.format(edtDateTime);
     } catch (e) {
       developer.log(

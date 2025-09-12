@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/core/common/styles/global_text_style.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart' show ImagePath;
+import 'package:jsulima/features/auth/register/profile_setup/screens/choose_your_plan_screen.dart';
 import 'package:jsulima/features/profile/controller/profile_info_controller.dart';
 import 'package:jsulima/features/profile/controller/notifications_controller.dart';
 import 'package:jsulima/features/profile/screen/change_password_screen.dart';
 import 'package:jsulima/features/profile/screen/personal_info_screen.dart';
 import 'package:jsulima/features/profile/widgest/profile_tile_widget.dart';
-import 'package:jsulima/features/subscription/screen/subscription_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -104,7 +104,7 @@ class ProfileScreen extends StatelessWidget {
                 SizedBox(height: 10),
                 Obx(
                   () => Text(
-                    controller.email.value, 
+                    controller.email.value,
                     style: getTextStyle(color: Colors.grey),
                   ),
                 ),
@@ -126,7 +126,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.to(SubscriptionScreen());
+                    Get.to(ChooseYourPlanScreen());
                   },
                   child: ProfileTileWidget(
                     title: "Subscription",

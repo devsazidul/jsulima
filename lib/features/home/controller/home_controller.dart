@@ -10,12 +10,11 @@ class HomeController extends GetxController {
   final mlbGames = <Map<String, dynamic>>[].obs;
   final isLoadingMlbGames = false.obs;
   final MatchServiceMlb matchServiceMlb = MatchServiceMlb();
-  final nflGames = <Map<String, dynamic>>[].obs; 
-  final isLoadingNflGames = false.obs; 
+  final nflGames = <Map<String, dynamic>>[].obs;
+  final isLoadingNflGames = false.obs;
   final MatchServiceNfl matchServiceNfl = MatchServiceNfl();
   static List<Map<String, dynamic>> _cachedNflGames = [];
-  static List<Map<String, dynamic>> _cachedMlbGames = []; 
-
+  static List<Map<String, dynamic>> _cachedMlbGames = [];
 
   @override
   void onInit() {
@@ -86,8 +85,8 @@ class HomeController extends GetxController {
     try {
       isLoadingNflGames.value = true;
       final games = await matchServiceNfl.fetchNFLGames();
-      nflGames.assignAll(games); 
-      _cachedNflGames = List.from(games); 
+      nflGames.assignAll(games);
+      _cachedNflGames = List.from(games);
       if (kDebugMode) {
         print("Fetched and cached ${games.length} NFL games");
       }
@@ -105,8 +104,8 @@ class HomeController extends GetxController {
     try {
       isLoadingMlbGames.value = true;
       final games = await matchServiceMlb.fetchMLBGames();
-      mlbGames.assignAll(games); 
-      _cachedMlbGames = List.from(games); 
+      mlbGames.assignAll(games);
+      _cachedMlbGames = List.from(games);
       if (kDebugMode) {
         print("Fetched and cached ${games.length} MLB games");
       }

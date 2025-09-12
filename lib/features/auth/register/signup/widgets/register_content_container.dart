@@ -32,23 +32,13 @@ class RegisterContentContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Align(
-              alignment: Alignment.bottomLeft,
-              child: GestureDetector(
-                onTap: () {
-                  Get.to(LoginScreen());
+              alignment: AlignmentGeometry.bottomLeft,
+              child: IconButton(
+                color: Colors.white,
+                onPressed: () {
+                  Get.offAll(LoginScreen());
                 },
-                child: Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-
-                  child: Center(
-                    child: Icon(Icons.arrow_back_ios, color: Colors.white),
-                  ),
-                ),
+                icon: Icon(Icons.arrow_back_ios),
               ),
             ),
             Text(

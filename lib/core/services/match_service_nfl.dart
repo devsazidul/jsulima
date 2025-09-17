@@ -9,13 +9,14 @@ import 'dart:developer' as developer;
 
 class MatchServiceNfl {
   final String nflApiUrl = Urls.getHeadToHeadPredictionNfl;
-  static List<Map<String, dynamic>> _cachedNflGames =
-      []; // In-memory cache for NFL games
+  static List<Map<String, dynamic>> _cachedNflGames = [];
 
   Map<String, String> getTeamLogoMap() {
     return {
       'Detroit Lions': ImagePath.detroitLions,
+      'Miami Dolphins': ImagePath.miamiDolphins,
       'Los Angeles Chargers': ImagePath.losAngelesChargers,
+      'Los Angeles Rams': ImagePath.losAngelesRams,
       'Baltimore Ravens': ImagePath.baltimoreRavens,
       'Indianapolis Colts': ImagePath.indianapolisColts,
       'Philadelphia Eagles': ImagePath.philadelphiaEagles,

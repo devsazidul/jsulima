@@ -11,17 +11,23 @@ class Jsulima extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final designSize =
+        screenWidth > 600 ? const Size(1024, 1366) : const Size(390, 844);
     //Set the fit size (Find your UI design, look at the dimensions of the device screen and fill it in,unit in dp)
     return ScreenUtilInit(
-      designSize: const Size(360, 690),
+      designSize: designSize,
       minTextAdapt: true,
       splitScreenMode: true,
+      ensureScreenSize: true,
+      useInheritedMediaQuery: true,
+
       // Use builder only if you need to use library outside ScreenUtilInit context
       builder: (_, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           builder: EasyLoading.init(),
-         initialRoute: AppRoute.getSplashScreen(),
+          initialRoute: AppRoute.getSplashScreen(),
           getPages: AppRoute.routes,
           initialBinding: ControllerBinder(),
           themeMode: ThemeMode.system,

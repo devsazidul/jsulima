@@ -12,6 +12,7 @@ import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/auth/forgot_password/screen/forgot_pass_screen.dart';
 import 'package:jsulima/features/auth/login/controller/login_screen_controller.dart';
 import 'package:jsulima/features/auth/register/signup/screen/register_screen.dart';
+import 'package:jsulima/features/welcome_screen/screen/welcome_screen.dart';
 import 'package:jsulima/features/welcome_screen/widget/signinmethod.dart';
 
 class ContentContainer extends StatelessWidget {
@@ -31,6 +32,16 @@ class ContentContainer extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 24),
         child: Column(
           children: [
+            Align(
+              alignment: AlignmentGeometry.bottomLeft,
+              child: IconButton(
+                color: Colors.white,
+                onPressed: () {
+                  Get.offAll(WelcomeScreen());
+                },
+                icon: Icon(Icons.arrow_back_ios),
+              ),
+            ),
             Text(
               "Login",
               style: getTextStyle(

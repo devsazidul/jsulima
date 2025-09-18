@@ -144,11 +144,4 @@ class LoginScreenController extends GetxController {
       EasyLoading.dismiss();
     }
   }
-
-  @override
-  void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.onClose();
-  }
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/widgets.dart' show TextEditingController;
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -18,8 +19,17 @@ class LoginScreenController extends GetxController {
   var passwordController = TextEditingController();
   var isPasswordVisible = false.obs;
   var isRememberMeChecked = false.obs;
+  var isEmailPrivate = false.obs;
+  var isTrackingConsent = false.obs;
 
   final AuthService _authService = AuthService();
+  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _analytics.setAnalyticsCollectionEnabled(false);
+  }
 
   void togglePasswordVisibility() {
     isPasswordVisible.value = !isPasswordVisible.value;
@@ -29,17 +39,30 @@ class LoginScreenController extends GetxController {
     isRememberMeChecked.value = !isRememberMeChecked.value;
   }
 
+  void toggleEmailPrivacy() {
+    isEmailPrivate.value = !isEmailPrivate.value;
+  }
+
+  void toggleTrackingConsent() {
+    isTrackingConsent.value = !isTrackingConsent.value;
+    _analytics.setAnalyticsCollectionEnabled(isTrackingConsent.value);
+  }
+
   Future<void> login() async {
     try {
       EasyLoading.show(status: "Loading...");
-      final data = {
-        "email": emailController.text.trim(),
-        "password": passwordController.text.trim(),
-      };
+      final email =
+          isEmailPrivate.value
+              ? 'anonymous_${DateTime.now().millisecondsSinceEpoch}@yourapp.com'
+              : emailController.text.trim();
+      final data = {"email": email, "password": passwordController.text.trim()};
 
       final response = await http.post(
         Uri.parse(Urls.login),
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Tracking-Consent': isTrackingConsent.value.toString(),
+        },
         body: jsonEncode(data),
       );
 
@@ -52,12 +75,22 @@ class LoginScreenController extends GetxController {
         var isSubscribed = body['user']['isSubscribed'];
         var userId = body['user']['id'];
 
+        await SharedPreferencesHelper.saveEmailPrivacy(isEmailPrivate.value);
+        await SharedPreferencesHelper.saveTrackingConsent(
+          isTrackingConsent.value,
+        );
+
         await SharedPreferencesHelper.saveTokenAndRole(
           accessToken,
           role,
           userId,
         );
         await SharedPreferencesHelper.isSubscribed(isSubscribed);
+
+        if (isTrackingConsent.value) {
+          await _analytics.logLogin(loginMethod: 'email');
+          if (kDebugMode) print("Tracking email login event");
+        }
 
         if (isSubscribed == null) {
           Get.offAll(() => ChooseYourPlanScreen());
@@ -82,13 +115,16 @@ class LoginScreenController extends GetxController {
   Future<void> signInWithGoogle() async {
     try {
       EasyLoading.show(status: "Signing in with Google...");
-      final credential = await _authService.signInWithGoogle();
-      if (credential != null && credential.user != null) {
-        final data = {"email": credential.user!.email};
+      final userData = await _authService.signInWithGoogle();
+      if (userData != null) {
+        final data = {"email": userData['email'], "name": userData['name']};
 
         final response = await http.post(
           Uri.parse(Urls.googleLogin),
-          headers: {'Content-Type': 'application/json'},
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Tracking-Consent': isTrackingConsent.value.toString(),
+          },
           body: jsonEncode(data),
         );
 
@@ -116,12 +152,22 @@ class LoginScreenController extends GetxController {
             return;
           }
 
+          await SharedPreferencesHelper.saveEmailPrivacy(false);
+          await SharedPreferencesHelper.saveTrackingConsent(
+            isTrackingConsent.value,
+          );
+
           await SharedPreferencesHelper.saveTokenAndRole(
             accessToken,
             role,
             userId,
           );
           await SharedPreferencesHelper.isSubscribed(isSubscribed);
+
+          if (isTrackingConsent.value) {
+            await _analytics.logLogin(loginMethod: 'google');
+            if (kDebugMode) print("Tracking Google sign-in event");
+          }
 
           if (isSubscribed == null || !isSubscribed) {
             Get.offAll(() => ChooseYourPlanScreen());

@@ -60,8 +60,6 @@ class SplashScreenController extends GetxController {
   void checkIsLogin() async {
     Timer(const Duration(seconds: 3), () async {
       String? token = await SharedPreferencesHelper.getAccessToken();
-      // String? subscriptionStatus =
-      //     await SharedPreferencesHelper.getSubscriptionStatus();
 
       if (token != null) {
         if (isSubscribed.value == true) {
@@ -72,23 +70,6 @@ class SplashScreenController extends GetxController {
       } else {
         Get.offAll(() => WelcomeScreen());
       }
-
-      // String? token = await SharedPreferencesHelper.getAccessToken();
-
-      // String? userType = await SharedPreferencesHelper.getSelectedRole();
-
-      // if (token != null) {
-
-      //   if(userType == "SUBSCRIBER"){
-      //      Get.offAll(() => SubscriberBottomNavbarView());
-      //   }
-      //   else{
-      //     Get.offAll(() => UserBottomNavbarView());
-      //   }
-
-      // } else {
-      //   Get.offAll(() => RoleSelectScreen());
-      // }
     });
   }
 

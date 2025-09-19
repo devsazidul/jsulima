@@ -1,6 +1,14 @@
 import 'package:flutter/gestures.dart' show TapGestureRecognizer;
 import 'package:flutter/material.dart'
-    show Checkbox, Colors, Divider, IconButton, Icons;
+    show
+        Checkbox,
+        CheckboxListTile,
+        Colors,
+        Divider,
+        IconButton,
+        Icons,
+        ListTileControlAffinity,
+        VisualDensity;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,186 +30,281 @@ class ContentContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isLargeScreen = screenWidth > 600;
+    final verticalPadding = isLargeScreen ? 32.h : 24.h;
+    final horizontalPadding = isLargeScreen ? 24.w : 12.w;
+    final fontScale = isLargeScreen ? 1.2 : 1.0;
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
         color: Color(0xFF393939),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 24),
-        child: Column(
-          children: [
-            Align(
-              alignment: AlignmentGeometry.bottomLeft,
-              child: IconButton(
-                color: Colors.white,
-                onPressed: () {
-                  Get.offAll(WelcomeScreen());
-                },
-                icon: Icon(Icons.arrow_back_ios),
-              ),
-            ),
-            Text(
-              "Login",
-              style: getTextStyle(
-                color: Colors.white,
-                fontSize: 28.sp,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(height: 8),
-            RichText(
-              text: TextSpan(
-                text: "Don't have an account? ",
-                style: getTextStyle(
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding,
+          vertical: verticalPadding,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: AlignmentGeometry.bottomLeft,
+                child: IconButton(
                   color: Colors.white,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
+                  onPressed: () {
+                    Get.offAll(WelcomeScreen());
+                  },
+                  icon: Icon(Icons.arrow_back_ios),
                 ),
-                children: [
-                  TextSpan(
-                    text: "Sign Up",
+              ),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  "Login",
+                  style: getTextStyle(
+                    color: Colors.white,
+                    fontSize: 28.sp * fontScale,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              SizedBox(height: isLargeScreen ? 12.h : 8.h),
+              Flexible(
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: "Don't have an account? ",
                     style: getTextStyle(
-                      color: AppColors.primaryColor,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      fontSize: 12.sp * fontScale,
+                      fontWeight: FontWeight.w400,
                     ),
-                    recognizer:
-                        TapGestureRecognizer()
-                          ..onTap = () {
-                            Get.offAll(() => RegisterScreen());
+                    children: [
+                      TextSpan(
+                        text: "Sign Up",
+                        style: getTextStyle(
+                          color: AppColors.primaryColor,
+                          fontSize: 12.sp * fontScale,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        recognizer:
+                            TapGestureRecognizer()
+                              ..onTap = () {
+                                Get.offAll(() => RegisterScreen());
+                              },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: isLargeScreen ? 40.h : 30.h),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Email",
+                  style: getTextStyle(
+                    color: AppColors.greyColor,
+                    fontSize: 12.sp * fontScale,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              SizedBox(height: 10.h),
+              SizedBox(
+                width: double.infinity,
+                child: CustomTextField(
+                  controller: controller.emailController,
+                  hintText: "xyz@gmail.com",
+                ),
+              ),
+              SizedBox(height: 16.h),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Password",
+                  style: getTextStyle(
+                    color: AppColors.greyColor,
+                    fontSize: 12.sp * fontScale,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              SizedBox(height: 10.h),
+              SizedBox(
+                width: double.infinity,
+                child: Obx(
+                  () => CustomTextField(
+                    controller: controller.passwordController,
+                    hintText: "********",
+                    isObscure: controller.isPasswordVisible.value,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        controller.togglePasswordVisibility();
+                      },
+                      icon: Icon(
+                        controller.isPasswordVisible.value
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: AppColors.greyColor,
+                        size: isLargeScreen ? 24.sp : 20.sp,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 15.h),
+              Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Obx(
+                        () => Checkbox(
+                          value: controller.isRememberMeChecked.value,
+                          onChanged: (value) {
+                            controller.toggleRememberMe();
                           },
+                          activeColor: Colors.white,
+                          checkColor: Colors.black,
+                          visualDensity: VisualDensity.standard,
+                        ),
+                      ),
+                      Text(
+                        "Remember me",
+                        style: getTextStyle(
+                          color: AppColors.greyColor,
+                          fontSize: 12.sp * fontScale,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => ForgotPassScreen());
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(8.r),
+                      child: Text(
+                        "Forgot Password?",
+                        style: getTextStyle(
+                          color: Color(0xFF4D81E7),
+                          fontSize: 12.sp * fontScale,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
-            ),
-            SizedBox(height: 30),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Email",
-                style: getTextStyle(
-                  color: AppColors.greyColor,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Obx(
+                    () => Center(
+                      child: IntrinsicWidth(
+                        child: CheckboxListTile(
+                          title: Text(
+                            "Hide my email (use anonymous ID)",
+                            style: TextStyle(
+                              color: AppColors.greyColor,
+                              fontSize: 12.sp * fontScale,
+                            ),
+                          ),
+                          value: controller.isEmailPrivate.value,
+                          onChanged: (value) => controller.toggleEmailPrivacy(),
+                          activeColor: Colors.white,
+                          checkColor: Colors.black,
+                          controlAffinity: ListTileControlAffinity.leading,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Obx(
+                    () => Center(
+                      child: IntrinsicWidth(
+                        child: CheckboxListTile(
+                          title: Text(
+                            "Allow tracking for personalized ads",
+                            style: TextStyle(
+                              color: AppColors.greyColor,
+                              fontSize: 12.sp * fontScale,
+                            ),
+                          ),
+                          value: controller.isTrackingConsent.value,
+                          onChanged:
+                              (value) => controller.toggleTrackingConsent(),
+                          activeColor: Colors.white,
+                          checkColor: Colors.black,
+                          controlAffinity: ListTileControlAffinity.leading,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(height: 10),
-            CustomTextField(
-              controller: controller.emailController,
-              hintText: "xyz@gmail.com",
-            ),
-            SizedBox(height: 16),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Password",
-                style: getTextStyle(
-                  color: AppColors.greyColor,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            Obx(
-              () => CustomTextField(
-                controller: controller.passwordController,
-                hintText: "********",
-                isObscure: controller.isPasswordVisible.value,
-                suffixIcon: IconButton(
+              SizedBox(height: 14.h),
+              SizedBox(
+                width: isLargeScreen ? 0.6.sw : double.infinity,
+                child: CustomButton(
+                  text: "Log In",
                   onPressed: () {
-                    controller.togglePasswordVisibility();
+                    controller.login();
                   },
-                  icon: Icon(
-                    controller.isPasswordVisible.value
-                        ? Icons.visibility
-                        : Icons.visibility_off,
-                    color: AppColors.greyColor,
-                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Obx(
-                      () => Checkbox(
-                        value: controller.isRememberMeChecked.value,
-                        onChanged: (value) {
-                          controller.toggleRememberMe();
-                        },
-                        activeColor: Colors.white,
-                        checkColor: Colors.black,
-                      ),
+              SizedBox(height: 16.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Divider(
+                      color: AppColors.greyColor,
+                      thickness: 1,
+                      indent: isLargeScreen ? 20.w : 10.w,
+                      endIndent: 5.w,
                     ),
-                    Text(
-                      "Remember me",
-                      style: getTextStyle(
-                        color: AppColors.greyColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Get.to(() => ForgotPassScreen());
-                  },
-                  child: Text(
-                    "Forgot Password?",
+                  ),
+                  Text(
+                    "OR",
                     style: getTextStyle(
-                      color: Color(0xFF4D81E7),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
+                      color: AppColors.greyColor,
+                      fontSize: 12.sp * fontScale,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 14),
-            CustomButton(
-              text: "Log In",
-              onPressed: () {
-                controller.login();
-              },
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: Divider(color: AppColors.greyColor, thickness: 1),
-                ),
-                SizedBox(width: 5),
-                Text(
-                  "OR",
-                  style: getTextStyle(
-                    color: AppColors.greyColor,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
+                  Expanded(
+                    child: Divider(
+                      color: AppColors.greyColor,
+                      thickness: 1,
+                      indent: 5.w,
+                      endIndent: isLargeScreen ? 20.w : 10.w,
+                    ),
                   ),
+                ],
+              ),
+              SizedBox(height: 16.h),
+              SizedBox(
+                width: isLargeScreen ? 0.6.sw : double.infinity,
+                child: Signinmethod(
+                  onTap: () {
+                    controller.signInWithGoogle();
+                  },
+                  text: "Continue with Google",
+                  image: ImagePath.signinWithGoogle,
                 ),
-                SizedBox(width: 5),
-                Expanded(
-                  child: Divider(color: AppColors.greyColor, thickness: 1),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Signinmethod(
-              onTap: () {
-                controller.signInWithGoogle();
-              },
-              text: "Continue with Google",
-              image: ImagePath.signinWithGoogle,
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );

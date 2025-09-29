@@ -20,7 +20,6 @@ class LoginScreenController extends GetxController {
   var isPasswordVisible = false.obs;
   var isRememberMeChecked = false.obs;
   var isEmailPrivate = false.obs;
-  var isTrackingConsent = false.obs;
 
   final AuthService _authService = AuthService();
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
@@ -43,11 +42,6 @@ class LoginScreenController extends GetxController {
     isEmailPrivate.value = !isEmailPrivate.value;
   }
 
-  void toggleTrackingConsent() {
-    isTrackingConsent.value = !isTrackingConsent.value;
-    _analytics.setAnalyticsCollectionEnabled(isTrackingConsent.value);
-  }
-
   Future<void> login() async {
     try {
       EasyLoading.show(status: "Loading...");
@@ -59,10 +53,7 @@ class LoginScreenController extends GetxController {
 
       final response = await http.post(
         Uri.parse(Urls.login),
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Tracking-Consent': isTrackingConsent.value.toString(),
-        },
+        headers: {'Content-Type': 'application/json'},
         body: jsonEncode(data),
       );
 
@@ -76,9 +67,6 @@ class LoginScreenController extends GetxController {
         var userId = body['user']['id'];
 
         await SharedPreferencesHelper.saveEmailPrivacy(isEmailPrivate.value);
-        await SharedPreferencesHelper.saveTrackingConsent(
-          isTrackingConsent.value,
-        );
 
         await SharedPreferencesHelper.saveTokenAndRole(
           accessToken,
@@ -86,11 +74,6 @@ class LoginScreenController extends GetxController {
           userId,
         );
         await SharedPreferencesHelper.isSubscribed(isSubscribed);
-
-        if (isTrackingConsent.value) {
-          await _analytics.logLogin(loginMethod: 'email');
-          if (kDebugMode) print("Tracking email login event");
-        }
 
         if (isSubscribed == null) {
           Get.offAll(() => ChooseYourPlanScreen());
@@ -121,10 +104,7 @@ class LoginScreenController extends GetxController {
 
         final response = await http.post(
           Uri.parse(Urls.googleLogin),
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Tracking-Consent': isTrackingConsent.value.toString(),
-          },
+          headers: {'Content-Type': 'application/json'},
           body: jsonEncode(data),
         );
 
@@ -153,9 +133,6 @@ class LoginScreenController extends GetxController {
           }
 
           await SharedPreferencesHelper.saveEmailPrivacy(false);
-          await SharedPreferencesHelper.saveTrackingConsent(
-            isTrackingConsent.value,
-          );
 
           await SharedPreferencesHelper.saveTokenAndRole(
             accessToken,
@@ -163,11 +140,6 @@ class LoginScreenController extends GetxController {
             userId,
           );
           await SharedPreferencesHelper.isSubscribed(isSubscribed);
-
-          if (isTrackingConsent.value) {
-            await _analytics.logLogin(loginMethod: 'google');
-            if (kDebugMode) print("Tracking Google sign-in event");
-          }
 
           if (isSubscribed == null || !isSubscribed) {
             Get.offAll(() => ChooseYourPlanScreen());

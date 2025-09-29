@@ -229,27 +229,27 @@ class ContentContainer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Obx(
-                    () => Center(
-                      child: IntrinsicWidth(
-                        child: CheckboxListTile(
-                          title: Text(
-                            "Allow tracking for personalized ads",
-                            style: TextStyle(
-                              color: AppColors.greyColor,
-                              fontSize: 12.sp * fontScale,
-                            ),
-                          ),
-                          value: controller.isTrackingConsent.value,
-                          onChanged:
-                              (value) => controller.toggleTrackingConsent(),
-                          activeColor: Colors.white,
-                          checkColor: Colors.black,
-                          controlAffinity: ListTileControlAffinity.leading,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Obx(
+                  //   () => Center(
+                  //     child: IntrinsicWidth(
+                  //       child: CheckboxListTile(
+                  //         title: Text(
+                  //           "Allow tracking for personalized ads",
+                  //           style: TextStyle(
+                  //             color: AppColors.greyColor,
+                  //             fontSize: 12.sp * fontScale,
+                  //           ),
+                  //         ),
+                  //         value: controller.isTrackingConsent.value,
+                  //         onChanged:
+                  //             (value) => controller.toggleTrackingConsent(),
+                  //         activeColor: Colors.white,
+                  //         checkColor: Colors.black,
+                  //         controlAffinity: ListTileControlAffinity.leading,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
               SizedBox(height: 14.h),

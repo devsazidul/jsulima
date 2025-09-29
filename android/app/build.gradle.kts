@@ -33,7 +33,7 @@ android {
         create("release") {
             storeFile = file("release-key.jks")
             storePassword = "avijit"
-            keyAlias = "release_alias"
+            keyAlias = "release"
             keyPassword = "avijit"
         }
     }

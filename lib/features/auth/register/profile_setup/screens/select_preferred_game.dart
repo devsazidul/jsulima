@@ -6,8 +6,8 @@ import 'package:jsulima/core/common/widgets/custom_button.dart';
 import 'package:jsulima/core/utils/constants/icon_path.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart' show ImagePath;
 import 'package:jsulima/features/auth/register/profile_setup/controller/profile_setup_controller.dart';
-import 'package:jsulima/features/auth/register/profile_setup/screens/choose_your_plan_screen.dart';
 import 'package:jsulima/features/auth/register/profile_setup/widgets/select_preferred_game_container.dart';
+import 'package:jsulima/features/bottom_navbar/screen/bottom_navbar_screen.dart';
 
 class SelectPreferredGame extends StatelessWidget {
   SelectPreferredGame({super.key});
@@ -71,7 +71,7 @@ class SelectPreferredGame extends StatelessWidget {
               CustomButton(
                 text: "Continue",
                 onPressed: () {
-                  Get.to(() => ChooseYourPlanScreen());
+                  Get.to(() => BottomNavbarScreen());
                 },
               ),
             ],

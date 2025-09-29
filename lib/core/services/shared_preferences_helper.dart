@@ -120,14 +120,4 @@ class SharedPreferencesHelper {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool('isEmailPrivate') ?? false;
   }
-
-  static Future<void> saveTrackingConsent(bool consent) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isTrackingConsent', consent);
-  }
-
-  static Future<bool> getTrackingConsent() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('isTrackingConsent') ?? false;
-  }
 }

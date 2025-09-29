@@ -6,8 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:jsulima/core/services/end_points.dart';
 import 'package:jsulima/core/services/shared_preferences_helper.dart'
     show SharedPreferencesHelper;
-import 'package:jsulima/features/auth/register/profile_setup/screens/choose_your_plan_screen.dart'
-    show ChooseYourPlanScreen;
 import 'package:jsulima/features/bottom_navbar/screen/bottom_navbar_screen.dart';
 import 'package:jsulima/features/splash_screen/model/splash_profile_model.dart';
 import 'package:jsulima/features/welcome_screen/screen/welcome_screen.dart';
@@ -62,11 +60,7 @@ class SplashScreenController extends GetxController {
       String? token = await SharedPreferencesHelper.getAccessToken();
 
       if (token != null) {
-        if (isSubscribed.value == true) {
-          Get.offAll(() => BottomNavbarScreen());
-        } else {
-          Get.offAll(() => ChooseYourPlanScreen());
-        }
+        Get.offAll(() => BottomNavbarScreen());
       } else {
         Get.offAll(() => WelcomeScreen());
       }

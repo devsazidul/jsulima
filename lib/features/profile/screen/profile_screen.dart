@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/core/common/styles/global_text_style.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart' show ImagePath;
-import 'package:jsulima/features/auth/register/profile_setup/screens/choose_your_plan_screen.dart';
 import 'package:jsulima/features/profile/controller/profile_info_controller.dart';
 import 'package:jsulima/features/profile/controller/notifications_controller.dart';
 import 'package:jsulima/features/profile/screen/change_password_screen.dart';
@@ -124,15 +123,15 @@ class ProfileScreen extends StatelessWidget {
                     onToggle: controller2.toggleNotification,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Get.to(ChooseYourPlanScreen());
-                  },
-                  child: ProfileTileWidget(
-                    title: "Subscription",
-                    icon: Icons.arrow_forward,
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: () {
+                //     Get.to(ChooseYourPlanScreen());
+                //   },
+                //   child: ProfileTileWidget(
+                //     title: "Subscription",
+                //     icon: Icons.arrow_forward,
+                //   ),
+                // ),
                 GestureDetector(
                   onTap: () => Get.to(() => ChangePasswordScreen()),
                   child: ProfileTileWidget(

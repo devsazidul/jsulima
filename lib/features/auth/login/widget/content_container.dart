@@ -16,12 +16,10 @@ import 'package:jsulima/core/common/styles/global_text_style.dart';
 import 'package:jsulima/core/common/widgets/custom_button.dart';
 import 'package:jsulima/core/common/widgets/custom_textfield.dart';
 import 'package:jsulima/core/utils/constants/colors.dart';
-import 'package:jsulima/core/utils/constants/image_path.dart';
 import 'package:jsulima/features/auth/forgot_password/screen/forgot_pass_screen.dart';
 import 'package:jsulima/features/auth/login/controller/login_screen_controller.dart';
 import 'package:jsulima/features/auth/register/signup/screen/register_screen.dart';
 import 'package:jsulima/features/welcome_screen/screen/welcome_screen.dart';
-import 'package:jsulima/features/welcome_screen/widget/signinmethod.dart';
 
 class ContentContainer extends StatelessWidget {
   ContentContainer({super.key});
@@ -292,17 +290,17 @@ class ContentContainer extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 16.h),
-              SizedBox(
-                width: isLargeScreen ? 0.6.sw : double.infinity,
-                child: Signinmethod(
-                  onTap: () {
-                    controller.signInWithGoogle();
-                  },
-                  text: "Continue with Google",
-                  image: ImagePath.signinWithGoogle,
-                ),
-              ),
+              // SizedBox(height: 16.h),
+              // SizedBox(
+              //   width: isLargeScreen ? 0.6.sw : double.infinity,
+              //   child: Signinmethod(
+              //     onTap: () {
+              //       controller.signInWithGoogle();
+              //     },
+              //     text: "Continue with Google",
+              //     image: ImagePath.signinWithGoogle,
+              //   ),
+              // ),
             ],
           ),
         ),

@@ -12,6 +12,7 @@ import 'package:jsulima/features/profile/screen/change_password_screen.dart';
 import 'package:jsulima/features/profile/screen/personal_info_screen.dart';
 import 'package:jsulima/features/profile/widgest/delete_account_dialog.dart';
 import 'package:jsulima/features/profile/widgest/profile_tile_widget.dart';
+import 'package:jsulima/features/welcome_screen/screen/welcome_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -30,7 +31,7 @@ class ProfileScreen extends StatelessWidget {
       final success = await DeleteAccountService.deleteAccount();
       if (success) {
         await SharedPreferencesHelper.clearAll();
-        Get.offAllNamed("/signinScreen");
+        Get.offAll(WelcomeScreen());
       }
     } catch (e) {
       EasyLoading.showError("Delete failed: $e");

@@ -8,9 +8,12 @@ class DeleteAccountService {
   static Future<bool> deleteAccount() async {
     try {
       EasyLoading.show(status: "Deleting account...");
+
       final token = await SharedPreferencesHelper.getAccessToken();
       if (token == null || token.isEmpty) {
         EasyLoading.dismiss();
+        EasyLoading.showError("Access token not found");
+        return false;
       }
 
       final response = await http.delete(
@@ -20,19 +23,26 @@ class DeleteAccountService {
           "Authorization": "Bearer $token",
         },
       );
+
       EasyLoading.dismiss();
 
       if (response.statusCode == 200 || response.statusCode == 204) {
         EasyLoading.showSuccess("Account deleted successfully");
         return true;
       } else {
-        final error = jsonDecode(response.body);
-        EasyLoading.showError(error["message"] ?? "Failed to delete account");
-        throw Exception(error["message"] ?? "Failed to delete account");
+        String errorMessage = "Failed to delete account";
+        try {
+          final error = jsonDecode(response.body);
+          if (error["message"] != null) {
+            errorMessage = error["message"];
+          }
+        } catch (_) {}
+        EasyLoading.showError(errorMessage);
+        throw Exception(errorMessage);
       }
     } catch (e) {
       EasyLoading.dismiss();
-      EasyLoading.showError("Something went wrong");
+      EasyLoading.showError(e.toString());
       rethrow;
     }
   }

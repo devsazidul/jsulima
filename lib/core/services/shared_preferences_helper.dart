@@ -64,6 +64,15 @@ class SharedPreferencesHelper {
 
   static Future<void> clearAllData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+
+  static Future<void> clearAll() async {
+    await clearAllData();
+  }
+
+  static Future<void> clearAllAppData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(_accessTokenKey);
     await prefs.remove(_selectedRoleKey);
     await prefs.remove('isLogin');

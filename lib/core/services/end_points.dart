@@ -15,6 +15,7 @@ class Urls {
   static const String changePassword = '$baseUrl/auth/change-password';
   static const String googleLogin = '$baseUrl/auth/google-login';
   static const String notification = '$baseUrl/notifications';
+  static const String deleteAccount = '$baseUrl/users/delete-account';
 
   static const String getHeadToHeadPredictionMlb =
       '$baseUrlAi/predict/mlb/head-to-head-win-prediction';

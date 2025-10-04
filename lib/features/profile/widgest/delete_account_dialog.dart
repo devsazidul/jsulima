@@ -7,21 +7,29 @@ class DeleteAccountDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
-        "Confirm Deletion",
-        style: TextStyle(fontWeight: FontWeight.bold),
+      title: Center(
+        child: Text(
+          "Confirm Deletion",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
       ),
-      content: const Text(
+      backgroundColor: Color.fromARGB(255, 133, 59, 55),
+      content: Text(
         "Are you sure you want to delete your account? This action cannot be undone.",
+        style: TextStyle(color: Colors.white),
+        textAlign: TextAlign.center,
       ),
       actions: [
         TextButton(
           onPressed: () => Get.back(result: false),
-          child: const Text("Cancel"),
+          child: Text("Cancel", style: TextStyle(color: Colors.white)),
         ),
         TextButton(
           onPressed: () => Get.back(result: true),
-          child: const Text("Delete", style: TextStyle(color: Colors.red)),
+          child: const Text(
+            "Delete",
+            style: TextStyle(color: Color.fromARGB(255, 255, 136, 128)),
+          ),
         ),
       ],
     );

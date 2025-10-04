@@ -74,7 +74,7 @@ class PaymentController extends GetxController {
   }
 
   void getBacktoLogin() {
-    SharedPreferencesHelper.clearAllData();
+    SharedPreferencesHelper.clearAllAppData();
     Get.offAll(() => WelcomeScreen());
   }
 

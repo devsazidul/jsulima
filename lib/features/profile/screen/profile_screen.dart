@@ -1,12 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:jsulima/core/common/styles/global_text_style.dart';
+import 'package:jsulima/core/services/delete_account_service.dart';
+import 'package:jsulima/core/services/shared_preferences_helper.dart';
 import 'package:jsulima/core/utils/constants/image_path.dart' show ImagePath;
 import 'package:jsulima/features/profile/controller/profile_info_controller.dart';
 import 'package:jsulima/features/profile/controller/notifications_controller.dart';
 import 'package:jsulima/features/profile/screen/change_password_screen.dart';
 import 'package:jsulima/features/profile/screen/personal_info_screen.dart';
+import 'package:jsulima/features/profile/widgest/delete_account_dialog.dart';
 import 'package:jsulima/features/profile/widgest/profile_tile_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -17,6 +21,21 @@ class ProfileScreen extends StatelessWidget {
   final NotificationsController controller2 = Get.put(
     NotificationsController(),
   );
+
+  Future<void> _handleDeleteAccount(BuildContext context) async {
+    final confirm = await Get.dialog(const DeleteAccountDialog());
+    if (confirm != true) return;
+
+    try {
+      final success = await DeleteAccountService.deleteAccount();
+      if (success) {
+        await SharedPreferencesHelper.clearAll();
+        Get.offAllNamed("/signinScreen");
+      }
+    } catch (e) {
+      EasyLoading.showError("Delete failed: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +159,16 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-                InkWell(
+                GestureDetector(
+                  onTap: () => _handleDeleteAccount(context),
+                  child: ProfileTileWidget(
+                    title: "Delete Account",
+                    icon: Icons.delete,
+                    isLogout: true,
+                  ),
+                ),
+                SizedBox(height: 20),
+                GestureDetector(
                   onTap: () {
                     controller.logout();
                   },

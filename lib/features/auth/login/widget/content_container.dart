@@ -4,7 +4,6 @@ import 'package:flutter/material.dart'
         Checkbox,
         CheckboxListTile,
         Colors,
-        Divider,
         IconButton,
         Icons,
         ListTileControlAffinity,
@@ -260,36 +259,7 @@ class ContentContainer extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(height: 16.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Divider(
-                      color: AppColors.greyColor,
-                      thickness: 1,
-                      indent: isLargeScreen ? 20.w : 10.w,
-                      endIndent: 5.w,
-                    ),
-                  ),
-                  Text(
-                    "OR",
-                    style: getTextStyle(
-                      color: AppColors.greyColor,
-                      fontSize: 12.sp * fontScale,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  Expanded(
-                    child: Divider(
-                      color: AppColors.greyColor,
-                      thickness: 1,
-                      indent: 5.w,
-                      endIndent: isLargeScreen ? 20.w : 10.w,
-                    ),
-                  ),
-                ],
-              ),
+
               // SizedBox(height: 16.h),
               // SizedBox(
               //   width: isLargeScreen ? 0.6.sw : double.infinity,

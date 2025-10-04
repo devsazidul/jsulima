@@ -10,9 +10,7 @@ class ProfileInfoController extends GetxController {
 
   var image = ''.obs;
   var name = ''.obs;
-  var username = ''.
-
-obs;
+  var username = ''.obs;
   var email = ''.obs;
   var phoneNumber = ''.obs;
   var country = ''.obs;
@@ -68,11 +66,11 @@ obs;
         break;
     }
     stopEditing();
-    profileServices.updateProfile(updatedFields); 
+    profileServices.updateProfile(updatedFields);
   }
 
   void logout() {
-    SharedPreferencesHelper.clearAllData();
+    SharedPreferencesHelper.clearAllAppData();
     Get.offAll(() => WelcomeScreen());
   }
 }
